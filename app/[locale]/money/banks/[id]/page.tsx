@@ -1,11 +1,12 @@
 import { notFound } from "next/navigation";
-import { bankCardSources } from "../../../../../src/data/bank-card-sources";
-import { banks, registrySource } from "../../../../../src/data/banks";
-import { noticeBanks } from "../../../../../src/editorial/live-notices";
+import { banks } from "../../../../../src/data/banks";
+import { tariffReadings } from "../../../../../src/data/tariffs";
 import {
+  amountText,
   isLocale,
+  local,
   moneyPath,
-  productPath,
+  numberText,
   t,
 } from "../../../../../src/ui/copy";
 import { Editorial } from "../../../../../src/ui/editorial";
@@ -18,34 +19,46 @@ export default async function BankPage({
   const { locale, id } = await params;
   const bank = banks.find((entry) => entry.id === id);
   if (!isLocale(locale) || !bank) notFound();
-  const home = moneyPath(locale);
-  const depositNotices = Object.hasOwn(noticeBanks, bank.id);
-  const bankCard = Object.entries(bankCardSources).find(
-    ([id]) => id === bank.id,
-  )?.[1];
+  const tariff = tariffReadings[bank.id];
   return (
-    <Editorial locale={locale} title={bank.name} back={home + "/banks"}>
-      <p>
-        {t(
-          locale,
-          bank.kind === "commercial" ? "commercialBank" : "developmentBank",
-        )}
-      </p>
-      <div className="intent-links">
-        {depositNotices && (
-          <a href={home + "/notices?bank=" + bank.id}>
-            {t(locale, "bankRates")}
-          </a>
-        )}
-        {bankCard && (
-          <a href={bankCard[1]} rel="noreferrer">
-            {t(locale, "cardTerms")}
-          </a>
-        )}
-        <a href={registrySource}>{t(locale, "registry")}</a>
-      </div>
-      {!depositNotices && !bankCard && (
-        <p className="pick-condition">{t(locale, "directoryOnly")}</p>
+    <Editorial
+      locale={locale}
+      title={bank.name}
+      back={moneyPath(locale) + "/banks"}
+    >
+      {tariff ? (
+        <section>
+          <h2>{tariff.product}</h2>
+          <dl className="line-list tariff-lines">
+            {tariff.charges.map(({ event, value, unit }) => (
+              <div key={event.en}>
+                <dt>{local(locale, event)}</dt>
+                <dd>
+                  {unit === "NPR"
+                    ? amountText(locale, value)
+                    : numberText(locale, value) + "%"}
+                </dd>
+              </div>
+            ))}
+          </dl>
+          <p className="tariff-catch">{local(locale, tariff.catch)}</p>
+          <details className="paper-disclosure">
+            <summary>{t(locale, "viewEvidence")}</summary>
+            <a className="trust-link" href={tariff.source} rel="noreferrer">
+              {local(locale, tariff.edition)} · § {tariff.section}
+            </a>
+            <br />
+            <a
+              className="trust-link"
+              href={tariff.productPage}
+              rel="noreferrer"
+            >
+              {t(locale, "cardTerms")}
+            </a>
+          </details>
+        </section>
+      ) : (
+        <p>{t(locale, "tariffUnavailable")}</p>
       )}
     </Editorial>
   );

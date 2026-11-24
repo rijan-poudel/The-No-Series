@@ -6,6 +6,15 @@ export const isLocale = (input: string): input is Locale =>
 export const intlLocale = (locale: Locale) =>
   locale === "ne" ? "ne-NP-u-nu-deva" : "en-IN";
 const words = {
+  decodeTariff: [
+    "Understand your bank’s fees.",
+    "आफ्नो बैंकको शुल्क बुझ्नुहोस्।",
+  ],
+  tariffUnavailable: [
+    "A plain-language tariff for this bank is still being prepared.",
+    "यस बैंकको शुल्क सूचीको सरल व्याख्या तयार हुन बाँकी छ।",
+  ],
+
   bankingChoices: ["What are you looking for?", "के खोज्दै हुनुहुन्छ?"],
   intentCompare: ["Compare banks", "बैंक तुलना"],
   intentExisting: ["Use my bank", "आफ्नो बैंक"],

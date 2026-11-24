@@ -73,7 +73,7 @@ const normalize = (value: string) =>
 
 export function findBanks(input: string) {
   const query = normalize(input.slice(0, 100));
-  if (!query) return banks;
+  if (!query) return [];
   const tokens = query.split(" ");
   return banks
     .flatMap((bank) => {

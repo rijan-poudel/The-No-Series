@@ -31,11 +31,11 @@ test("discovery leads to the catch, a scoped deposit pick, then evidence", async
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/en/money");
   await expect(
-    page.getByRole("heading", { name: "What are you looking for?" }),
+    page.getByRole("heading", { name: "Understand your bank’s fees." }),
   ).toBeVisible();
-  await expect(page.locator("main").getByRole("link")).toHaveCount(5);
+  await expect(page.locator("main").getByRole("link")).toHaveCount(0);
   await accessibility(page);
-  await page.getByRole("link", { name: "Fixed deposits" }).click();
+  await page.goto("/en/money/fixed-deposits");
   await expect(page.getByRole("heading", { name: /The catch/i })).toBeVisible();
   await expect(page.getByRole("article")).toHaveCount(0);
   await expect(page.getByRole("textbox")).toHaveCount(0);

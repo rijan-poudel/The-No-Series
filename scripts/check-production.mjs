@@ -143,10 +143,10 @@ test("built bilingual pages render through Next's server without a listening por
   const ne = await render("/ne/money");
   assert.equal(en.status, 200);
   assert.match(en.html, /<html lang="en"/);
-  assert.match(en.html, /What are you looking for/);
+  assert.match(en.html, /Understand your bank/);
   assert.equal(ne.status, 200);
   assert.match(ne.html, /<html lang="ne"/);
-  assert.match(ne.html, /के खोज्दै हुनुहुन्छ/);
+  assert.match(ne.html, /आफ्नो बैंकको शुल्क बुझ्नुहोस्/);
   const comparison = await render(
     "/ne/money/fixed-deposits?term=12&payout=maturity",
   );

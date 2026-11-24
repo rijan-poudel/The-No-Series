@@ -1576,3 +1576,12 @@ html[lang="ne"] .bank-directory h1 {
 .bank-list a:hover {
   text-decoration: underline;
 }
+
+.tariff-lines {
+  margin-block: 22px;
+}
+.tariff-catch {
+  background: #fbe9a7;
+  border-radius: 12px;
+  padding: 14px 16px;
+}

@@ -37,14 +37,22 @@ test("production ignores the demo flag and stays private and unseeded", async ({
   await expect(
     page.getByText("We haven’t verified an option for this choice yet."),
   ).toHaveCount(0);
-  await page.goto("/en/money?intent=existing");
-  await page.getByRole("link", { name: "Choose your bank" }).click();
+  await page.goto("/en/money/banks");
+  await expect(page.locator(".bank-list")).toHaveCount(0);
   await page.getByRole("searchbox").fill("NMB");
   await page.getByRole("button", { name: "Find", exact: true }).click();
   await page.getByRole("link", { name: "NMB Bank", exact: true }).click();
+  await expect(page.getByText("Each time you add funds")).toBeVisible();
   await expect(
-    page.getByRole("link", { name: "Check deposit rates" }),
-  ).toHaveAttribute("href", "/en/money/notices?bank=nmb");
+    page.getByText("Cross-border transaction", { exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: /September 2026 tariff/ }),
+  ).toHaveCount(0);
+  await page.getByText("See sources", { exact: true }).click();
+  await expect(
+    page.getByRole("link", { name: /September 2026 tariff/ }),
+  ).toBeVisible();
   const sample = await request.get(
     "/en/money/fixed-deposits/sources/alder-rate",
   );

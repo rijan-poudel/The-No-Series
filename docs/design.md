@@ -16,3 +16,7 @@ Use the supplied digital scrapbook reference for warm paper, serif headlines, mu
 ## Task-first navigation
 
 The first screen offers Compare banks, Use my bank and Find a feature. Compare keeps the two available product categories together. Use my bank opens bank-specific published deposit notices or official card sources. Feature shortcuts go directly to quarterly interest, virtual cards or app reload fees. A compact header holds the home link and a utility disclosure containing language, coverage and methodology. Category pages use the same native radio component for every choice, with a full-width action. A card guide with no verified fee points to official bank material.
+
+## Tariff reading
+
+The homepage starts with a single bank search. The directory renders no banks until the reader searches and shows at most six matches. A bank page explains the charges from an identified product and tariff edition. The catch stays visible and the underlying evidence opens on request. NMB section 2.17 is the first decoded card tariff.

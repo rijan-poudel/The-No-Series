@@ -11,6 +11,7 @@ test("bank registry covers A and B classes and matches acronyms and Nepali alias
   assert.equal(findBanks("कृषि")[0]?.id, "adbl");
   assert.equal(findBanks("Shine res")[0]?.id, "shine-resunga");
   assert.deepEqual(findBanks("unknown"), []);
+  assert.deepEqual(findBanks("  ! "), []);
 });
 
 test("discovery prioritizes evidence and ignores foreign origins and duplicate links", () => {
