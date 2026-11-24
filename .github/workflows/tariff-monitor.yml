@@ -23,7 +23,7 @@ jobs:
           mkdir -p tariff-monitor
           npm run --silent archive:tariffs > tariff-monitor/current.json
           npm run --silent review:tariffs -- evidence/stc-refresh-2026-11-24.json tariff-monitor/current.json > tariff-monitor/review.json
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: tariff-monitor
           path: |
