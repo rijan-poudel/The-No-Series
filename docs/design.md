@@ -1,0 +1,14 @@
+# Money design direction
+
+The site is a bilingual editorial guide to Nepal banking products. Start with two category choices. Show one practical catch on the category page. Ask only which comparison matters. After the reader chooses, show the strongest verified option for that criterion, its conditions and its catch. Put alternatives, official evidence and methodology behind separate disclosures or links.
+
+## Visual language
+
+Use the supplied digital scrapbook reference for warm paper, serif headlines, muted green and yellow category sheets and soft shadows. The home uses a single torn-grid paper layer behind the category links. Category pages use one yellow catch note and plain editorial sections. Use the existing locally bundled sans and Devanagari families for controls and body copy. Georgian-style serif headlines apply to English only. Keep the palette, navigation and content density consistent across routes.
+
+## Editorial rules
+
+- Fixed deposits compare the advertised annual rate at the selected term and payout schedule for personal NPR deposits. Show the qualifying deposit band with each pick. Readers never submit a deposit amount. These rankings answer a rate question and do not estimate earnings.
+- Dollar cards compare one chosen flat NPR fee for the selected card type. Show any required bank account. Withhold ranking for missing or amount-dependent fees. Each result concerns that fee only. The source disclosure includes the official bank link when the pick has a reviewed institution URL. Coverage remains available in the footer.
+- Open the first source disclosure to see evidence for the chosen rate or fee and the catch. Keep eligibility and other supporting terms under a second disclosure. Ties share the lead. Keep alternatives collapsed. Shared verification excludes revoked, stale, conflicting and unsupported records. Empty coverage has no pick.
+- Old browser comparison URLs lead to the category guide. The existing comparison API and local calculation commands remain available for internal verification and existing callers.

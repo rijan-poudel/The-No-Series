@@ -1,0 +1,35 @@
+{
+  "observedOn": "2026-11-23",
+  "scope": "individual-normal-npr-12-months",
+  "captures": [
+    {
+      "source": "nabil",
+      "status": "observed",
+      "effectiveLabel": "1st Mangsir 2083",
+      "effectiveOn": null,
+      "minimumNpr": null,
+      "minimumMonths": 3,
+      "maximumMonths": 60,
+      "annualRate": "2.80",
+      "locator": "B FIXED DEPOSIT-NPR / Individual-Normal / 3 months to 5 years",
+      "excerpt": "3 months to 5 years | 2.80"
+    },
+    {
+      "source": "nepal-bank",
+      "status": "observed",
+      "effectiveLabel": "Mangsir 01, 2083 (November 17, 2026)",
+      "effectiveOn": "2026-11-17",
+      "minimumNpr": "25000",
+      "minimumMonths": 3,
+      "maximumMonths": 12,
+      "annualRate": "2.76",
+      "locator": "Fixed deposits / row 2.1.1",
+      "excerpt": "Individual Fixed Deposit 3 Months to 1 Year | 25000 | 2.76%"
+    },
+    {
+      "source": "global-ime",
+      "status": "unavailable",
+      "reason": "The official page returned rate headings without the selected table row on recheck. Capture the date-selected notice and the individual NPR row before transcription."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+.next/
+.next-demo/
+next-env.d.ts
+node_modules/
+package-lock.json
+playwright-report/
+test-results/
+no01_money_coding_agent_prompt.md
+docs/verification.md
+*.sql
+
+docs/nepal_banking_comparison_blueprint.md
+
+sites/
