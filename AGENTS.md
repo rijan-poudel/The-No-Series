@@ -1,5 +1,7 @@
 # Working on No. 01 — Money
 
+Read [product memory](docs/product-memory.md) before changing the customer journey or tariff presentation.
+
 Use [the README](README.md) for startup, [the agent workflow](docs/agent-development.md) for handoff, and [the operations runbook](docs/operations.md) before changing the public data path. The [master blueprint](docs/nepal_banking_comparison_blueprint.md) describes the intended product. Use the [current design direction](docs/design.md) for the public, catch-first editorial flow. It supersedes the calculator-oriented interface in the original blueprint.
 
 - Use Node 24 and the npm lockfile. Run `npm run verify:agent` for local changes. Run `npm run verify:release` and both browser suites for release work.

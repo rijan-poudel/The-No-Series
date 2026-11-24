@@ -22,3 +22,7 @@ The first screen offers Compare banks, Use my bank and Find a feature. Compare k
 The homepage starts with a single bank search. The directory renders no banks until the reader searches and shows at most six matches. A bank page explains the charges from an identified product and tariff edition. The catch stays visible and the underlying evidence opens on request. NMB section 2.17 is the first decoded card tariff.
 
 The homepage also offers a collapsed feature path for readers who have yet to choose a bank. They can open deposit or dollar-card comparisons without selecting an institution first. The header wordmark reads No.
+
+The No wordmark uses heavy white lettering on the blue brand stamp. Primary actions, selected controls and keyboard focus share that blue. The link retains its localized Home label and a 44 px minimum target height.
+
+Fixed-deposit results show sourced advertised rates inline when a reviewed pick is unavailable. The notice rate applies to the selected term. Payout and withdrawal terms still need separate confirmation.

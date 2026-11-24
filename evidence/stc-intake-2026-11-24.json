@@ -1,0 +1,357 @@
+{
+  "observedAt": "2026-11-24T11:18:04.091Z",
+  "results": [
+    {
+      "bank": "adbl",
+      "url": "https://adb1backend.adbl.gov.np/storage/download/2025/08/1307-4904-00-fee-and-charges-shrawan-2082-website_1755490285.pdf",
+      "mime": "application/pdf",
+      "hash": "3d67ce0c92d54c6c88f94aa8939d177fc14cae7bdb8a9eee40529dcc6481c183",
+      "size": 1666760,
+      "status": "captured"
+    },
+    {
+      "bank": "citizens",
+      "url": "https://www.ctznbank.com/interest-rate/fees-and-commission",
+      "mime": "text/html",
+      "hash": "58b44b59e89266f586349a867fd53fd4fb85e29634b4ad88d8d5a99dc2cb18ce",
+      "size": 895999,
+      "status": "captured",
+      "documentCandidates": []
+    },
+    {
+      "bank": "corporate-development",
+      "url": "https://corporatebank.com.np/financials/standard-tariff-and-charges",
+      "mime": "text/html",
+      "hash": "795724080f97af447b204f2526648b6b0ef61a58c422811c7a8351ca5b176c87",
+      "size": 57890,
+      "status": "captured",
+      "documentCandidates": []
+    },
+    {
+      "bank": "everest",
+      "url": "https://everestbankltd.com/supports/interest-and-rates/fees-and-services/",
+      "mime": "text/html",
+      "hash": "438c1e3de42a58383dcdffa6d82228a33c43f5e20447c37fc9f504074e1efe0b",
+      "size": 224483,
+      "status": "captured",
+      "documentCandidates": []
+    },
+    {
+      "bank": "excel",
+      "url": "https://edb.com.np/standard-tariff-charges/",
+      "mime": "text/html",
+      "hash": "0b44262cf410c648997a615bb21e202b6b9e1380a3e31d9e1458c57715d1f161",
+      "size": 425605,
+      "status": "captured",
+      "documentCandidates": [
+        {
+          "url": "https://edb.com.np/wp-content/uploads/2026/09/Standard-Tariff-of-Charges-2083-1.pdf",
+          "label": "Download"
+        }
+      ]
+    },
+    {
+      "bank": "garima",
+      "url": "https://garimabank.com.np/downloads/service-and-others-charges",
+      "mime": "text/html",
+      "hash": "9aaa701f20acf9e32a86e53338f7f1340c85b5eab6eefbbf3f678910a5642e68",
+      "size": 127221,
+      "status": "captured",
+      "documentCandidates": [
+        {
+          "url": "https://garimabank.com.np/storage/download/1784522590_STC_FY_2083-84.pdf",
+          "label": ""
+        }
+      ]
+    },
+    {
+      "bank": "global-ime",
+      "url": "https://www.globalimebank.com/np/standard-fee/",
+      "mime": "text/html",
+      "hash": "b614e907bae8da349d62fc61fa036b5eb0ef20318a6287b747b2aefba5e32763",
+      "size": 43839,
+      "status": "captured",
+      "documentCandidates": []
+    },
+    {
+      "bank": "green-development",
+      "url": "https://www.glbank.com/data/tosend/resource/upload/GLDB-Fees-and-Charges.pdf",
+      "status": "unavailable"
+    },
+    {
+      "bank": "himalayan",
+      "url": "https://himalayanbank.com/en/rates/fees-and-charges.html",
+      "status": "unavailable"
+    },
+    {
+      "bank": "jyoti",
+      "status": "needs-source"
+    },
+    {
+      "bank": "kamana-sewa",
+      "url": "https://kamanasewabank.com/downloads/stc/",
+      "mime": "text/html",
+      "hash": "20491ce3fea750accd7da0ab8b02dfd3bea829c96af5c4629a37b30ed86a9adf",
+      "size": 34242,
+      "status": "captured",
+      "documentCandidates": []
+    },
+    {
+      "bank": "karnali",
+      "url": "https://kdblnepal.com/reports/standard_charges",
+      "mime": "text/html",
+      "hash": "82ce9c1b853147ab3b800fd8834015ba522c613424f4029d481c8a25cfe3bfab",
+      "size": 152,
+      "status": "captured",
+      "documentCandidates": []
+    },
+    {
+      "bank": "kumari",
+      "url": "https://www.kumaribank.com/service-charges",
+      "mime": "text/html",
+      "hash": "048f50693379ae3a8ca351550ca4c6701154345db045932e2f2fba101c5ade9c",
+      "size": 15342,
+      "status": "captured",
+      "documentCandidates": []
+    },
+    {
+      "bank": "laxmi-sunrise",
+      "url": "https://www.laxmisunrise.com/rates/schedule-of-service-charges/",
+      "mime": "text/html",
+      "hash": "80e8a3942bece213da12a5d8e823e5534777fb0c9858348449f04e1855764a0a",
+      "size": 356905,
+      "status": "captured",
+      "documentCandidates": []
+    },
+    {
+      "bank": "lumbini",
+      "url": "https://www.lumbinibikasbank.com/rates--charges-footer/standard-tariff--charges",
+      "mime": "text/html",
+      "hash": "d21924c47b843b85724a8245bb8e8dc3961e74a28b87369834145d494abd39d2",
+      "size": 81255,
+      "status": "captured",
+      "documentCandidates": []
+    },
+    {
+      "bank": "machhapuchchhre",
+      "url": "https://www.machbank.com/information/rates-and-charges/commission-and-charges",
+      "status": "unavailable"
+    },
+    {
+      "bank": "mahalaxmi",
+      "url": "https://www.mahalaxmibank.com/fees-charges",
+      "mime": "text/html",
+      "hash": "31266fdd98c680b30a6c3d3eee9cc9e11dc6cea6712977f2518f36d1389e3612",
+      "size": 68498,
+      "status": "captured",
+      "documentCandidates": [
+        {
+          "url": "https://www.mahalaxmibank.com/assets/backend/uploads/StandardTariff%2021112024.pdf",
+          "label": "Standard Tariff of Charges"
+        },
+        {
+          "url": "https://www.mahalaxmibank.com/assets/backend/uploads/StandardTariff%2021112026.pdf",
+          "label": "Standard Tariff of Charges"
+        }
+      ]
+    },
+    {
+      "bank": "miteri",
+      "status": "needs-source"
+    },
+    {
+      "bank": "muktinath",
+      "url": "https://muktinathbank.com.np/extra/standard-tariff--charges",
+      "mime": "text/html",
+      "hash": "7eaf6e4abb07e41a97808d014946406addfa0962928b5af61c4959359493bbfe",
+      "size": 99002,
+      "status": "captured",
+      "documentCandidates": []
+    },
+    {
+      "bank": "nabil",
+      "url": "https://siteadmin.nabilbank.com/assets/backend/uploads/Documents/Standard%20Charge%20Sheets/StandardChargeSheet-2024.pdf",
+      "status": "unavailable"
+    },
+    {
+      "bank": "narayani",
+      "url": "https://ndbl.com.np/charges/",
+      "mime": "text/html",
+      "hash": "968a3b00bb5fef6898f19577c64f9c51f2d7e956aa653e73d3477bf55d0dd1f2",
+      "size": 103538,
+      "status": "captured",
+      "documentCandidates": []
+    },
+    {
+      "bank": "nepal",
+      "url": "https://www.nepalbank.com.np/personal/service-charge",
+      "mime": "text/html",
+      "hash": "5cf8fd5b88fc24a9c9ed95cd5c99e93982917aa8c4d4880a26d5b2b6e82d38a5",
+      "size": 492563,
+      "status": "captured",
+      "documentCandidates": []
+    },
+    {
+      "bank": "nimb",
+      "url": "https://www.nimb.com.np/en/personal-banking/standard-tariff-of-charges",
+      "mime": "text/html",
+      "hash": "ca57d5f893822fa0cd567a27ebe2bf48be7c77a9ba70d04b69b16075f5d29c27",
+      "size": 56505,
+      "status": "captured",
+      "documentCandidates": []
+    },
+    {
+      "bank": "nepal-sbi",
+      "url": "https://nsbl.statebank/ne/service-charges-fees",
+      "mime": "text/html",
+      "hash": "9b34ca8963ce1025cb1120ed71020ef8e4bf5e457eb71e70fd20fd1ea5fc4ff7",
+      "size": 134597,
+      "status": "captured",
+      "documentCandidates": []
+    },
+    {
+      "bank": "nic-asia",
+      "url": "https://cms.nicasiabank.com/framework/uploads/STC/STC_Sept%202026.pdf",
+      "mime": "application/pdf",
+      "hash": "31e9546d7daed8b56a10f61f6f223d50741d6a6e3e933420957e81367f012bbb",
+      "size": 1240812,
+      "status": "captured"
+    },
+    {
+      "bank": "nmb",
+      "url": "https://nmb.com.np/np/download/standard-tariff-charges",
+      "mime": "text/html",
+      "hash": "2365653766a7074475d2d58a4bb8fc7d85ed5acec621d8c81c7324df63cccc0d",
+      "size": 405425,
+      "status": "captured",
+      "documentCandidates": []
+    },
+    {
+      "bank": "prabhu",
+      "url": "https://www.prabhubank.com/uploads/Downloads/STANDARD%20TARIFF%20OF%20CHARGES-July%2C%202025-WEBSITE%20%281%29.pdf",
+      "mime": "application/pdf",
+      "hash": "2e2d630e5ef78f793537b431e9698a53ecd0314c1df99a25e2fd1d0c74d8004e",
+      "size": 774332,
+      "status": "captured"
+    },
+    {
+      "bank": "prime",
+      "url": "https://primebank.com.np/pr1me4dm1n/uploads/stcproduct/AC_Operations_STANDARED_TARIFF_OF_CHARGES_18_09_2023.pdf",
+      "mime": "application/pdf",
+      "hash": "8e375afa8af46f6f5a2414b6442b40b12dd96f6d0a692792b24e557b307a0045",
+      "size": 297592,
+      "status": "captured"
+    },
+    {
+      "bank": "rastriya-banijya",
+      "url": "https://www.rbb.com.np/public/index.php/content/fee-and-charges",
+      "mime": "text/html",
+      "hash": "365bb9f945473c82307f2214f7f9e87428648373394ac50dca3bbdd3e3560afb",
+      "size": 119132,
+      "status": "captured",
+      "documentCandidates": []
+    },
+    {
+      "bank": "salapa",
+      "status": "needs-source"
+    },
+    {
+      "bank": "sangrila",
+      "url": "https://shangrilabank.com/standard-charge",
+      "mime": "text/html",
+      "hash": "1638a1816a2661d7400dde1c782fec593e62cd993bd2a22e77059c1e381d9f7c",
+      "size": 117401,
+      "status": "captured",
+      "documentCandidates": []
+    },
+    {
+      "bank": "sanima",
+      "url": "https://cms.sanimabank.com/framework/uploads/STC%2027th%20January.pdf",
+      "mime": "application/pdf",
+      "hash": "23a0e34352997cc1d9880c350538312713de9c30792155957ab6cc40f8a3258b",
+      "size": 776154,
+      "status": "captured"
+    },
+    {
+      "bank": "saptakoshi",
+      "url": "https://admin.skdbl.com.np/uploads/doc/2083-84-SKDBL-CIR-03-Fees%2C_Chr__Com_-for_Notice_Board-14_10_2026-Anx_II.pdf",
+      "mime": "application/pdf",
+      "hash": "836fe2c15746ecadd98e6e163427dcaa7b9160e39eceb91b3bca4c5272fcc9f2",
+      "size": 530443,
+      "status": "captured"
+    },
+    {
+      "bank": "shine-resunga",
+      "url": "https://srdb.com.np/Standard-Tarriff-Charges",
+      "mime": "text/html",
+      "hash": "281b4a03b3f851005cebd94dc34a5bde29883c5ae14d86db84e27546a41adc0f",
+      "size": 206952,
+      "status": "captured",
+      "documentCandidates": []
+    },
+    {
+      "bank": "siddhartha",
+      "url": "https://www.siddharthabank.com/rates-charges-limit/standard-tariff-of-charges",
+      "mime": "text/html",
+      "hash": "0870935cb2a6bda3c6dd53275e344bb56bdd191705f72085024dc33d80a3ba69",
+      "size": 145053,
+      "status": "captured",
+      "documentCandidates": []
+    },
+    {
+      "bank": "sindhu",
+      "url": "https://www.sindhubank.com.np/other-rates/",
+      "mime": "text/html",
+      "hash": "5d02eede5c1a5bd2d409daa0962573dce75d908392e6fa50455a21ff679553b6",
+      "size": 65461,
+      "status": "captured",
+      "documentCandidates": []
+    },
+    {
+      "bank": "standard-chartered",
+      "status": "needs-source"
+    }
+  ],
+  "supplemental": [
+    {
+      "bank": "global-ime",
+      "url": "https://gibl-assets.gibl.com.np/uploads/Schedule%20of%20Fees%20and%20Charges-%20Sep%202026.pdf",
+      "mime": "application/pdf",
+      "hash": "3e805e83a182277d32ff3249e156bb2a6edadfb64e0ac6d46230c7f547d64cf3",
+      "size": 894035,
+      "status": "captured"
+    },
+    {
+      "bank": "everest",
+      "url": "https://everestbankltd.com/product-and-services/card-services/prepaid-dollar-e-commerce-card/",
+      "mime": "text/html",
+      "hash": "bb2644a8b3473b364a114e4f0f7fe4048e6843f874e994a5cb461cbb23954587",
+      "size": 170315,
+      "status": "captured",
+      "candidate": {
+        "physicalIssuanceUsd": "10.00",
+        "virtualIssuanceUsd": "5.00",
+        "reloadUsd": "0",
+        "paymentMinimumUsd": "1",
+        "paymentPercent": "1.50"
+      },
+      "documentCandidates": []
+    },
+    {
+      "bank": "nepal-sbi",
+      "url": "https://nsbl.statebank/documents/1872337/1875858/Service%2BCharges%2Band%2BFees%2B2026-06-01.pdf/58266e90-6d22-2610-4bff-d2280689ba61?t=1780303766274",
+      "mime": "application/pdf",
+      "hash": "4a9aced908226cbad656c53213af857d9157ba62b6490f0071735d1a05b2343b",
+      "size": 310203,
+      "status": "captured"
+    },
+    {
+      "bank": "nmb",
+      "url": "https://media.nmb.com.np/nmbcms/downloads/01M2QBPHWB8660TD7X0VTJZNNC.pdf",
+      "mime": "application/pdf",
+      "hash": "bb47d80c14b17499bd4ac4abccc1fbe4ea7a2bb1f2162a7bbed023ff05627953",
+      "size": 591741,
+      "status": "captured"
+    }
+  ]
+}

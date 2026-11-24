@@ -1,6 +1,6 @@
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { BankSearch } from "./bank-search";
-import { productPath, t, type Locale } from "./copy";
+import { moneyPath, productPath, t, type Locale } from "./copy";
 
 export function MoneyHome({ locale }: { locale: Locale }) {
   return (
@@ -19,6 +19,10 @@ export function MoneyHome({ locale }: { locale: Locale }) {
           </a>
           <a href={productPath(locale, "dollar-cards")}>
             {t(locale, "dollarCardFees")}
+            <ChevronRight size={17} aria-hidden />
+          </a>
+          <a href={moneyPath(locale) + "/mobile-banking"}>
+            {t(locale, "mobileBankingFees")}
             <ChevronRight size={17} aria-hidden />
           </a>
         </div>

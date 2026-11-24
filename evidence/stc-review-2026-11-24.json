@@ -1,0 +1,177 @@
+{
+  "baseline": "2026-11-24T11:18:04.091Z",
+  "current": "2026-11-24T11:55:05.893Z",
+  "statuses": {
+    "needs-source": 4,
+    "unavailable": 4,
+    "facts-changed": 0,
+    "facts-found": 1,
+    "extraction-lost": 0,
+    "document-changed": 15,
+    "new-document": 0,
+    "unchanged": 17
+  },
+  "changes": [
+    {
+      "bank": "citizens",
+      "source": "https://www.ctznbank.com/interest-rate/fees-and-commission",
+      "status": "document-changed",
+      "changedFacts": []
+    },
+    {
+      "bank": "corporate-development",
+      "source": "https://corporatebank.com.np/financials/standard-tariff-and-charges",
+      "status": "document-changed",
+      "changedFacts": []
+    },
+    {
+      "bank": "garima",
+      "source": "https://garimabank.com.np/downloads/service-and-others-charges",
+      "status": "document-changed",
+      "changedFacts": []
+    },
+    {
+      "bank": "global-ime",
+      "source": "https://www.globalimebank.com/np/standard-fee/",
+      "status": "document-changed",
+      "changedFacts": []
+    },
+    {
+      "bank": "green-development",
+      "source": "https://www.glbank.com/data/tosend/resource/upload/GLDB-Fees-and-Charges.pdf",
+      "status": "unavailable",
+      "changedFacts": []
+    },
+    {
+      "bank": "himalayan",
+      "source": "https://himalayanbank.com/en/rates/fees-and-charges.html",
+      "status": "unavailable",
+      "changedFacts": []
+    },
+    {
+      "bank": "jyoti",
+      "status": "needs-source",
+      "changedFacts": []
+    },
+    {
+      "bank": "laxmi-sunrise",
+      "source": "https://www.laxmisunrise.com/rates/schedule-of-service-charges/",
+      "status": "document-changed",
+      "changedFacts": []
+    },
+    {
+      "bank": "lumbini",
+      "source": "https://www.lumbinibikasbank.com/rates--charges-footer/standard-tariff--charges",
+      "status": "document-changed",
+      "changedFacts": []
+    },
+    {
+      "bank": "machhapuchchhre",
+      "source": "https://www.machbank.com/information/rates-and-charges/commission-and-charges",
+      "status": "unavailable",
+      "changedFacts": []
+    },
+    {
+      "bank": "mahalaxmi",
+      "source": "https://www.mahalaxmibank.com/fees-charges",
+      "status": "document-changed",
+      "changedFacts": []
+    },
+    {
+      "bank": "miteri",
+      "status": "needs-source",
+      "changedFacts": []
+    },
+    {
+      "bank": "nabil",
+      "source": "https://siteadmin.nabilbank.com/assets/backend/uploads/Documents/Standard%20Charge%20Sheets/StandardChargeSheet-2024.pdf",
+      "status": "unavailable",
+      "changedFacts": []
+    },
+    {
+      "bank": "nepal",
+      "source": "https://www.nepalbank.com.np/personal/service-charge",
+      "status": "facts-found",
+      "changedFacts": [
+        {
+          "field": "pinResetNpr",
+          "before": null,
+          "after": "50"
+        },
+        {
+          "field": "registrationNpr",
+          "before": null,
+          "after": "300"
+        },
+        {
+          "field": "renewalNpr",
+          "before": null,
+          "after": "300"
+        },
+        {
+          "field": "renewalYears",
+          "before": null,
+          "after": "1"
+        }
+      ]
+    },
+    {
+      "bank": "nepal-sbi",
+      "source": "https://nsbl.statebank/ne/service-charges-fees",
+      "status": "document-changed",
+      "changedFacts": []
+    },
+    {
+      "bank": "nmb",
+      "source": "https://nmb.com.np/np/download/standard-tariff-charges",
+      "status": "document-changed",
+      "changedFacts": []
+    },
+    {
+      "bank": "rastriya-banijya",
+      "source": "https://www.rbb.com.np/public/index.php/content/fee-and-charges",
+      "status": "document-changed",
+      "changedFacts": []
+    },
+    {
+      "bank": "salapa",
+      "status": "needs-source",
+      "changedFacts": []
+    },
+    {
+      "bank": "sangrila",
+      "source": "https://shangrilabank.com/standard-charge",
+      "status": "document-changed",
+      "changedFacts": []
+    },
+    {
+      "bank": "shine-resunga",
+      "source": "https://srdb.com.np/Standard-Tarriff-Charges",
+      "status": "document-changed",
+      "changedFacts": []
+    },
+    {
+      "bank": "siddhartha",
+      "source": "https://www.siddharthabank.com/rates-charges-limit/standard-tariff-of-charges",
+      "status": "document-changed",
+      "changedFacts": []
+    },
+    {
+      "bank": "sindhu",
+      "source": "https://www.sindhubank.com.np/other-rates/",
+      "status": "document-changed",
+      "changedFacts": []
+    },
+    {
+      "bank": "standard-chartered",
+      "status": "needs-source",
+      "changedFacts": []
+    },
+    {
+      "bank": "everest",
+      "source": "https://everestbankltd.com/product-and-services/card-services/prepaid-dollar-e-commerce-card/",
+      "status": "document-changed",
+      "changedFacts": []
+    }
+  ]
+}

@@ -17,11 +17,14 @@ test("production ignores the demo flag and stays private and unseeded", async ({
   await expect(page).toHaveURL(/\/en\/money\/fixed-deposits$/);
   await page.getByRole("button", { name: "See the options" }).click();
   await expect(
+    page.getByRole("heading", { name: "Published annual rates" }),
+  ).toBeVisible({ timeout: 10000 });
+  await expect(
     page.getByText("We haven’t verified an option for this choice yet."),
-  ).toBeVisible();
+  ).toHaveCount(0);
   await expect(
     page.getByRole("link", { name: "Published bank notices" }),
-  ).toHaveAttribute("href", "/en/money/notices?term=12");
+  ).toHaveCount(0);
   await expect(page.getByText(/fictional data|alder example/i)).toHaveCount(0);
   expect(page.url()).not.toContain("100000");
   expect(
@@ -29,19 +32,26 @@ test("production ignores the demo flag and stays private and unseeded", async ({
   ).toEqual([0, 0]);
   await page.goto("/en/money/dollar-cards?fee=issuance&form=virtual");
   await expect(
-    page.getByRole("heading", { name: "Bank fee schedules and card terms" }),
+    page.getByRole("heading", { name: "Dollar card fees by bank" }),
   ).toBeVisible();
+  await page
+    .locator(".decoded-card-list")
+    .getByText("Everest Bank", { exact: true })
+    .click();
+  await expect(page.getByText("Each payment", { exact: true })).toBeVisible();
   await expect(
-    page.getByRole("link", { name: "NMB tariff archive" }),
-  ).toHaveAttribute("href", /standard-tariff-charges$/);
-  await expect(
-    page.getByText("We haven’t verified an option for this choice yet."),
-  ).toHaveCount(0);
+    page.getByText("Minimum USD 1.00", { exact: true }),
+  ).toBeVisible();
   await page.goto("/en/money/banks");
   await expect(page.locator(".bank-list")).toHaveCount(0);
   await page.getByRole("searchbox").fill("NMB");
-  await page.getByRole("button", { name: "Find", exact: true }).click();
-  await page.getByRole("link", { name: "NMB Bank", exact: true }).click();
+  const suggestion = page
+    .locator(".bank-suggestions")
+    .getByRole("link", { name: "NMB Bank" });
+  await expect(suggestion).toBeVisible();
+  await page.getByRole("searchbox").press("ArrowDown");
+  await expect(suggestion).toBeFocused();
+  await suggestion.press("Enter");
   await expect(page.getByText("Each time you add funds")).toBeVisible();
   await expect(
     page.getByText("Cross-border transaction", { exact: true }),
@@ -53,6 +63,29 @@ test("production ignores the demo flag and stays private and unseeded", async ({
   await expect(
     page.getByRole("link", { name: /September 2026 tariff/ }),
   ).toBeVisible();
+  await page.goto("/en/money/mobile-banking");
+  await expect(page.getByText("Annual amount unconfirmed")).toBeHidden();
+  await page.getByText("Compare annual fees", { exact: true }).click();
+  await expect(page.getByText("Annual amount unconfirmed")).toBeVisible();
+  await expect(page.getByText("per account", { exact: true })).toBeVisible();
+  await page.getByText("Compare annual fees", { exact: true }).click();
+  await page
+    .locator(".decoded-card-list")
+    .getByText("Nepal Bank", { exact: true })
+    .click();
+  await expect(page.getByText("Renew one account for a year")).toBeVisible();
+  await expect(page.getByText("Reset your PIN", { exact: true })).toBeVisible();
+  await page
+    .locator(".decoded-card-list")
+    .getByText("Nepal SBI Bank", { exact: true })
+    .click();
+  await expect(page.getByText("Mobile banking each year")).toBeVisible();
+  await page
+    .locator(".decoded-card-list")
+    .getByText("Everest Bank", { exact: true })
+    .click();
+  await expect(page.getByText("Reset your own PIN")).toBeVisible();
+  await expect(page.getByText("Reset your PIN at a branch")).toBeVisible();
   const sample = await request.get(
     "/en/money/fixed-deposits/sources/alder-rate",
   );

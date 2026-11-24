@@ -1,0 +1,38 @@
+# Tariff intake and product research
+
+The bank search shows up to five suggestions while typing. Select a suggestion to open its reading in No. The bank's published document sits under Sources. The first dollar-card readings cover NMB, NIC ASIA, Everest and Global IME. Each preserves the bank's currency and distinguishes charges at issuance, on reloading and on payment. Everest's percentage payment fee retains its USD minimum. The Nepal SBI reading explains mobile banking and scheduled-payment fees from sections 30.1 to 30.6 of its 1 June 2026 schedule. Its product page is undated, so the source label shows the date checked.
+
+## Collect official materials
+
+Run `npm run --silent archive:tariffs` from the project root. It visits the catalogued official entry points across the NRB commercial and development bank roster. The archive groups responses by SHA-256, limits request time and size, and rejects redirects and invalid PDFs. HTML may be a fee table or an index. A successful capture records what was retrieved and does not establish the latest effective edition. The script saves the bytes and a timestamped JSON report in the ignored `evidence/stc-archive/` directory. The checked-in index records this run's provenance without distributing the original bank pages.
+
+The Everest HTML adapter emits structured issuance, reload rate, percentage payment fee and payment minimum when the known product section matches. This is a review candidate. It never modifies published amounts. PDFs and additional table layouts still need individually verified adapters or reviewed transcriptions, and a missing source is reported separately from a failed retrieval. The product reading labels its edition or checked date and exposes its section. The existing editorial release workflow owns publication of new ranked offer data.
+
+## Questions to answer, in the words users look for
+
+- Does the bank charge every time I load the card, including the first load? Does the app use a different fee from the branch?
+- Does an advertised free reload come with a charge on each payment, a cross-border percentage or an FX charge?
+- Do I need a bank account to get the card? Do virtual and physical cards have different issuance or renewal fees?
+- Can the card pay a specific merchant or subscription? Treat this as a separate acceptance question. Keep merchant anecdotes out of the fee data.
+
+The questions recur in [a top-up discussion](https://www.reddit.com/r/technepal/comments/1t1hobv/nabil_bank_mastercard_topup/), [a hidden-fee discussion](https://www.reddit.com/r/Nepal/comments/1edxn5x) and [a comparison discussion](https://www.reddit.com/r/NepalSocial/comments/1xofi4c/which_bank_should_i_choose_to_get_a_doller_card/). These posts informed fields and wording. Fee amounts come from [NMB's tariff archive](https://nmb.com.np/np/download/standard-tariff-charges), [NIC ASIA's September 2026 tariff](https://cms.nicasiabank.com/framework/uploads/STC/STC_Sept%202026.pdf) and [Everest's product page](https://everestbankltd.com/product-and-services/card-services/prepaid-dollar-e-commerce-card/).
+
+## 24 November 2026 run
+
+The [source index](../evidence/stc-intake-2026-11-24.json) covers 37 directory banks. It records 29 captured entry points, four entries that did not return an acceptable document, and four banks with an unresolved tariff entry point. The extra Everest product capture and the Nepal SBI, NMB and Global IME PDF captures succeeded. The NMB adapter selects the newest uniquely dated edition in its archive and removes temporary authorization parameters from the report. Several captured entries are HTML archives or older documents. Latest-edition validation remains open outside the dated and attributed readings. The script also identifies same-origin unsigned PDF candidates in HTML indexes for later validation.
+
+The Global IME September 2026 tariff lists a counter charge in a footnote. The app price remains unknown from this document.
+
+## Review successive scans
+
+Run `npm run --silent review:tariffs -- previous.json current.json` to compare two indexes. The report includes changed extracted fields, newly extracted facts, new or changed documents, failed fetches and missing sources. A changed HTML fingerprint alone is a document change. A loss of extraction is a review item without a fee claim. The report leaves publication to the editorial workflow.
+
+The mobile banking guide now includes Everest's individual service charges. The bank distinguishes a free self-service PIN reset from a branch reset. [Everest service charges](https://everestbankltd.com/supports/interest-and-rates/fees-and-services/)
+
+The [second capture](../evidence/stc-refresh-2026-11-24.json) and [review report](../evidence/stc-review-2026-11-24.json) record the follow-up run. Newly extracted Nepal Bank mobile fees appear as newly found facts.
+
+GitHub Actions runs the bank tariff monitor on Mondays and on manual dispatch. Each completed run saves the source index and difference report for 30 days. Reports compare against the checked-in November 24 baseline and will repeat known changes until a reviewed baseline is committed. Publication remains in the editorial workflow.
+
+The mobile banking guide opens its annual-fee comparison on request. Only charges explicitly identified as annual or annual renewal enter the comparison. Nepal Bank's renewal amount is per account. Everest stays visible with its annual amount unconfirmed.
+
+Verification used Node 24, the release checks, and both Chromium suites.

@@ -1,4 +1,7 @@
-import { bankCardSources } from "../data/bank-card-sources";
+import { noticeBanks } from "../editorial/live-notices";
+import { banks } from "../data/banks";
+import { decodedCardTariffs } from "../data/tariffs";
+import { TariffDetails } from "./tariff-reading";
 import { ChoiceField } from "./choice-field";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
@@ -119,24 +122,19 @@ function CardSources({
 }) {
   return (
     <section className="card-sources" id={selected ? "picks" : "fees"}>
-      <h2>{t(locale, "officialCardSources")}</h2>
-      <ul className="card-source-list">
-        {Object.values(bankCardSources).map(([name, href, note]) => (
-          <li key={href}>
-            <a href={href} rel="noreferrer">
-              {name}
-            </a>
-            <p>{t(locale, note)}</p>
-          </li>
+      <h2>{t(locale, "decodedCardFees")}</h2>
+      <div className="decoded-card-list">
+        {decodedCardTariffs.map(({ id, reading }) => (
+          <details key={id}>
+            <summary>
+              {banks.find((bank) => bank.id === id)?.name}{" "}
+              <ChevronDown size={16} aria-hidden />
+            </summary>
+            <p className="pick-condition">{reading.product}</p>
+            <TariffDetails tariff={reading} locale={locale} />
+          </details>
         ))}
-      </ul>
-      <a
-        className="trust-link"
-        href="https://nmb.com.np/np/download/standard-tariff-charges"
-        rel="noreferrer"
-      >
-        {t(locale, "nmbTariff")}
-      </a>
+      </div>
     </section>
   );
 }
@@ -146,19 +144,22 @@ export function CategoryGuide({
   product,
   choice,
   release,
-  clock,
+  results,
+  notices,
   unavailable,
 }: {
   locale: Locale;
   product: Product;
   choice: Priority | null;
   release: Release;
-  clock: Date;
+  results: ReturnType<typeof editorialPicks> | null;
+  notices:
+    | { bank: keyof typeof noticeBanks; effective: string; rate: string }[]
+    | null;
   unavailable: boolean;
 }) {
   const path = productPath(locale, product);
   const deposit = product === "fixed-deposits";
-  const results = choice && editorialPicks(choice, release, clock);
   const query = priorityQuery(choice);
   const rows = results ? results.rows : [];
   const first = rows[0];
@@ -244,7 +245,9 @@ export function CategoryGuide({
             {t(
               locale,
               !first
-                ? "yourOptions"
+                ? notices
+                  ? "publishedRates"
+                  : "yourOptions"
                 : choice.product === "fixed-deposits"
                   ? "highestRate"
                   : "lowestFee",
@@ -254,7 +257,7 @@ export function CategoryGuide({
             {choice.product === "fixed-deposits"
               ? [
                   numberText(locale, choice.term) + " " + t(locale, "months"),
-                  t(locale, choice.payout),
+                  ...(notices ? [] : [t(locale, choice.payout)]),
                   "NPR",
                 ].join(" · ")
               : [
@@ -303,28 +306,55 @@ export function CategoryGuide({
                 </details>
               )}
             </>
+          ) : notices ? (
+            <div
+              aria-label={t(locale, "publishedRates")}
+              className="published-options"
+            >
+              {notices.length ? (
+                <>
+                  <dl className="line-list">
+                    {notices.map(({ bank, effective, rate }) => {
+                      const value = rate.slice(0, -1);
+                      return (
+                        <div key={bank}>
+                          <dt>
+                            <a href={noticeBanks[bank].url} rel="noreferrer">
+                              {noticeBanks[bank].name}
+                            </a>
+                            <time dateTime={effective}>{effective}</time>
+                          </dt>
+                          <dd>
+                            {numberText(
+                              locale,
+                              value,
+                              value.split(".")[1]?.length ?? 0,
+                            )}
+                            %
+                          </dd>
+                        </div>
+                      );
+                    })}
+                  </dl>
+                  <p className="pick-condition">
+                    {t(locale, "publishedRatesScope")}
+                  </p>
+                </>
+              ) : (
+                <p>{t(locale, "noBankNotices")}</p>
+              )}
+            </div>
           ) : (
-            <>
-              <p className="empty-note">
-                {t(
-                  locale,
-                  unavailable
-                    ? "unavailablePicks"
-                    : release.revoked
-                      ? "revoked"
-                      : "noVerifiedPicks",
-                )}
-              </p>
-              {release.kind === "public" &&
-                choice.product === "fixed-deposits" && (
-                  <Link
-                    className="trust-link"
-                    href={moneyPath(locale) + "/notices?term=" + choice.term}
-                  >
-                    {t(locale, "bankNotices")}
-                  </Link>
-                )}
-            </>
+            <p className="empty-note">
+              {t(
+                locale,
+                unavailable
+                  ? "unavailablePicks"
+                  : release.revoked
+                    ? "revoked"
+                    : "noVerifiedPicks",
+              )}
+            </p>
           )}
         </section>
       )}
