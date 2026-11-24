@@ -117,3 +117,47 @@ export function tariffReview(previous: Index, current: Index) {
     changes: changes.filter(({ status }) => status !== "unchanged"),
   };
 }
+
+const reviewSections = [
+  ["Extracted values to check", ["facts-changed", "facts-found"]],
+  [
+    "Sources to recheck",
+    ["extraction-lost", "not-observed", "unavailable", "needs-source"],
+  ],
+  ["Documents to inspect", ["document-changed", "new-document"]],
+] as const;
+
+function markdownText(text: string) {
+  return text
+    .replace(/\s+/gu, " ")
+    .replace(/[\\`*_{}\[\]()<>#+.\-!|&~]/gu, "\\$&");
+}
+
+export function tariffReviewSummary(report: ReturnType<typeof tariffReview>) {
+  const lines = [
+    "## Bank tariff review",
+    "",
+    `Scan ${report.current.slice(0, 10)} compared with baseline ${report.baseline.slice(0, 10)}.`,
+    "",
+    "Confirm extracted values against the official source before publishing. Download the **tariff-monitor** artifact for source URLs and the full report.",
+  ];
+
+  for (const [title, statuses] of reviewSections) {
+    const entries = report.changes.filter(({ status }) =>
+      statuses.some((included) => included === status),
+    );
+    lines.push("", `### ${title} (${entries.length})`, "");
+    for (const { bank, status, changedFacts } of entries) {
+      lines.push(
+        `- **${markdownText(bank)}** · ${status.replaceAll("-", " ")}`,
+      );
+      for (const { field, before, after } of changedFacts) {
+        lines.push(
+          `  - ${markdownText(field)} · ${markdownText(before ?? "unconfirmed")} → ${markdownText(after ?? "unconfirmed")}`,
+        );
+      }
+    }
+  }
+
+  return lines.join("\n") + "\n";
+}

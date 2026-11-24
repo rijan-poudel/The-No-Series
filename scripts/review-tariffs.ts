@@ -1,10 +1,14 @@
-import { readFile } from "node:fs/promises";
-import { archiveIndex, tariffReview } from "../src/editorial/tariff-review.ts";
+import { appendFile, readFile } from "node:fs/promises";
+import {
+  archiveIndex,
+  tariffReview,
+  tariffReviewSummary,
+} from "../src/editorial/tariff-review.ts";
 
-const [previous, current] = process.argv.slice(2);
+const [previous, current, summary] = process.argv.slice(2);
 if (!previous || !current) {
   process.stderr.write(
-    "Usage: npm run --silent review:tariffs -- previous.json current.json\n",
+    "Usage: npm run --silent review:tariffs -- previous.json current.json [summary.md]\n",
   );
   process.exitCode = 1;
 } else {
@@ -14,11 +18,13 @@ if (!previous || !current) {
         archiveIndex.parse(JSON.parse(await readFile(file, "utf8"))),
       ),
     );
-    process.stdout.write(
-      JSON.stringify(tariffReview(before, after), null, 2) + "\n",
-    );
+    const report = tariffReview(before, after);
+    if (summary) await appendFile(summary, tariffReviewSummary(report));
+    process.stdout.write(JSON.stringify(report, null, 2) + "\n");
   } catch {
-    process.stderr.write("Could not read two valid tariff archive indexes.\n");
+    process.stderr.write(
+      "Could not generate the tariff review. Check the input indexes and summary path.\n",
+    );
     process.exitCode = 1;
   }
 }

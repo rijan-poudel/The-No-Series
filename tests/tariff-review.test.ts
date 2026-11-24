@@ -1,6 +1,10 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { archiveIndex, tariffReview } from "../src/editorial/tariff-review.ts";
+import {
+  archiveIndex,
+  tariffReview,
+  tariffReviewSummary,
+} from "../src/editorial/tariff-review.ts";
 
 const url = "https://example.invalid/fees";
 const index = (rows: unknown[]) =>
@@ -82,4 +86,25 @@ test("reports a previously captured supplemental URL absent from the new scan", 
     { bank, source: newUrl, status: "new-document", changedFacts: [] },
     { bank, source: oldUrl, status: "not-observed", changedFacts: [] },
   ]);
+});
+
+test("summarizes a verified zero and an unconfirmed extracted value distinctly", () => {
+  const prior = index([
+    {
+      bank: "a",
+      url,
+      status: "captured",
+      candidate: { reload: "0", annual: "5" },
+    },
+  ]);
+  const current = index([
+    { bank: "a", url, status: "captured", candidate: { reload: "0" } },
+    { bank: "b", url, status: "captured", candidate: { reload: "0" } },
+    { bank: "c", status: "needs-source" },
+  ]);
+  const summary = tariffReviewSummary(tariffReview(prior, current));
+  assert.match(summary, /Extracted values to check \(2\)/);
+  assert.match(summary, /annual · 5 → unconfirmed/);
+  assert.match(summary, /reload · unconfirmed → 0/);
+  assert.match(summary, /Sources to recheck \(1\)/);
 });
