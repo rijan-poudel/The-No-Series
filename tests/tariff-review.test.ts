@@ -53,3 +53,33 @@ test("flags actual fee changes separately from document and retrieval changes", 
     { field: "fee", before: "0", after: "8" },
   ]);
 });
+
+test("reports a previously captured supplemental URL absent from the new scan", () => {
+  const bank = "a";
+  const oldUrl = url + "/old.pdf";
+  const newUrl = url + "/new.pdf";
+  const primary = { bank, url, status: "captured", hash: "index" };
+  const prior = archiveIndex.parse({
+    ...index([primary]),
+    supplemental: [
+      {
+        bank,
+        url: oldUrl,
+        status: "captured",
+        hash: "old",
+        candidate: { fee: "0" },
+      },
+      { bank, url: url + "/unavailable.pdf", status: "unavailable" },
+    ],
+  });
+  const current = archiveIndex.parse({
+    ...index([primary]),
+    supplemental: [{ bank, url: newUrl, status: "captured", hash: "new" }],
+  });
+  const report = tariffReview(prior, current);
+  assert.equal(report.statuses["not-observed"], 1);
+  assert.deepEqual(report.changes, [
+    { bank, source: newUrl, status: "new-document", changedFacts: [] },
+    { bank, source: oldUrl, status: "not-observed", changedFacts: [] },
+  ]);
+});

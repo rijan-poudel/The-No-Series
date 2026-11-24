@@ -36,3 +36,5 @@ GitHub Actions runs the bank tariff monitor on Mondays and on manual dispatch. E
 The mobile banking guide opens its annual-fee comparison on request. Only charges explicitly identified as annual or annual renewal enter the comparison. Nepal Bank's renewal amount is per account. Everest stays visible with its annual amount unconfirmed.
 
 Verification used Node 24, the release checks, and both Chromium suites.
+
+A previously captured URL absent from a later scan appears as `not-observed`. An attempted request that fails still appears as `unavailable`. A new PDF URL can appear alongside the missing one. Verify whether the bank replaced the edition before updating any fee. The regression test covers a rotated supplemental PDF and preserves the unknown fee state. Node 24 verification uses `npm run verify:agent`.

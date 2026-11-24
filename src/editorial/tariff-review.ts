@@ -47,10 +47,24 @@ export function tariffReview(previous: Index, current: Index) {
     "extraction-lost": 0,
     "document-changed": 0,
     "new-document": 0,
+    "not-observed": 0,
     unchanged: 0,
   };
-  const changes = [...current.results, ...current.supplemental].map(
-    (source) => {
+  const sources = [...current.results, ...current.supplemental];
+  const observed = new Set(sources.map(key));
+  const changes = sources.map(
+    (
+      source,
+    ): {
+      bank: string;
+      source: string | undefined;
+      status: keyof typeof statuses;
+      changedFacts: {
+        field: string;
+        before: string | null;
+        after: string | null;
+      }[];
+    } => {
       const prior = baseline.get(key(source));
       const before = prior ? facts(prior) : {};
       const after = facts(source);
@@ -86,6 +100,16 @@ export function tariffReview(previous: Index, current: Index) {
       };
     },
   );
+  for (const [id, prior] of baseline) {
+    if (prior.status !== "captured" || observed.has(id)) continue;
+    statuses["not-observed"]++;
+    changes.push({
+      bank: prior.bank,
+      source: prior.url,
+      status: "not-observed",
+      changedFacts: [],
+    });
+  }
   return {
     baseline: previous.observedAt,
     current: current.observedAt,
