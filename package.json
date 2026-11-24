@@ -22,7 +22,8 @@
     "agent:compare": "node scripts/compare-local.ts",
     "verify:agent": "npm run format:check && npm run typecheck && npm test && npm run review:demo",
     "verify:release": "npm run verify:agent && npm run build && npm run test:production",
-    "monitor:sources": "node scripts/monitor-sources.ts"
+    "monitor:sources": "node scripts/monitor-sources.ts",
+    "discover:sources": "node scripts/discover-sources.ts"
   },
   "dependencies": {
     "@fontsource-variable/noto-sans-devanagari": "5.3.0",

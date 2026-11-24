@@ -38,10 +38,13 @@ test("production ignores the demo flag and stays private and unseeded", async ({
     page.getByText("We haven’t verified an option for this choice yet."),
   ).toHaveCount(0);
   await page.goto("/en/money?intent=existing");
-  await page.getByRole("link", { name: "Check deposit rates" }).click();
+  await page.getByRole("link", { name: "Choose your bank" }).click();
+  await page.getByRole("searchbox").fill("NMB");
+  await page.getByRole("button", { name: "Find", exact: true }).click();
+  await page.getByRole("link", { name: "NMB Bank", exact: true }).click();
   await expect(
-    page.getByRole("navigation", { name: "Choose your bank" }),
-  ).toBeVisible();
+    page.getByRole("link", { name: "Check deposit rates" }),
+  ).toHaveAttribute("href", "/en/money/notices?bank=nmb");
   const sample = await request.get(
     "/en/money/fixed-deposits/sources/alder-rate",
   );

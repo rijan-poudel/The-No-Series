@@ -1,3 +1,4 @@
+import { bankCardSources } from "../data/bank-card-sources";
 import { ChoiceField } from "./choice-field";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
@@ -109,24 +110,6 @@ function PickNote({
   );
 }
 
-const cardSources = [
-  [
-    "NMB Bank",
-    "https://nmb.com.np/en/products/cards/prepaid-card/nmb-visa-international-card",
-    "nmbPublishedFees",
-  ],
-  [
-    "Nabil iCard",
-    "https://cdn.nabilbank.com/services-payments/services/nabil-icard",
-    "accountNeeded",
-  ],
-  [
-    "Global IME E-Com Card",
-    "https://www.globalimebank.com/products/cards/e-com-card-usd-dollar-card-nepal/",
-    "accountNeeded",
-  ],
-] as const;
-
 function CardSources({
   locale,
   selected,
@@ -138,7 +121,7 @@ function CardSources({
     <section className="card-sources" id={selected ? "picks" : "fees"}>
       <h2>{t(locale, "officialCardSources")}</h2>
       <ul className="card-source-list">
-        {cardSources.map(([name, href, note]) => (
+        {Object.values(bankCardSources).map(([name, href, note]) => (
           <li key={href}>
             <a href={href} rel="noreferrer">
               {name}

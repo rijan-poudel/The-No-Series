@@ -16,10 +16,7 @@ export function MoneyHome({
   const cards = productPath(locale, "dollar-cards");
   const choices: readonly (readonly [Label, string])[] =
     intent === "existing"
-      ? [
-          ["bankRates", home + "/notices?bank=choose"],
-          ["cardFees", cards + "#fees"],
-        ]
+      ? [["chooseBank", home + "/banks"]]
       : intent === "feature"
         ? [
             ["quarterlyInterest", deposits + "?term=12&payout=quarterly#picks"],
