@@ -31,9 +31,9 @@ test("discovery leads to the catch, a scoped deposit pick, then evidence", async
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/en/money");
   await expect(
-    page.getByRole("heading", { name: "Know before you choose." }),
+    page.getByRole("heading", { name: "What are you looking for?" }),
   ).toBeVisible();
-  await expect(page.locator("main").getByRole("link")).toHaveCount(2);
+  await expect(page.locator("main").getByRole("link")).toHaveCount(5);
   await accessibility(page);
   await page.getByRole("link", { name: "Fixed deposits" }).click();
   await expect(page.getByRole("heading", { name: /The catch/i })).toBeVisible();
@@ -76,7 +76,7 @@ test("Nepali mobile retains the selected term and offers a clear empty state", a
   await page.setViewportSize({ width: 390, height: 844 });
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/ne/money/fixed-deposits");
-  await page.locator("select[name=term]").selectOption("3");
+  await page.getByText("३ महिना", { exact: true }).click();
   await page.getByRole("button", { name: "विकल्प हेर्नुहोस्" }).click();
   await expect(
     page.getByText("यो छनोटका लागि कुनै विकल्प अझै पुष्टि भएको छैन।"),
@@ -84,10 +84,13 @@ test("Nepali mobile retains the selected term and offers a clear empty state", a
   await expect(
     page.getByRole("heading", { name: "तपाईंको छनोटका विकल्पहरू" }),
   ).toBeVisible();
+  await page.getByLabel("मेनु").click();
   await page.getByRole("link", { name: "English" }).click();
   await expect(page).toHaveURL(/\/en\/money\/fixed-deposits\?term=3/);
   await page.getByText("Change your choice").click();
-  await expect(page.getByLabel("Term in months")).toHaveValue("3");
+  await expect(
+    page.getByRole("radio", { name: "3 months", exact: true }),
+  ).toBeChecked();
   await accessibility(page);
   await page.setViewportSize({ width: 320, height: 800 });
   await page.addStyleTag({ content: "html { font-size: 200%; }" });
@@ -105,7 +108,8 @@ test("dollar card picks distinguish app reload fees from branch reload fees", as
   await expect(
     page.getByText("App and branch fees can differ.", { exact: false }),
   ).toBeVisible();
-  await page.getByLabel("Fee to compare").selectOption("app");
+  await page.getByText("Options", { exact: true }).click();
+  await page.getByText("App reload fee", { exact: true }).click();
   await page.getByRole("button", { name: "See the options" }).click();
   await expect(
     page.getByRole("heading", { name: "Lowest verified fee" }),
@@ -113,7 +117,7 @@ test("dollar card picks distinguish app reload fees from branch reload fees", as
   const leaders = page.locator(".paper-picks > article h3");
   const appPick = await leaders.first().textContent();
   await page.getByText("Change your choice").click();
-  await page.getByLabel("Fee to compare").selectOption("branch");
+  await page.getByText("Branch reload fee", { exact: true }).click();
   await page.getByRole("button", { name: "See the options" }).click();
   await expect(leaders.first()).not.toHaveText(appPick!);
 });

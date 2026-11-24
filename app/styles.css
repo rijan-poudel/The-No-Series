@@ -1337,3 +1337,191 @@ html[lang="ne"]
   font-weight: 750;
   text-decoration-thickness: 0.14em;
 }
+
+/* Compact navigation and task choices */
+.quiet-header {
+  border: 0;
+}
+.quiet-header .masthead {
+  min-height: 60px;
+}
+.quiet-brand {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  font-size: 1.65rem;
+  font-weight: 800;
+  letter-spacing: -0.09em;
+  text-decoration: none;
+}
+.utility-menu {
+  position: relative;
+  z-index: 2;
+}
+.utility-menu summary {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  list-style: none;
+}
+.utility-menu summary::-webkit-details-marker,
+.priority-sheet summary::-webkit-details-marker {
+  display: none;
+}
+.utility-menu > div {
+  position: absolute;
+  inset-inline-end: 0;
+  padding: 6px;
+  min-width: max-content;
+  background: #fffaf4;
+  border-radius: 13px;
+  box-shadow: var(--paper-shadow);
+}
+.utility-menu a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 12px;
+}
+.intent-home {
+  max-width: 650px;
+  padding-block: clamp(48px, 11vw, 125px) 64px;
+}
+.intent-home h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 7vw, 4.5rem);
+  text-wrap: balance;
+}
+html[lang="ne"] .intent-home h1 {
+  font-family: var(--devanagari);
+}
+.intent-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin: 26px 0 16px;
+}
+.intent-switch a,
+.choice-options span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 7px 13px;
+  border-radius: 10px;
+  background: #f4e5d8;
+  text-decoration: none;
+  font-weight: 650;
+}
+.intent-switch a[aria-current],
+.choice-options input:checked + span {
+  background: #233e2b;
+  color: #fff;
+}
+.intent-links {
+  display: grid;
+}
+.intent-links > a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 52px;
+  padding: 8px 0;
+  text-decoration: none;
+}
+.intent-links > a:hover {
+  text-decoration: underline;
+}
+.intent-links > a + a {
+  border-top: 1px solid var(--rule);
+}
+.paper-guide {
+  padding-top: clamp(20px, 5vw, 48px);
+}
+.paper-guide h1 {
+  margin: 0 0 24px;
+}
+.catch-paper {
+  box-shadow: none;
+  background: #fbe9a7;
+}
+.priority-sheet {
+  border: 0;
+}
+.priority-sheet > summary {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  min-height: 44px;
+  list-style: none;
+  cursor: pointer;
+  font-weight: 700;
+}
+.priority-sheet[open] > summary svg {
+  transform: rotate(180deg);
+}
+.guide-form {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+}
+.choice-field {
+  border: 0;
+  padding: 0;
+  min-width: 0;
+}
+.choice-field legend {
+  padding: 0;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  color: var(--muted);
+}
+.choice-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.guide-form .choice-options label {
+  display: inline-flex;
+  cursor: pointer;
+}
+.choice-options input:focus-visible + span {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+.guide-form button {
+  justify-self: stretch;
+  width: 100%;
+  border-radius: 12px;
+  min-height: 48px;
+}
+.card-sources {
+  margin-top: 28px;
+  scroll-margin-top: 12px;
+}
+.card-sources h2 {
+  font-size: clamp(1.4rem, 4vw, 2rem);
+}
+
+.card-source-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.card-source-list > li {
+  padding-block: 12px;
+}
+.card-source-list > li + li {
+  border-top: 1px solid var(--rule);
+}
+.card-source-list a {
+  display: inline-block;
+  font-weight: 700;
+}
+.card-source-list p {
+  color: var(--muted);
+  margin-top: 4px;
+  font-size: 0.9rem;
+}

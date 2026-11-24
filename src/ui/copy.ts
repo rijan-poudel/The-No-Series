@@ -6,6 +6,26 @@ export const isLocale = (input: string): input is Locale =>
 export const intlLocale = (locale: Locale) =>
   locale === "ne" ? "ne-NP-u-nu-deva" : "en-IN";
 const words = {
+  bankingChoices: ["What are you looking for?", "के खोज्दै हुनुहुन्छ?"],
+  intentCompare: ["Compare banks", "बैंक तुलना"],
+  intentExisting: ["Use my bank", "आफ्नो बैंक"],
+  intentFeature: ["Find a feature", "सुविधा खोज्नुहोस्"],
+  chooseBank: ["Choose your bank", "आफ्नो बैंक छान्नुहोस्"],
+  bankRates: ["Check deposit rates", "निक्षेपका ब्याजदर हेर्नुहोस्"],
+  cardFees: ["Check dollar card fees", "डलर कार्ड शुल्क हेर्नुहोस्"],
+  quarterlyInterest: ["Quarterly interest", "त्रैमासिक ब्याज"],
+  virtualCardFeature: ["Virtual dollar card", "भर्चुअल डलर कार्ड"],
+  nmbPublishedFees: [
+    "Bank FAQ lists NPR 500 to issue and NPR 500 per reload.",
+    "बैंकको प्रश्नोत्तरमा जारी गर्न रु ५०० र हरेक पटक रकम थप्न रु ५०० उल्लेख छ।",
+  ],
+  nmbTariff: ["NMB tariff archive", "एनएमबीको शुल्क सूची"],
+  officialCardSources: [
+    "Bank fee schedules and card terms",
+    "बैंकका शुल्क र कार्डका सर्तहरू",
+  ],
+  guideOptions: ["Options", "विकल्पहरू"],
+
   bankNotices: ["Published bank notices", "बैंकका प्रकाशित सूचनाहरू"],
   noticeScope: [
     "Advertised annual rates in official notices for personal NPR deposits. Payout and withdrawal terms still need separate confirmation.",
@@ -31,8 +51,8 @@ const words = {
   pickCategory: ["What are you looking into?", "केबारे बुझ्न चाहनुहुन्छ?"],
   categories: ["Categories", "विषयहरू"],
   depositCatchLead: [
-    "Withdrawing early can change the rate you actually receive. Check the early withdrawal terms before you commit.",
-    "समयअघि रकम निकाल्दा पाउने ब्याजदर बदलिन सक्छ। निक्षेप राख्नुअघि समयअघि निकाल्ने सर्त हेर्नुहोस्।",
+    "Withdrawing early can reduce the interest you receive.",
+    "समयअघि रकम निकाल्दा पाउने ब्याज घट्न सक्छ।",
   ],
   cardCatchLead: [
     "A low issuance fee can hide costly reloads. App and branch fees can differ.",

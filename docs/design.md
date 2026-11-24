@@ -12,3 +12,7 @@ Use the supplied digital scrapbook reference for warm paper, serif headlines, mu
 - Dollar cards compare one chosen flat NPR fee for the selected card type. Show any required bank account. Withhold ranking for missing or amount-dependent fees. Each result concerns that fee only. The source disclosure includes the official bank link when the pick has a reviewed institution URL. Coverage remains available in the footer.
 - Open the first source disclosure to see evidence for the chosen rate or fee and the catch. Keep eligibility and other supporting terms under a second disclosure. Ties share the lead. Keep alternatives collapsed. Shared verification excludes revoked, stale, conflicting and unsupported records. Empty coverage has no pick.
 - Old browser comparison URLs lead to the category guide. The existing comparison API and local calculation commands remain available for internal verification and existing callers.
+
+## Task-first navigation
+
+The first screen offers Compare banks, Use my bank and Find a feature. Compare keeps the two available product categories together. Use my bank opens bank-specific published deposit notices or official card sources. Feature shortcuts go directly to quarterly interest, virtual cards or app reload fees. A compact header holds the home link and a utility disclosure containing language, coverage and methodology. Category pages use the same native radio component for every choice, with a full-width action. A card guide with no verified fee points to official bank material.

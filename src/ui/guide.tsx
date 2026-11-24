@@ -1,5 +1,6 @@
+import { ChoiceField } from "./choice-field";
 import Link from "next/link";
-import { ArrowLeft, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { payouts, type Product, type Release } from "../domain/model";
 import {
   depositTerms,
@@ -108,6 +109,55 @@ function PickNote({
   );
 }
 
+const cardSources = [
+  [
+    "NMB Bank",
+    "https://nmb.com.np/en/products/cards/prepaid-card/nmb-visa-international-card",
+    "nmbPublishedFees",
+  ],
+  [
+    "Nabil iCard",
+    "https://cdn.nabilbank.com/services-payments/services/nabil-icard",
+    "accountNeeded",
+  ],
+  [
+    "Global IME E-Com Card",
+    "https://www.globalimebank.com/products/cards/e-com-card-usd-dollar-card-nepal/",
+    "accountNeeded",
+  ],
+] as const;
+
+function CardSources({
+  locale,
+  selected,
+}: {
+  locale: Locale;
+  selected: boolean;
+}) {
+  return (
+    <section className="card-sources" id={selected ? "picks" : "fees"}>
+      <h2>{t(locale, "officialCardSources")}</h2>
+      <ul className="card-source-list">
+        {cardSources.map(([name, href, note]) => (
+          <li key={href}>
+            <a href={href} rel="noreferrer">
+              {name}
+            </a>
+            <p>{t(locale, note)}</p>
+          </li>
+        ))}
+      </ul>
+      <a
+        className="trust-link"
+        href="https://nmb.com.np/np/download/standard-tariff-charges"
+        rel="noreferrer"
+      >
+        {t(locale, "nmbTariff")}
+      </a>
+    </section>
+  );
+}
+
 export function CategoryGuide({
   locale,
   product,
@@ -127,114 +177,85 @@ export function CategoryGuide({
   const deposit = product === "fixed-deposits";
   const results = choice && editorialPicks(choice, release, clock);
   const query = priorityQuery(choice);
-  const other = locale === "en" ? "ne" : "en";
   const rows = results ? results.rows : [];
   const first = rows[0];
   const tied = results ? results.leaders : [];
+  const form = (
+    <form action={path + "#picks"} className="priority-form guide-form">
+      {deposit ? (
+        <>
+          <ChoiceField
+            name="term"
+            label={t(locale, "term")}
+            value={choice?.product === "fixed-deposits" ? choice.term : 12}
+            options={depositTerms.map((term) => [
+              term,
+              numberText(locale, term) + " " + t(locale, "months"),
+            ])}
+          />
+          <ChoiceField
+            name="payout"
+            label={t(locale, "payout")}
+            value={
+              choice?.product === "fixed-deposits" ? choice.payout : "maturity"
+            }
+            options={payouts.map((payout) => [payout, t(locale, payout)])}
+          />
+        </>
+      ) : (
+        <>
+          <ChoiceField
+            name="fee"
+            label={t(locale, "chooseFee")}
+            value={choice?.product === "dollar-cards" ? choice.fee : "issuance"}
+            options={feePriorities.map((fee) => [
+              fee,
+              t(
+                locale,
+                fee === "issuance"
+                  ? fee
+                  : fee === "app"
+                    ? "appFee"
+                    : "branchFee",
+              ),
+            ])}
+          />
+          <ChoiceField
+            name="form"
+            label={t(locale, "cardFormat")}
+            value={choice?.product === "dollar-cards" ? choice.form : "virtual"}
+            options={[
+              ["virtual", t(locale, "virtual")],
+              ["physical", t(locale, "physical")],
+            ]}
+          />
+        </>
+      )}
+      <button type="submit">{t(locale, "seePicks")}</button>
+    </form>
+  );
   return (
     <div className="paper-guide container">
-      <div className="guide-nav">
-        <Link className="paper-back" href={moneyPath(locale)}>
-          <ArrowLeft size={17} aria-hidden />
-          {t(locale, "categories")}
-        </Link>
-        <Link
-          className="switch"
-          href={productPath(other, product) + query + (choice ? "#picks" : "")}
-          hrefLang={other}
-          lang={other}
-        >
-          {other === "ne" ? "नेपाली" : "English"}
-        </Link>
-      </div>
       <h1>{t(locale, titleFor(product))}</h1>
       <section className="catch-paper">
         <h2>{t(locale, "catch")}</h2>
         <p>{t(locale, deposit ? "depositCatchLead" : "cardCatchLead")}</p>
       </section>
-      <details className="paper-disclosure priority-sheet" open={!choice}>
-        <summary>
-          {t(locale, choice ? "changePriority" : "choosePriority")}{" "}
-          <ChevronDown size={18} aria-hidden />
-        </summary>
-        <form action={path + "#picks"} className="priority-form">
-          {deposit ? (
-            <>
-              <label>
-                {t(locale, "term")}
-                <select
-                  name="term"
-                  defaultValue={
-                    choice?.product === "fixed-deposits" ? choice.term : 12
-                  }
-                >
-                  {depositTerms.map((term) => (
-                    <option key={term} value={term}>
-                      {numberText(locale, term)} {t(locale, "months")}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label>
-                {t(locale, "payout")}
-                <select
-                  name="payout"
-                  defaultValue={
-                    choice?.product === "fixed-deposits"
-                      ? choice.payout
-                      : "maturity"
-                  }
-                >
-                  {payouts.map((payout) => (
-                    <option key={payout} value={payout}>
-                      {t(locale, payout)}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            </>
-          ) : (
-            <>
-              <label>
-                {t(locale, "chooseFee")}
-                <select
-                  name="fee"
-                  defaultValue={
-                    choice?.product === "dollar-cards" ? choice.fee : "issuance"
-                  }
-                >
-                  {feePriorities.map((fee) => (
-                    <option key={fee} value={fee}>
-                      {t(
-                        locale,
-                        fee === "issuance"
-                          ? fee
-                          : fee === "app"
-                            ? "appFee"
-                            : "branchFee",
-                      )}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label>
-                {t(locale, "cardFormat")}
-                <select
-                  name="form"
-                  defaultValue={
-                    choice?.product === "dollar-cards" ? choice.form : "virtual"
-                  }
-                >
-                  <option value="virtual">{t(locale, "virtual")}</option>
-                  <option value="physical">{t(locale, "physical")}</option>
-                </select>
-              </label>
-            </>
-          )}
-          <button type="submit">{t(locale, "seePicks")}</button>
-        </form>
-      </details>
-      {results && choice && (
+      {!deposit && !first && (
+        <CardSources locale={locale} selected={choice !== null} />
+      )}
+      {!choice && deposit ? (
+        <div className="priority-sheet">{form}</div>
+      ) : (
+        <details className="priority-sheet">
+          <summary>
+            {t(locale, choice ? "changePriority" : "guideOptions")}{" "}
+            <ChevronDown size={16} aria-hidden />
+          </summary>
+          {form}
+        </details>
+      )}
+      {results && choice && (deposit || first) && (
         <section className="paper-picks" id="picks">
           <h2>
             {t(

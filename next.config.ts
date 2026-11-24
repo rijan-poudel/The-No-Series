@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const config: NextConfig = {
   outputFileTracingRoot: process.cwd(),
+  devIndicators: false,
   poweredByHeader: false,
   distDir:
     process.env.MONEY_DEMO === "1" && process.env.NODE_ENV === "development"

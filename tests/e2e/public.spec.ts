@@ -27,6 +27,21 @@ test("production ignores the demo flag and stays private and unseeded", async ({
   expect(
     await page.evaluate(() => [localStorage.length, sessionStorage.length]),
   ).toEqual([0, 0]);
+  await page.goto("/en/money/dollar-cards?fee=issuance&form=virtual");
+  await expect(
+    page.getByRole("heading", { name: "Bank fee schedules and card terms" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "NMB tariff archive" }),
+  ).toHaveAttribute("href", /standard-tariff-charges$/);
+  await expect(
+    page.getByText("We haven’t verified an option for this choice yet."),
+  ).toHaveCount(0);
+  await page.goto("/en/money?intent=existing");
+  await page.getByRole("link", { name: "Check deposit rates" }).click();
+  await expect(
+    page.getByRole("navigation", { name: "Choose your bank" }),
+  ).toBeVisible();
   const sample = await request.get(
     "/en/money/fixed-deposits/sources/alder-rate",
   );
