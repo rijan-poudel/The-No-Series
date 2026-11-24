@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { banks } from "../data/banks.ts";
 
 const row = z.object({
   bank: z.string(),
@@ -127,6 +128,22 @@ const reviewSections = [
   ["Documents to inspect", ["document-changed", "new-document"]],
 ] as const;
 
+const bankNames = new Map<string, string>(
+  banks.map(({ id, name }) => [id, name]),
+);
+
+const fieldLabels = new Map([
+  ["physicalIssuanceUsd", "Physical card issuance (USD)"],
+  ["virtualIssuanceUsd", "Virtual card issuance (USD)"],
+  ["reloadUsd", "Card reload fee (USD)"],
+  ["paymentMinimumUsd", "Minimum card payment fee (USD)"],
+  ["paymentPercent", "Card payment fee (%)"],
+  ["registrationNpr", "Mobile banking registration per account (NPR)"],
+  ["renewalNpr", "Mobile banking renewal per account (NPR)"],
+  ["renewalYears", "Mobile banking renewal period (years)"],
+  ["pinResetNpr", "Mobile banking PIN reset (NPR)"],
+]);
+
 function markdownText(text: string) {
   return text
     .replace(/\s+/gu, " ")
@@ -137,7 +154,7 @@ export function tariffReviewSummary(report: ReturnType<typeof tariffReview>) {
   const lines = [
     "## Bank tariff review",
     "",
-    `Scan ${report.current.slice(0, 10)} compared with baseline ${report.baseline.slice(0, 10)}.`,
+    `Scan \`${report.current}\` compared with baseline \`${report.baseline}\` (UTC).`,
     "",
     "Confirm extracted values against the official source before publishing. Download the **tariff-monitor** artifact for source URLs and the full report.",
   ];
@@ -149,11 +166,11 @@ export function tariffReviewSummary(report: ReturnType<typeof tariffReview>) {
     lines.push("", `### ${title} (${entries.length})`, "");
     for (const { bank, status, changedFacts } of entries) {
       lines.push(
-        `- **${markdownText(bank)}** · ${status.replaceAll("-", " ")}`,
+        `- **${markdownText(bankNames.get(bank) ?? bank)}** · ${status.replaceAll("-", " ")}`,
       );
       for (const { field, before, after } of changedFacts) {
         lines.push(
-          `  - ${markdownText(field)} · ${markdownText(before ?? "unconfirmed")} → ${markdownText(after ?? "unconfirmed")}`,
+          `  - ${markdownText(fieldLabels.get(field) ?? field)} · ${markdownText(before ?? "unconfirmed")} → ${markdownText(after ?? "unconfirmed")}`,
         );
       }
     }

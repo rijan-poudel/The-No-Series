@@ -108,3 +108,27 @@ test("summarizes a verified zero and an unconfirmed extracted value distinctly",
   assert.match(summary, /reload · unconfirmed → 0/);
   assert.match(summary, /Sources to recheck \(1\)/);
 });
+
+test("labels bank names, units and exact scan timestamps in the summary", () => {
+  const prior = index([]);
+  const current = archiveIndex.parse({
+    ...index([
+      {
+        bank: "nepal",
+        url,
+        status: "captured",
+        mobileCandidate: { renewalNpr: "300" },
+      },
+    ]),
+    observedAt: "2026-11-24T01:02:03.456Z",
+  });
+  const summary = tariffReviewSummary(tariffReview(prior, current));
+  assert.ok(summary.includes("**Nepal Bank**"));
+  assert.ok(
+    summary.includes(
+      String.raw`Mobile banking renewal per account \(NPR\) · unconfirmed → 300`,
+    ),
+  );
+  assert.ok(summary.includes(current.observedAt));
+  assert.ok(summary.includes(prior.observedAt));
+});

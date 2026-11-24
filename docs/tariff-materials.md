@@ -40,3 +40,5 @@ Verification used Node 24, the release checks, and both Chromium suites.
 A previously captured URL absent from a later scan appears as `not-observed`. An attempted request that fails still appears as `unavailable`. A new PDF URL can appear alongside the missing one. Verify whether the bank replaced the edition before updating any fee. The regression test covers a rotated supplemental PDF and preserves the unknown fee state. Node 24 verification uses `npm run verify:agent`.
 
 The GitHub run summary groups extracted value changes first, then source gaps and document-only changes. Missing values read “unconfirmed,” including when the other value is a published zero. Download the JSON artifact for the source URLs and full report. The same CLI accepts an optional Markdown summary path after the two indexes.
+
+The summary uses registered bank names, fee labels with units and exact UTC scan timestamps. The JSON keeps stable bank and field IDs for automated consumers. The report test covers same-day scans and a per-account renewal amount.
