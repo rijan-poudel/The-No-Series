@@ -20,3 +20,5 @@ The first screen offers Compare banks, Use my bank and Find a feature. Compare k
 ## Tariff reading
 
 The homepage starts with a single bank search. The directory renders no banks until the reader searches and shows at most six matches. A bank page explains the charges from an identified product and tariff edition. The catch stays visible and the underlying evidence opens on request. NMB section 2.17 is the first decoded card tariff.
+
+The homepage also offers a collapsed feature path for readers who have yet to choose a bank. They can open deposit or dollar-card comparisons without selecting an institution first. The header wordmark reads No.

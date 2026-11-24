@@ -1585,3 +1585,31 @@ html[lang="ne"] .bank-directory h1 {
   border-radius: 12px;
   padding: 14px 16px;
 }
+
+.feature-disclosure {
+  margin-top: clamp(22px, 5vw, 38px);
+  border-top: 1px solid var(--rule);
+}
+.feature-disclosure > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 52px;
+  color: var(--forest);
+  font-weight: 650;
+  cursor: pointer;
+  list-style: none;
+}
+.feature-disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+.feature-disclosure[open] > summary svg {
+  transform: rotate(180deg);
+}
+.feature-disclosure .intent-links {
+  padding-inline-start: 12px;
+}
+.quiet-brand {
+  letter-spacing: -0.045em;
+}

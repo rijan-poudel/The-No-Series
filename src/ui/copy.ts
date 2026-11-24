@@ -6,6 +6,9 @@ export const isLocale = (input: string): input is Locale =>
 export const intlLocale = (locale: Locale) =>
   locale === "ne" ? "ne-NP-u-nu-deva" : "en-IN";
 const words = {
+  exploreFeatures: ["Explore by feature", "सुविधाअनुसार हेर्नुहोस्"],
+  dollarCardFees: ["Dollar card fees", "डलर कार्डको शुल्क"],
+
   decodeTariff: [
     "Understand your bank’s fees.",
     "आफ्नो बैंकको शुल्क बुझ्नुहोस्।",

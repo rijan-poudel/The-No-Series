@@ -35,7 +35,12 @@ test("discovery leads to the catch, a scoped deposit pick, then evidence", async
   ).toBeVisible();
   await expect(page.locator("main").getByRole("link")).toHaveCount(0);
   await accessibility(page);
-  await page.goto("/en/money/fixed-deposits");
+  await expect(page.locator(".quiet-brand")).toHaveText("No");
+  await page.getByText("Explore by feature", { exact: true }).click();
+  await expect(
+    page.getByRole("link", { name: "Dollar card fees" }),
+  ).toBeVisible();
+  await page.getByRole("link", { name: "Fixed deposits" }).click();
   await expect(page.getByRole("heading", { name: /The catch/i })).toBeVisible();
   await expect(page.getByRole("article")).toHaveCount(0);
   await expect(page.getByRole("textbox")).toHaveCount(0);

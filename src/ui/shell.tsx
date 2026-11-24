@@ -40,7 +40,7 @@ export function SiteShell({
             className="quiet-brand"
             aria-label={t(locale, "home")}
           >
-            <span aria-hidden="true">no.</span>
+            <span aria-hidden="true">No</span>
           </Link>
           <details className="utility-menu" key={current}>
             <summary aria-label={t(locale, "menu")}>
