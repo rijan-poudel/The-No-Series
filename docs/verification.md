@@ -47,3 +47,5 @@ The review starts at the homepage and follows a 12-month deposit with interest a
 Local verification used Node 24.22.3 and the release checks. Both browser suites stopped before navigation when the workspace denied the local listening ports. Browser screenshots, keyboard focus, reduced motion and mobile placement for this revision still need a browser-enabled run.
 
 The visual-review browser suite now also checks that the selected editorial webfont loads in each language. The demo artifacts include a standalone lead-card image. The 390 × 844 default controls, fully visible submit action and keyboard focus checks continue to cover the Nepali form.
+
+The screenshot suite captures the English and Nepali homepage at 1366 × 900 and 390 × 844, verifies the 690 px shared column at 1024, 1366 and 1920 px, and checks the Nepali result against its ISO verification date. Date regression tests cover the published Mangsir boundary and the Gregorian fallback past the converter’s range.

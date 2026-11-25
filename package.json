@@ -35,7 +35,8 @@
     "next": "15.5.25",
     "react": "19.3.0",
     "react-dom": "19.3.0",
-    "zod": "3.25.76"
+    "zod": "3.25.76",
+    "@inicrea/bikram-sambat-core": "0.1.3"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",

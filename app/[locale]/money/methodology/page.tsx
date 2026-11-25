@@ -41,6 +41,7 @@ export default async function Methodology({
         <section key={section}>
           <h2>{t(locale, section)}</h2>
           <p>{t(locale, `${section}Text`)}</p>
+          {section === "methodFresh" && <p>{t(locale, "dateBasis")}</p>}
         </section>
       ))}
       <Link className="trust-link" href={moneyPath(locale) + "/coverage"}>
