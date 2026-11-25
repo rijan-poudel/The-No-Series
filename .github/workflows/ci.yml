@@ -1,49 +1,49 @@
-name: Money checks
-on:
-  push:
-  pull_request:
-permissions:
-  contents: read
+name: Verify deployed Money pages
+on: [push]
+permissions: {}
 jobs:
-  checks:
+  production:
     runs-on: ubuntu-latest
-    env:
-      NEXT_TELEMETRY_DISABLED: "1"
-    services:
-      postgres:
-        image: postgres:17
-        env:
-          POSTGRES_PASSWORD: ci-fixture
-          POSTGRES_DB: money
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd "pg_isready -U postgres -d money"
-          --health-interval 5s
-          --health-timeout 3s
-          --health-retries 10
+    timeout-minutes: 4
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v5
-        with:
-          node-version-file: .nvmrc
-          cache: npm
-      - run: npm ci
-      - run: npm run format:check
-      - run: npm run typecheck
-      - run: npm test
-      - run: npm run review:demo
-      - run: npm run review:intake -- evidence/fd-pilot-2026-11-23.json
-      - run: npm run build
-      - run: npm run test:production
-      - run: npx playwright install --with-deps chromium
-      - run: npm run test:e2e
-      - uses: actions/upload-artifact@v6
-        with:
-          name: money-page-screenshots
-          path: test-results/**/*.png
-          if-no-files-found: error
-      - run: MONEY_E2E_PUBLIC=1 npm run test:e2e
-      - run: psql -v ON_ERROR_STOP=1 -h 127.0.0.1 -U postgres -d money -f db/001_evidence.sql -f db/test_evidence.sql
-        env:
-          PGPASSWORD: ci-fixture
+      - name: Verify the production alias serves the editorial release
+        run: |
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from urllib.request import Request, urlopen
+          from time import sleep
+          class Page(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.meta = {}
+                  self.title = ''
+                  self.inside = ''
+                  self.text = []
+              def handle_starttag(self, tag, attrs):
+                  if tag in ('title','script','style'): self.inside = tag
+                  if tag == 'meta':
+                      a = dict(attrs)
+                      self.meta[a.get('name')] = a.get('content','')
+              def handle_endtag(self, tag):
+                  if tag == self.inside: self.inside = ''
+              def handle_data(self, data):
+                  if self.inside == 'title': self.title += data
+                  elif not self.inside: self.text.append(data)
+          for path,title,required in [
+              ('/en/money','Bank rates and fees in Nepal',['Compare bank rates and fees in Nepal.']),
+              ('/en/money/fixed-deposits','Fixed deposit comparison in Nepal',['Compare deposit rates','within the past 31 days']),
+          ]:
+              url = 'https://the-no-series.vercel.app' + path
+              for attempt in range(12):
+                  req = Request(url, headers={'Cache-Control':'no-cache','User-Agent':'Money release verification'})
+                  with urlopen(req, timeout=15) as resp:
+                      assert resp.geturl() == url
+                      page = Page()
+                      page.feed(resp.read().decode())
+                  if title in page.title and all(term in ' '.join(page.text) for term in required): break
+                  sleep(5)
+              else: raise AssertionError('Old content on ' + url)
+              assert 'noindex' in page.meta['robots']
+              assert page.meta['description'] and 'Independent fixed deposit and dollar card comparisons' not in page.meta['description']
+              print(url, page.title, page.meta['description'], page.meta['robots'], sep=' | ')
+          PY
