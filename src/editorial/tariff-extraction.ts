@@ -144,3 +144,54 @@ export function extractGlobalImeCardFees(text: string) {
     globalCounterTopUpNpr: counter[0][1],
   };
 }
+
+// Scope PIN fees to Omni Banking. Corporate e-banking has its own reset fee.
+export function extractEverestMobileFees(html: string) {
+  const rows = [...html.matchAll(/<tr\b[^>]*>([\s\S]*?)<\/tr>/giu)].map(
+    ([, row]) =>
+      [...row.matchAll(/<td\b[^>]*>([\s\S]*?)<\/td>/giu)].map(([, cell]) =>
+        cell
+          .replace(/<[^>]*>/gu, " ")
+          .replace(/&nbsp;|&#160;/giu, " ")
+          .replace(/&#8211;|&ndash;/giu, "–")
+          .replace(/\s+/gu, " ")
+          .trim(),
+      ),
+  );
+  const start = rows.findIndex(([heading]) => heading === "MBanking section:");
+  const end = rows.findIndex(
+    ([heading], i) => i > start && heading === "QR Services:",
+  );
+  if (
+    start < 0 ||
+    end < 0 ||
+    rows.filter(([heading]) => heading === "MBanking section:").length !== 1
+  )
+    return null;
+
+  const section = rows.slice(start + 1, end);
+  if (section[0]?.[0] !== "OMNI BANKING") return null;
+  const resetRows = section.filter(([label]) => label === "Repin generation");
+  if (resetRows.length !== 2 || resetRows.some((row) => row.length !== 2))
+    return null;
+
+  function read(prefix: string, amount: RegExp) {
+    const rows = resetRows.filter(([, fee]) => fee.startsWith(prefix));
+    if (rows.length !== 1) return undefined;
+    const match = amount.exec(rows[0][1]);
+    return match ? (match[1] ?? "0") : undefined;
+  }
+
+  const everestSelfPinResetNpr = read(
+    "Self Reset",
+    /^Self Reset\s*[–-]\s*(?:Free|Rs\.?\s*(\d+)\/-)$/u,
+  );
+  const everestBranchPinResetNpr = read(
+    "Branch Service",
+    /^Branch Service\s*:\s*Rs\.?\s*(\d+)\/-$/u,
+  );
+  return everestSelfPinResetNpr !== undefined &&
+    everestBranchPinResetNpr !== undefined
+    ? { everestSelfPinResetNpr, everestBranchPinResetNpr }
+    : null;
+}

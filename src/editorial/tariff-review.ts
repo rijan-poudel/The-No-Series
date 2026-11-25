@@ -150,6 +150,8 @@ const fieldLabels = new Map([
   ["registrationNpr", "Mobile banking registration per account (NPR)"],
   ["renewalNpr", "Mobile banking renewal per account (NPR)"],
   ["renewalYears", "Mobile banking renewal period (years)"],
+  ["everestSelfPinResetNpr", "Omni Banking self-service PIN reset (NPR)"],
+  ["everestBranchPinResetNpr", "Omni Banking branch PIN reset (NPR)"],
   ["pinResetNpr", "Mobile banking PIN reset (NPR)"],
   ["globalVirtualIssuanceNpr", "Global E-Com virtual card issuance (NPR)"],
   ["globalPhysicalIssuanceNpr", "Global E-Com physical card issuance (NPR)"],

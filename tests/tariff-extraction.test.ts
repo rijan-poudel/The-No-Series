@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import {
   extractEverestCardFees,
+  extractEverestMobileFees,
   extractGlobalImeCardFees,
   extractSbiMobileFees,
 } from "../src/editorial/tariff-extraction.ts";
@@ -120,4 +121,24 @@ test("checks the personal card column and counter footnote without inferring an 
     extractGlobalImeCardFees(text.replace("over the counter", "via app")),
     null,
   );
+});
+
+test("reads Everest Omni Banking reset channels independently", () => {
+  const html = `<table>
+    <tr><td>Reset / Repin generation</td><td>Rs. 19/-</td></tr>
+    <tr><td>MBanking section:</td></tr>
+    <tr><td>OMNI BANKING</td><td>Corporate</td><td>Rs. 88/-</td></tr>
+    <tr><td>Repin generation</td><td>Self Reset &#8211; Free</td></tr>
+    <tr><td>Repin generation</td><td>Branch Service : Rs. 12/-</td></tr>
+    <tr><td>QR Services:</td></tr>
+  </table>`;
+  assert.deepEqual(extractEverestMobileFees(html), {
+    everestSelfPinResetNpr: "0",
+    everestBranchPinResetNpr: "12",
+  });
+  assert.equal(
+    extractEverestMobileFees(html.replace("Branch Service", "Other Service")),
+    null,
+  );
+  assert.equal(extractEverestMobileFees(html + html), null);
 });

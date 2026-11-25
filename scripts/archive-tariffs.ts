@@ -8,6 +8,7 @@ import {
 } from "../src/editorial/tariff-links.ts";
 import {
   extractEverestCardFees,
+  extractEverestMobileFees,
   extractGlobalImeCardFees,
   extractSbiMobileFees,
   extractNepalMobileFees,
@@ -41,6 +42,7 @@ type Capture =
         | ReturnType<typeof extractGlobalImeCardFees>;
       mobileCandidate?:
         | ReturnType<typeof extractNepalMobileFees>
+        | ReturnType<typeof extractEverestMobileFees>
         | ReturnType<typeof extractSbiMobileFees>;
       documentCandidates?: ReturnType<typeof tariffDocumentCandidates>;
     };
@@ -120,10 +122,12 @@ async function archive(
       mobileCandidate:
         bank.id === "nepal" && mime === "text/html"
           ? extractNepalMobileFees(data.toString("utf8"))
-          : url === supplementalTariffs["nepal-sbi"] &&
-              mime === "application/pdf"
-            ? await readTariffPdf(file, extractSbiMobileFees)
-            : undefined,
+          : url === tariffCatalog.everest && mime === "text/html"
+            ? extractEverestMobileFees(data.toString("utf8"))
+            : url === supplementalTariffs["nepal-sbi"] &&
+                mime === "application/pdf"
+              ? await readTariffPdf(file, extractSbiMobileFees)
+              : undefined,
       documentCandidates,
     };
   } catch {
