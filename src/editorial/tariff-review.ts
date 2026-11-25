@@ -46,6 +46,7 @@ export function tariffReview(previous: Index, current: Index) {
     "facts-changed": 0,
     "facts-found": 0,
     "extraction-lost": 0,
+    "extraction-unconfirmed": 0,
     "document-changed": 0,
     "new-document": 0,
     "not-observed": 0,
@@ -85,6 +86,8 @@ export function tariffReview(previous: Index, current: Index) {
       else if (source.status !== "captured") status = "unavailable";
       else if (Object.keys(before).length && !Object.keys(after).length)
         status = "extraction-lost";
+      else if (source.candidate === null || source.mobileCandidate === null)
+        status = "extraction-unconfirmed";
       else if (changedFacts.length)
         status = Object.keys(before).length ? "facts-changed" : "facts-found";
       else if (!prior?.hash) status = "new-document";
@@ -123,7 +126,13 @@ const reviewSections = [
   ["Extracted values to check", ["facts-changed", "facts-found"]],
   [
     "Sources to recheck",
-    ["extraction-lost", "not-observed", "unavailable", "needs-source"],
+    [
+      "extraction-lost",
+      "extraction-unconfirmed",
+      "not-observed",
+      "unavailable",
+      "needs-source",
+    ],
   ],
   ["Documents to inspect", ["document-changed", "new-document"]],
 ] as const;

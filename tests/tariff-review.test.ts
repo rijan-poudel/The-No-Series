@@ -132,3 +132,18 @@ test("labels bank names, units and exact scan timestamps in the summary", () => 
   assert.ok(summary.includes(current.observedAt));
   assert.ok(summary.includes(prior.observedAt));
 });
+
+test("flags an unsuccessful first extraction independently of document capture", () => {
+  const current = index([
+    { bank: "a", url, status: "captured", hash: "a", mobileCandidate: null },
+    { bank: "b", url, status: "captured", hash: "b" },
+    { bank: "c", url, status: "unavailable" },
+  ]);
+  const report = tariffReview(index([]), current);
+  assert.deepEqual(
+    report.changes.map(({ status }) => status),
+    ["extraction-unconfirmed", "new-document", "unavailable"],
+  );
+  assert.deepEqual(report.changes[0].changedFacts, []);
+  assert.match(tariffReviewSummary(report), /extraction unconfirmed/u);
+});
