@@ -49,6 +49,7 @@ type Reviewed = ReturnType<typeof reviewedOffers>[number];
 type Pick = Omit<Reviewed, "reason" | "institution"> & {
   institution: NonNullable<Reviewed["institution"]>;
   value: string;
+  verified: string | undefined;
   keyCitations: readonly string[];
 };
 
@@ -58,6 +59,12 @@ export function editorialPicks(
   clock: Date,
 ) {
   const date = nepalDate(clock);
+  const verifiedOn = (ids: readonly string[]) =>
+    release.citations
+      .filter((source) => ids.includes(source.id))
+      .map((source) => source.verified)
+      .sort()
+      .at(0);
   const pool = release.offers.filter(
     (offer) => offer.product === priority.product,
   );
@@ -89,6 +96,7 @@ export function editorialPicks(
             institution,
             evidence,
             value: offer.rate.value,
+            verified: verifiedOn(offer.rate.citations),
             keyCitations: [...offer.rate.citations, ...offer.catch.citations],
           },
         ];
@@ -112,6 +120,7 @@ export function editorialPicks(
               institution,
               evidence,
               value,
+              verified: verifiedOn(fee.citations),
               keyCitations: [...fee.citations, ...offer.catch.citations],
             },
           ]

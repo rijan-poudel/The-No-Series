@@ -10,7 +10,7 @@ Use the supplied digital scrapbook reference for warm paper, serif headlines, mu
 
 - Fixed deposits compare the advertised annual rate at the selected term and payout schedule for personal NPR deposits. Show the qualifying deposit band with each pick. Readers never submit a deposit amount. These rankings answer a rate question and do not estimate earnings.
 - Dollar cards compare one chosen flat NPR fee for the selected card type. Show any required bank account. Withhold ranking for missing or amount-dependent fees. Each result concerns that fee only. The source disclosure includes the official bank link when the pick has a reviewed institution URL. Coverage remains available in the footer.
-- Open the first source disclosure to see evidence for the chosen rate or fee and the catch. Keep eligibility and other supporting terms under a second disclosure. Ties share the lead. Keep alternatives collapsed. Shared verification excludes revoked, stale, conflicting and unsupported records. Empty coverage has no pick.
+- Open the first source disclosure to see evidence for the chosen rate or fee and the catch. Keep eligibility and other supporting terms under a second disclosure. Ties share the lead. Show the first two runners-up and fold any remaining alternatives. Shared verification excludes revoked, stale, conflicting and unsupported records. Empty coverage has no pick.
 - Old browser comparison URLs lead to the category guide. The existing comparison API and local calculation commands remain available for internal verification and existing callers.
 
 ## Task-first navigation
@@ -21,10 +21,12 @@ The first screen offers Compare banks, Use my bank and Find a feature. Compare k
 
 The homepage starts with a single bank search. The directory renders no banks until the reader searches and shows at most six matches. A bank page explains the charges from an identified product and tariff edition. The catch stays visible and the underlying evidence opens on request. NMB section 2.17 is the first decoded card tariff.
 
-The homepage also offers a collapsed feature path for readers who have yet to choose a bank. They can open deposit or dollar-card comparisons without selecting an institution first. The header wordmark reads No.
+The homepage also offers three visible feature links for readers who have yet to choose a bank. They can open deposit or dollar-card comparisons without selecting an institution first. The header wordmark reads No.
 
 The No wordmark uses heavy white lettering on the blue brand stamp. Primary actions, selected controls and keyboard focus share that blue. The link retains its localized Home label and a 44 px minimum target height.
 
 Fixed-deposit results show sourced advertised rates inline when a reviewed pick is unavailable. The notice rate applies to the selected term. Payout and withdrawal terms still need separate confirmation.
 
 The bilingual homepage introduces rates and fees together, then leads to a bank profile or a feature guide. The footer identifies editorial independence. The FD guide opens with early withdrawal, defaults to 12 months at maturity and states the verification window beside the action. Only ranked picks carry that assurance. Published notices and dated tariff readings retain their separate evidence labels. Page titles and descriptions follow the route and language. Review indexing at public launch.
+
+English headings use self-hosted Instrument Serif and Nepali headings use self-hosted Tiro Devanagari Hindi. The lead figure, bank name, applicable conditions and verification date appear together. The verification date is the oldest verification among the citations for that figure. Every demo card carries its own fictional-data label, including alternatives. Coverage and Methodology are in the footer, and the header language switch preserves the current route and query.

@@ -35,10 +35,9 @@ test("discovery leads to the catch, a scoped deposit pick, then evidence", async
       name: "Compare bank rates and fees in Nepal.",
     }),
   ).toBeVisible();
-  await expect(page.locator("main").getByRole("link")).toHaveCount(0);
+  await expect(page.locator("main").getByRole("link")).toHaveCount(3);
   await accessibility(page);
   await expect(page.locator(".quiet-brand")).toHaveText("No");
-  await page.getByText("Explore by feature", { exact: true }).click();
   await expect(
     page.getByRole("link", { name: "Dollar card fees" }),
   ).toBeVisible();
@@ -50,11 +49,11 @@ test("discovery leads to the catch, a scoped deposit pick, then evidence", async
   await expect(
     page.getByRole("heading", { name: "Highest advertised rate" }),
   ).toBeVisible();
-  await expect(page.getByRole("article").filter({ visible: true })).toHaveCount(
-    1,
-  );
-  await expect(page.getByText(/fictional data/i)).toBeVisible();
+  await expect(page.locator(".paper-picks > article")).toHaveCount(1);
+  await expect(page.locator(".runners > article").first()).toBeVisible();
   const top = page.getByRole("article").filter({ visible: true }).first();
+  await expect(top.getByText(/fictional data/i)).toBeVisible();
+  await expect(top.locator("time[datetime]")).toBeVisible();
   await expect(top.getByText(/Deposit from.*Up to/)).toBeVisible();
   await expect(
     top.getByRole("link", { name: "Visit official institution site" }),
@@ -93,7 +92,6 @@ test("Nepali mobile retains the selected term and offers a clear empty state", a
   await expect(
     page.getByRole("heading", { name: "तपाईंको छनोटका विकल्पहरू" }),
   ).toBeVisible();
-  await page.getByLabel("मेनु").click();
   await page.getByRole("link", { name: "English" }).click();
   await expect(page).toHaveURL(/\/en\/money\/fixed-deposits\?term=3/);
   await page.getByText("Change your choice").click();
@@ -152,14 +150,38 @@ test("capture the homepage, fictional deposit result and Nepali mobile form", as
 }, info) => {
   async function capture(name: string) {
     await page.evaluate(() => document.fonts.ready);
+    const font = await page.locator("h1").evaluate((heading) => {
+      const family = getComputedStyle(heading)
+        .fontFamily.split(",")[0]
+        .replace(/["']/g, "")
+        .trim();
+      return {
+        family,
+        loaded: [...document.fonts].some(
+          (face) =>
+            face.family.replace(/["']/g, "") === family &&
+            face.status === "loaded",
+        ),
+      };
+    });
+    expect(font).toEqual({
+      family: name.startsWith("mobile-ne")
+        ? "Tiro Devanagari Hindi"
+        : "Instrument Serif",
+      loaded: true,
+    });
     await page.screenshot({ path: info.outputPath(name + ".png") });
   }
   await page.setViewportSize({ width: 1366, height: 900 });
   await page.goto("/en/money");
   await capture("home");
   await page.goto("/en/money/fixed-deposits?term=12&payout=maturity");
-  await expect(page.getByText(/fictional data/i)).toBeVisible();
+  await expect(page.getByText(/fictional data/i).first()).toBeVisible();
   await capture("demo-fd-results");
+  await page
+    .locator(".paper-picks > article")
+    .first()
+    .screenshot({ path: info.outputPath("demo-fd-card.png") });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/ne/money/fixed-deposits");
@@ -176,7 +198,7 @@ test("capture the homepage, fictional deposit result and Nepali mobile form", as
   await expect(payout).toBeChecked();
   await expect(submit).toBeInViewport({ ratio: 1 });
   await capture("mobile-ne");
-  await page.locator(".utility-menu summary").focus();
+  await page.locator("header a[hreflang]").focus();
   await page.keyboard.press("Tab");
   await expect(term).toBeFocused();
   await expect(term.locator("+ span")).toHaveCSS("outline-style", "solid");

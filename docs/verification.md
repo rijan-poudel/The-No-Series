@@ -45,3 +45,5 @@ The production build, 35 automated tests, five compiled production checks and th
 The review starts at the homepage and follows a 12-month deposit with interest at maturity. The production render checks cover localized metadata, the independence footer, noindex and fixture isolation. The demo browser suite now captures the English homepage, fictional FD results and a Nepali 390 × 844 form. It checks that both selected controls appear in the mobile viewport. CI retains the PNGs in the money-page-screenshots artifact.
 
 Local verification used Node 24.22.3 and the release checks. Both browser suites stopped before navigation when the workspace denied the local listening ports. Browser screenshots, keyboard focus, reduced motion and mobile placement for this revision still need a browser-enabled run.
+
+The visual-review browser suite now also checks that the selected editorial webfont loads in each language. The demo artifacts include a standalone lead-card image. The 390 × 844 default controls, fully visible submit action and keyboard focus checks continue to cover the Nepali form.
