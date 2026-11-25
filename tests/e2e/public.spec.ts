@@ -40,7 +40,20 @@ test("production ignores the demo flag and stays private and unseeded", async ({
     .click();
   await expect(page.getByText("Each payment", { exact: true })).toBeVisible();
   await expect(
-    page.getByText("Minimum USD 1.00", { exact: true }),
+    page
+      .locator(".decoded-card-list")
+      .getByText("Minimum USD 1.00", { exact: true }),
+  ).toBeVisible();
+  await page.getByText("Compare charges", { exact: true }).focus();
+  await page.keyboard.press("Enter");
+  await page.getByText("Reload", { exact: true }).click();
+  await expect(page.getByText("Counter only", { exact: true })).toBeVisible();
+  await expect(
+    page.getByText("Includes the first load", { exact: true }),
+  ).toBeVisible();
+  await page.getByText("Renewal", { exact: true }).click();
+  await expect(
+    page.getByText("Virtual · renewal or replacement", { exact: true }).first(),
   ).toBeVisible();
   await page.goto("/en/money/banks");
   await expect(page.locator(".bank-list")).toHaveCount(0);
@@ -120,6 +133,15 @@ test("production ignores the demo flag and stays private and unseeded", async ({
     .getByText("पिन रिसेट शुल्क तुलना गर्नुहोस्", { exact: true })
     .click();
   await expect(page.getByText("रिसेट गर्ने तरिका खुलाइएको छैन")).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(
+    360,
+  );
+  await page.goto("/ne/money/dollar-cards");
+  await page.getByText("शुल्क तुलना गर्नुहोस्", { exact: true }).click();
+  await page.getByText("रकम थप्दा", { exact: true }).click();
+  await expect(
+    page.getByText("काउन्टरमा मात्र", { exact: true }),
+  ).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(
     360,
   );

@@ -1,6 +1,24 @@
 import type { Copy } from "../domain/model.ts";
 
+export const cardFeeEvents = [
+  "issuance",
+  "reload",
+  "payment",
+  "renewal",
+] as const;
+
 type TariffCharge = {
+  cardFee?: {
+    event: (typeof cardFeeEvents)[number];
+    scope?:
+      | "virtual"
+      | "physical"
+      | "counter"
+      | "firstLoad"
+      | "crossBorder"
+      | "virtualReplacement"
+      | "physicalReplacement";
+  };
   event: Copy;
   unit: "NPR" | "USD" | "percent";
   minimumUsd?: string;
@@ -34,16 +52,19 @@ export const tariffReadings: Partial<Record<string, TariffReading>> = {
     charges: [
       {
         event: { en: "When you get the card", ne: "कार्ड लिँदा" },
+        cardFee: { event: "issuance" },
         unit: "NPR",
         value: "500",
       },
       {
         event: { en: "Each time you add funds", ne: "हरेक पटक रकम थप्दा" },
+        cardFee: { event: "reload" },
         unit: "NPR",
         value: "500",
       },
       {
         event: { en: "Cross-border transaction", ne: "सीमापार कारोबार" },
+        cardFee: { event: "payment", scope: "crossBorder" },
         unit: "percent",
         value: "1",
       },
@@ -65,6 +86,7 @@ export const tariffReadings: Partial<Record<string, TariffReading>> = {
     charges: [
       {
         event: { en: "When you get the card", ne: "कार्ड लिँदा" },
+        cardFee: { event: "issuance" },
         unit: "NPR",
         value: "1000",
       },
@@ -73,6 +95,7 @@ export const tariffReadings: Partial<Record<string, TariffReading>> = {
           en: "Each load, including the first",
           ne: "पहिलोसहित हरेक पटक रकम थप्दा",
         },
+        cardFee: { event: "reload", scope: "firstLoad" },
         unit: "NPR",
         value: "500",
       },
@@ -81,11 +104,13 @@ export const tariffReadings: Partial<Record<string, TariffReading>> = {
           en: "Transaction fee in the tariff",
           ne: "शुल्क सूचीअनुसार कारोबार शुल्क",
         },
+        cardFee: { event: "payment" },
         unit: "NPR",
         value: "0",
       },
       {
         event: { en: "Card renewal", ne: "कार्ड नवीकरण" },
+        cardFee: { event: "renewal" },
         unit: "NPR",
         value: "1000",
       },
@@ -108,21 +133,25 @@ export const tariffReadings: Partial<Record<string, TariffReading>> = {
     charges: [
       {
         event: { en: "Virtual card issuance", ne: "भर्चुअल कार्ड जारी" },
+        cardFee: { event: "issuance", scope: "virtual" },
         unit: "USD",
         value: "5",
       },
       {
         event: { en: "Physical card issuance", ne: "भौतिक कार्ड जारी" },
+        cardFee: { event: "issuance", scope: "physical" },
         unit: "USD",
         value: "10",
       },
       {
         event: { en: "Add or reload funds", ne: "रकम राख्दा वा थप्दा" },
+        cardFee: { event: "reload" },
         unit: "USD",
         value: "0",
       },
       {
         event: { en: "Each payment", ne: "हरेक भुक्तानीमा" },
+        cardFee: { event: "payment" },
         unit: "percent",
         value: "1.50",
         minimumUsd: "1",
@@ -137,6 +166,7 @@ export const tariffReadings: Partial<Record<string, TariffReading>> = {
           en: "Virtual renewal or replacement",
           ne: "भर्चुअल कार्ड नवीकरण वा प्रतिस्थापन",
         },
+        cardFee: { event: "renewal", scope: "virtualReplacement" },
         unit: "USD",
         value: "5",
       },
@@ -145,6 +175,7 @@ export const tariffReadings: Partial<Record<string, TariffReading>> = {
           en: "Physical renewal or replacement",
           ne: "भौतिक कार्ड नवीकरण वा प्रतिस्थापन",
         },
+        cardFee: { event: "renewal", scope: "physicalReplacement" },
         unit: "USD",
         value: "10",
       },
@@ -168,11 +199,13 @@ export const tariffReadings: Partial<Record<string, TariffReading>> = {
     charges: [
       {
         event: { en: "Virtual card issuance", ne: "भर्चुअल कार्ड जारी" },
+        cardFee: { event: "issuance", scope: "virtual" },
         unit: "NPR",
         value: "500",
       },
       {
         event: { en: "Physical card issuance", ne: "भौतिक कार्ड जारी" },
+        cardFee: { event: "issuance", scope: "physical" },
         unit: "NPR",
         value: "600",
       },
@@ -181,6 +214,7 @@ export const tariffReadings: Partial<Record<string, TariffReading>> = {
           en: "Each top-up or withdrawal at the counter",
           ne: "काउन्टरबाट हरेक पटक रकम थप्दा वा निकाल्दा",
         },
+        cardFee: { event: "reload", scope: "counter" },
         unit: "NPR",
         value: "100",
       },
@@ -189,6 +223,7 @@ export const tariffReadings: Partial<Record<string, TariffReading>> = {
           en: "Virtual renewal or replacement",
           ne: "भर्चुअल कार्ड नवीकरण वा प्रतिस्थापन",
         },
+        cardFee: { event: "renewal", scope: "virtualReplacement" },
         unit: "NPR",
         value: "500",
       },
@@ -197,6 +232,7 @@ export const tariffReadings: Partial<Record<string, TariffReading>> = {
           en: "Physical renewal or replacement",
           ne: "भौतिक कार्ड नवीकरण वा प्रतिस्थापन",
         },
+        cardFee: { event: "renewal", scope: "physicalReplacement" },
         unit: "NPR",
         value: "600",
       },

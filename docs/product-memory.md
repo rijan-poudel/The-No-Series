@@ -28,3 +28,7 @@ The PIN reset comparison passed the production checks and both Chromium suites, 
 Bank names in the mobile banking comparisons link to the corresponding breakdown on the same page. Opening a comparison link reveals the bank details and keeps the official reference behind Sources.
 
 The production checks and both Chromium suites passed. The public test verifies that a keyboard-activated comparison link opens the bank breakdown and places focus on its heading.
+
+The dollar-card guide groups reviewed readings by issuance, reload, payment and renewal in a folded comparison. The fee event stays attached to its application scope, native currency and any minimum. A renewal charge does not establish an annual billing cycle. Readers can open the bank breakdown for source and product terms.
+
+Research priorities came from reports of branch-only loading, contradictory renewal prices and unexpected payment fees. Treat these threads as question discovery. Carry the same structure into savings and ATM research by separating an opening deposit from an ongoing minimum balance, and an own-bank ATM withdrawal from another bank's ATM withdrawal. Credit-card research should separate annual fees, late-payment fees and interest. Fixed-deposit comparisons need the published term and withdrawal rule before interpreting the rate. [Dollar card discussion](https://www.reddit.com/r/technepal/comments/1vv38hx/anyone_here_who_uses_ecom_carddollar_card_of/) · [Hidden-fee discussion](https://www.reddit.com/r/Nepal/comments/1edxn5x)

@@ -1,6 +1,6 @@
 import { noticeBanks } from "../editorial/live-notices";
 import { banks } from "../data/banks";
-import { decodedCardTariffs } from "../data/tariffs";
+import { cardFeeEvents, decodedCardTariffs } from "../data/tariffs";
 import { TariffDetails } from "./tariff-reading";
 import { ChoiceField } from "./choice-field";
 import Link from "next/link";
@@ -123,6 +123,54 @@ function CardSources({
   return (
     <section className="card-sources" id={selected ? "picks" : "fees"}>
       <h2>{t(locale, "decodedCardFees")}</h2>
+      <details className="paper-disclosure">
+        <summary>
+          {t(locale, "compareCardCharges")}
+          <ChevronDown size={16} aria-hidden />
+        </summary>
+        {cardFeeEvents.map((event) => (
+          <details className="paper-disclosure" key={event}>
+            <summary>
+              {t(locale, event === "renewal" ? "cardRenewal" : event)}
+              <ChevronDown size={16} aria-hidden />
+            </summary>
+            {event === "renewal" && <p>{t(locale, "renewalTiming")}</p>}
+            <dl className="line-list tariff-lines">
+              {decodedCardTariffs.map(({ id, reading }) => {
+                const fees = reading.charges.filter(
+                  (charge) => charge.cardFee?.event === event,
+                );
+                return (
+                  <div key={id}>
+                    <dt>{banks.find((bank) => bank.id === id)?.name}</dt>
+                    <dd>
+                      {fees.length === 0 && t(locale, "mobileFeeUnknown")}
+                      {fees.map((fee) => (
+                        <div key={fee.event.en}>
+                          {fee.cardFee?.scope && (
+                            <small>{t(locale, fee.cardFee.scope)}</small>
+                          )}
+                          <span>
+                            {fee.unit === "percent"
+                              ? numberText(locale, fee.value) + "%"
+                              : amountText(locale, fee.value, fee.unit)}
+                          </span>
+                          {fee.minimumUsd && (
+                            <small>
+                              {t(locale, "feeMinimum")}{" "}
+                              {amountText(locale, fee.minimumUsd, "USD")}
+                            </small>
+                          )}
+                        </div>
+                      ))}
+                    </dd>
+                  </div>
+                );
+              })}
+            </dl>
+          </details>
+        ))}
+      </details>
       <div className="decoded-card-list">
         {decodedCardTariffs.map(({ id, reading }) => (
           <details key={id}>

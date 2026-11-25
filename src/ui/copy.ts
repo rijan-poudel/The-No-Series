@@ -22,6 +22,25 @@ const words = {
   mobileFeeUnknown: ["Unconfirmed", "पुष्टि भएको छैन"],
   mobileBankingFees: ["Mobile banking fees", "मोबाइल बैंकिङ शुल्क"],
 
+  compareCardCharges: ["Compare charges", "शुल्क तुलना गर्नुहोस्"],
+  reload: ["Reload", "रकम थप्दा"],
+  payment: ["Payment", "भुक्तानी"],
+  cardRenewal: ["Renewal", "नवीकरण"],
+  counter: ["Counter only", "काउन्टरमा मात्र"],
+  firstLoad: ["Includes the first load", "पहिलो पटक रकम थप्दा पनि"],
+  crossBorder: ["Cross-border transactions", "सीमापार कारोबार"],
+  virtualReplacement: [
+    "Virtual · renewal or replacement",
+    "भर्चुअल · नवीकरण वा प्रतिस्थापन",
+  ],
+  physicalReplacement: [
+    "Physical · renewal or replacement",
+    "भौतिक · नवीकरण वा प्रतिस्थापन",
+  ],
+  renewalTiming: [
+    "A renewal fee applies when the card is renewed. Check the bank’s validity and terms below.",
+    "कार्ड नवीकरण गर्दा नवीकरण शुल्क लाग्छ। बैंकको मान्य अवधि र सर्तहरू तल हेर्नुहोस्।",
+  ],
   decodedCardFees: ["Dollar card fees by bank", "बैंकअनुसार डलर कार्ड शुल्क"],
   feeMinimum: ["Minimum", "न्यूनतम"],
 
