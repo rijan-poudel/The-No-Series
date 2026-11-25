@@ -15,6 +15,8 @@ import {
   tariffCatalog,
 } from "../src/data/tariff-catalog.ts";
 
+import { readSbiMobilePdf } from "../src/editorial/tariff-pdf.ts";
+
 const directory = "evidence/stc-archive";
 const maxBytes = 12 * 1024 * 1024;
 
@@ -33,7 +35,9 @@ type Capture =
       hash: string;
       size: number;
       candidate?: ReturnType<typeof extractEverestCardFees>;
-      mobileCandidate?: ReturnType<typeof extractNepalMobileFees>;
+      mobileCandidate?:
+        | ReturnType<typeof extractNepalMobileFees>
+        | Awaited<ReturnType<typeof readSbiMobilePdf>>;
       documentCandidates?: ReturnType<typeof tariffDocumentCandidates>;
     };
 
@@ -109,7 +113,10 @@ async function archive(
       mobileCandidate:
         bank.id === "nepal" && mime === "text/html"
           ? extractNepalMobileFees(data.toString("utf8"))
-          : undefined,
+          : url === supplementalTariffs["nepal-sbi"] &&
+              mime === "application/pdf"
+            ? await readSbiMobilePdf(file)
+            : undefined,
       documentCandidates,
     };
   } catch {

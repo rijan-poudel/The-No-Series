@@ -18,6 +18,8 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
+      - name: Install PDF text reader
+        run: command -v pdftotext || (sudo apt-get update && sudo apt-get install -y poppler-utils)
       - name: Capture sources and compare with the checked-in baseline
         run: |
           mkdir -p tariff-monitor

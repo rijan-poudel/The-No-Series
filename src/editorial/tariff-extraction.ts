@@ -63,3 +63,37 @@ export function extractNepalMobileFees(html: string) {
   });
   return candidates.length === 1 ? candidates[0] : null;
 }
+
+// Read Poppler layout text for the numbered Nepal SBI Yono tariff section.
+export function extractSbiMobileFees(text: string) {
+  const lines = text.split(/\r?\n/u);
+  function fee(section: string, label: string) {
+    const rows = lines.filter((line) =>
+      line.trimStart().startsWith(section + " "),
+    );
+    if (rows.length !== 1) return undefined;
+    const [, category, event, amount] = rows[0].trim().split(/\s{2,}/u);
+    if (category !== "MOBILE BANKING" || event !== label) return undefined;
+    if (amount === "Nil") return "0";
+    return /^NPR (\d+(?:\.\d{2})?)$/u.exec(amount ?? "")?.[1];
+  }
+
+  const sbiRegistrationNpr = fee("30.1", "Mobile Banking Registration");
+  const sbiAnnualNpr = fee("30.2", "Mobile Banking Annual Charge");
+  const sbiPinResetNpr = fee("30.3", "Mobile Banking Re Pin for Yono");
+  const sbiChequeRequestNpr = fee("30.4", "Cheque book request via Yono");
+  if (
+    sbiRegistrationNpr === undefined ||
+    sbiAnnualNpr === undefined ||
+    sbiPinResetNpr === undefined ||
+    sbiChequeRequestNpr === undefined
+  )
+    return null;
+
+  return {
+    sbiRegistrationNpr,
+    sbiAnnualNpr,
+    sbiPinResetNpr,
+    sbiChequeRequestNpr,
+  };
+}

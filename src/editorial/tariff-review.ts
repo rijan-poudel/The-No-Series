@@ -142,6 +142,10 @@ const fieldLabels = new Map([
   ["renewalNpr", "Mobile banking renewal per account (NPR)"],
   ["renewalYears", "Mobile banking renewal period (years)"],
   ["pinResetNpr", "Mobile banking PIN reset (NPR)"],
+  ["sbiRegistrationNpr", "Yono registration (NPR)"],
+  ["sbiAnnualNpr", "Yono annual charge (NPR)"],
+  ["sbiPinResetNpr", "Yono PIN reset (NPR)"],
+  ["sbiChequeRequestNpr", "Yono cheque book request (NPR)"],
 ]);
 
 function markdownText(text: string) {

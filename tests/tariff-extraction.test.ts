@@ -1,6 +1,9 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { extractEverestCardFees } from "../src/editorial/tariff-extraction.ts";
+import {
+  extractEverestCardFees,
+  extractSbiMobileFees,
+} from "../src/editorial/tariff-extraction.ts";
 
 test("extracts exact card fees and declines changed wording", () => {
   const html =
@@ -72,4 +75,22 @@ test("Nepal Bank mobile fees preserve annual and per-account scope", async () =>
     extractNepalMobileFees(table.replaceAll("Per Account", "Per Customer")),
     null,
   );
+});
+
+test("reads scoped PDF tariff rows and preserves explicit zero", () => {
+  const text = [
+    "30.1    MOBILE BANKING    Mobile Banking Registration    Nil",
+    "30.2    MOBILE BANKING    Mobile Banking Annual Charge    NPR 12.00",
+    "30.3    MOBILE BANKING    Mobile Banking Re Pin for Yono    NPR 3",
+    "30.4    MOBILE BANKING    Cheque book request via Yono    Nil",
+  ].join("\n");
+  assert.deepEqual(extractSbiMobileFees(text), {
+    sbiRegistrationNpr: "0",
+    sbiAnnualNpr: "12.00",
+    sbiPinResetNpr: "3",
+    sbiChequeRequestNpr: "0",
+  });
+  assert.equal(extractSbiMobileFees(text.replace("NPR 12.00", "Waived")), null);
+  assert.equal(extractSbiMobileFees(text.replace("30.3", "29.3")), null);
+  assert.equal(extractSbiMobileFees(text + "\n" + text), null);
 });

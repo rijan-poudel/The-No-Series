@@ -42,3 +42,9 @@ A previously captured URL absent from a later scan appears as `not-observed`. An
 The GitHub run summary groups extracted value changes first, then source gaps and document-only changes. Missing values read “unconfirmed,” including when the other value is a published zero. Download the JSON artifact for the source URLs and full report. The same CLI accepts an optional Markdown summary path after the two indexes.
 
 The summary uses registered bank names, fee labels with units and exact UTC scan timestamps. The JSON keeps stable bank and field IDs for automated consumers. The report test covers same-day scans and a per-account renewal amount.
+
+## PDF tariff extraction
+
+The weekly scanner converts the captured, allowlisted Nepal SBI PDF with Poppler and reads rows 30.1–30.4 for Yono registration, annual charge, PIN reset and cheque book requests. Each row must appear exactly once with its expected label and an explicit NPR amount or `Nil`. Unsupported layouts, missing rows and failed conversions leave the candidate unconfirmed. The captured document fingerprint and source URL accompany the candidate in the review artifact. On a workstation, put Poppler's `pdftotext` on the PATH before running `npm run --silent archive:tariffs`. GitHub Actions ensures it is available.
+
+A Reddit discussion surfaced a practical question about recurring fees for both the card and its companion app. The official tariff review keeps those fee events separate. Account-plan waivers and any requirement to subscribe to mobile banking need their own official evidence before anyone can calculate a combined cost. [Reddit discussion](https://www.reddit.com/r/technepal/comments/1ooz5wz) · [Nepal SBI schedule](https://nsbl.statebank/documents/1872337/1875858/Service%2BCharges%2Band%2BFees%2B2026-06-01.pdf/58266e90-6d22-2610-4bff-d2280689ba61?t=1780303766274)
