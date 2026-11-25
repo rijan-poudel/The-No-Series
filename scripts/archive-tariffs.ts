@@ -8,6 +8,8 @@ import {
 } from "../src/editorial/tariff-links.ts";
 import {
   extractEverestCardFees,
+  extractGlobalImeCardFees,
+  extractSbiMobileFees,
   extractNepalMobileFees,
 } from "../src/editorial/tariff-extraction.ts";
 import {
@@ -15,7 +17,7 @@ import {
   tariffCatalog,
 } from "../src/data/tariff-catalog.ts";
 
-import { readSbiMobilePdf } from "../src/editorial/tariff-pdf.ts";
+import { readTariffPdf } from "../src/editorial/tariff-pdf.ts";
 
 const directory = "evidence/stc-archive";
 const maxBytes = 12 * 1024 * 1024;
@@ -34,10 +36,12 @@ type Capture =
       mime: string;
       hash: string;
       size: number;
-      candidate?: ReturnType<typeof extractEverestCardFees>;
+      candidate?:
+        | ReturnType<typeof extractEverestCardFees>
+        | ReturnType<typeof extractGlobalImeCardFees>;
       mobileCandidate?:
         | ReturnType<typeof extractNepalMobileFees>
-        | Awaited<ReturnType<typeof readSbiMobilePdf>>;
+        | ReturnType<typeof extractSbiMobileFees>;
       documentCandidates?: ReturnType<typeof tariffDocumentCandidates>;
     };
 
@@ -102,7 +106,10 @@ async function archive(
     const candidate =
       url === supplementalTariffs.everest && mime === "text/html"
         ? extractEverestCardFees(data.toString("utf8"))
-        : undefined;
+        : url === supplementalTariffs["global-ime"] &&
+            mime === "application/pdf"
+          ? await readTariffPdf(file, extractGlobalImeCardFees)
+          : undefined;
     return {
       ...record,
       mime,
@@ -115,7 +122,7 @@ async function archive(
           ? extractNepalMobileFees(data.toString("utf8"))
           : url === supplementalTariffs["nepal-sbi"] &&
               mime === "application/pdf"
-            ? await readSbiMobilePdf(file)
+            ? await readTariffPdf(file, extractSbiMobileFees)
             : undefined,
       documentCandidates,
     };

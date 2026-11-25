@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import {
   extractEverestCardFees,
+  extractGlobalImeCardFees,
   extractSbiMobileFees,
 } from "../src/editorial/tariff-extraction.ts";
 
@@ -93,4 +94,30 @@ test("reads scoped PDF tariff rows and preserves explicit zero", () => {
   assert.equal(extractSbiMobileFees(text.replace("NPR 12.00", "Waived")), null);
   assert.equal(extractSbiMobileFees(text.replace("30.3", "29.3")), null);
   assert.equal(extractSbiMobileFees(text + "\n" + text), null);
+});
+
+test("checks the personal card column and counter footnote without inferring an app fee", () => {
+  const text = [
+    "12. DEBIT/CREDIT CARD",
+    "Debit Card Fees & Charges",
+    "                         Global E-com",
+    "                         Card (Rs.)",
+    "Card Issuance Fee (in advance)    100    200    NA    NA    50/60*    70/80*",
+    "* NPR 50 for virtual card, NPR 60 for physical card.",
+    "E-Com Top-Up Charge over the counter: NPR 11.00 on each top up/ withdrawal",
+    "Credit Card Fees & Charges",
+  ].join("\n");
+  assert.deepEqual(extractGlobalImeCardFees(text), {
+    globalVirtualIssuanceNpr: "50",
+    globalPhysicalIssuanceNpr: "60",
+    globalCounterTopUpNpr: "11.00",
+  });
+  assert.equal(
+    extractGlobalImeCardFees(text.replace("50/60*", "70/80*")),
+    null,
+  );
+  assert.equal(
+    extractGlobalImeCardFees(text.replace("over the counter", "via app")),
+    null,
+  );
 });

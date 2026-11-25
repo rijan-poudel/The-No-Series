@@ -97,3 +97,50 @@ export function extractSbiMobileFees(text: string) {
     sbiChequeRequestNpr,
   };
 }
+
+// Section 12 names the personal and corporate cards in adjacent columns.
+// Match the personal issuance cell against the virtual/physical footnote.
+export function extractGlobalImeCardFees(text: string) {
+  const sections = [
+    ...text.matchAll(
+      /^\s*12\. DEBIT\/CREDIT CARD\s*$([\s\S]*?)^\s*Credit Card Fees & Charges\s*$/gmu,
+    ),
+  ];
+  if (sections.length !== 1) return null;
+  const section = sections[0][1];
+  if (
+    !/Global E-com\s*$/mu.test(section) ||
+    !/Card \(Rs\.\)\s*$/mu.test(section)
+  )
+    return null;
+
+  const issuance = [
+    ...section.matchAll(/^\s*Card Issuance Fee \(in advance\) {2,}(.+)$/gmu),
+  ];
+  const variants = [
+    ...section.matchAll(
+      /^\* NPR (\d+) for virtual card, NPR (\d+) for physical card\.$/gmu,
+    ),
+  ];
+  const counter = [
+    ...section.matchAll(
+      /^E-Com Top-Up Charge over the counter: NPR (\d+(?:\.\d{2})?) on each top up\/ withdrawal$/gmu,
+    ),
+  ];
+  if (issuance.length !== 1 || variants.length !== 1 || counter.length !== 1)
+    return null;
+
+  const columns = issuance[0][1].trim().split(/ {2,}/u);
+  const [, globalVirtualIssuanceNpr, globalPhysicalIssuanceNpr] = variants[0];
+  if (
+    columns.length !== 6 ||
+    columns[4] !== `${globalVirtualIssuanceNpr}/${globalPhysicalIssuanceNpr}*`
+  )
+    return null;
+
+  return {
+    globalVirtualIssuanceNpr,
+    globalPhysicalIssuanceNpr,
+    globalCounterTopUpNpr: counter[0][1],
+  };
+}
