@@ -1713,3 +1713,11 @@ html[lang="ne"] .bank-directory h1 {
 .mobile-fee-table small {
   display: block;
 }
+
+.mobile-bank-link {
+  color: var(--accent);
+  text-underline-offset: 0.16em;
+}
+.mobile-fee-target {
+  scroll-margin-top: 24px;
+}

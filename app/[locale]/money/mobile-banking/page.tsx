@@ -9,6 +9,7 @@ import {
   moneyPath,
   t,
 } from "../../../../src/ui/copy";
+import { MobileBankLink } from "../../../../src/ui/mobile-bank-link";
 import { Editorial } from "../../../../src/ui/editorial";
 import { TariffDetails } from "../../../../src/ui/tariff-reading";
 
@@ -19,6 +20,10 @@ export default async function MobileBanking({
 }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
+
+  const bankNames = new Map<string, string>(
+    banks.map(({ id, name }) => [id, name]),
+  );
 
   return (
     <Editorial
@@ -46,7 +51,7 @@ export default async function MobileBanking({
             {decodedMobileTariffs.map(({ id, reading }) => (
               <tr key={id}>
                 <th scope="row">
-                  {banks.find((bank) => bank.id === id)?.name}
+                  <MobileBankLink id={id} name={bankNames.get(id) ?? id} />
                 </th>
                 {(["registrationBasis", "annualBasis"] as const).map(
                   (basis) => {
@@ -82,7 +87,9 @@ export default async function MobileBanking({
             );
             return (
               <div key={id}>
-                <dt>{banks.find((bank) => bank.id === id)?.name}</dt>
+                <dt>
+                  <MobileBankLink id={id} name={bankNames.get(id) ?? id} />
+                </dt>
                 <dd>
                   {resets.length === 0 && t(locale, "mobileFeeUnknown")}
                   {resets.map((fee) => (
@@ -104,9 +111,8 @@ export default async function MobileBanking({
       <div className="decoded-card-list">
         {decodedMobileTariffs.map(({ id, reading }) => (
           <details key={id}>
-            <summary>
-              {banks.find((bank) => bank.id === id)?.name}{" "}
-              <ChevronDown size={16} aria-hidden />
+            <summary className="mobile-fee-target" id={`mobile-fees-${id}`}>
+              {bankNames.get(id)} <ChevronDown size={16} aria-hidden />
             </summary>
             <TariffDetails tariff={reading} locale={locale} />
           </details>

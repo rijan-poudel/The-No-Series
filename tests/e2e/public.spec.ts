@@ -80,10 +80,11 @@ test("production ignores the demo flag and stays private and unseeded", async ({
   await expect(
     fees.getByRole("row", { name: /Everest/ }).getByText("Unconfirmed"),
   ).toHaveCount(2);
-  await page
-    .locator(".decoded-card-list")
-    .getByText("Nepal Bank", { exact: true })
-    .click();
+  const nepalBank = fees.getByRole("link", { name: "Nepal Bank", exact: true });
+  await nepalBank.focus();
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(/#mobile-fees-nepal$/);
+  await expect(page.locator("#mobile-fees-nepal")).toBeFocused();
   await expect(page.getByText("Renew one account for a year")).toBeVisible();
   await expect(page.getByText("Reset your PIN", { exact: true })).toBeVisible();
   await page

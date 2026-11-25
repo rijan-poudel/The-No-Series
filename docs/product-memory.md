@@ -24,3 +24,7 @@ Verification covered the production build and both Chromium suites, including ke
 The mobile banking guide also offers a collapsed PIN reset comparison. It preserves separate self-service and branch charges where the tariff names them, distinguishes an unspecified method from an unconfirmed charge, and reuses the published bank breakdown.
 
 The PIN reset comparison passed the production checks and both Chromium suites, including keyboard operation and the Nepali reduced-motion layout at 360 pixels.
+
+Bank names in the mobile banking comparisons link to the corresponding breakdown on the same page. Opening a comparison link reveals the bank details and keeps the official reference behind Sources.
+
+The production checks and both Chromium suites passed. The public test verifies that a keyboard-activated comparison link opens the bank breakdown and places focus on its heading.
