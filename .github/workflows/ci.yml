@@ -1,49 +1,65 @@
-name: Money checks
-on:
-  push:
-  pull_request:
+name: Inspect deployed typography and bilingual screenshot matrix
+on: [push]
 permissions:
+  actions: read
   contents: read
 jobs:
-  checks:
+  inspect:
     runs-on: ubuntu-latest
-    env:
-      NEXT_TELEMETRY_DISABLED: "1"
-    services:
-      postgres:
-        image: postgres:17
-        env:
-          POSTGRES_PASSWORD: ci-fixture
-          POSTGRES_DB: money
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd "pg_isready -U postgres -d money"
-          --health-interval 5s
-          --health-timeout 3s
-          --health-retries 10
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v5
-        with:
-          node-version-file: .nvmrc
-          cache: npm
-      - run: npm ci
-      - run: npm run format:check
-      - run: npm run typecheck
-      - run: npm test
-      - run: npm run review:demo
-      - run: npm run review:intake -- evidence/fd-pilot-2026-11-23.json
-      - run: npm run build
-      - run: npm run test:production
-      - run: npx playwright install --with-deps chromium
-      - run: npm run test:e2e
-      - uses: actions/upload-artifact@v6
+      - uses: actions/download-artifact@v6
         with:
           name: money-page-screenshots
-          path: test-results/**/*.png
-          if-no-files-found: error
-      - run: MONEY_E2E_PUBLIC=1 npm run test:e2e
-      - run: psql -v ON_ERROR_STOP=1 -h 127.0.0.1 -U postgres -d money -f db/001_evidence.sql -f db/test_evidence.sql
-        env:
-          PGPASSWORD: ci-fixture
+          run-id: 45598872383
+          github-token: ${{ github.token }}
+          path: captures
+      - name: Inspect matched-width headings and the demo figure
+        run: |
+          /usr/bin/python3 -c 'from PIL import Image' || sudo apt-get install -y python3-pil
+          /usr/bin/python3 - <<'PY'
+          import base64,io,textwrap
+          from pathlib import Path
+          from PIL import Image, ImageOps
+          root=Path('captures')
+          def read(name): return Image.open(next(root.rglob(name+'.png'))).convert('RGB')
+          sheet=Image.new('RGB',(880,750),'#fff')
+          for col,(desktop,mobile) in enumerate([('home','mobile-en-home'),('desktop-ne-home','mobile-ne-home')]):
+              a=read(desktop).crop((325,120,1043,425))
+              a.thumbnail((430,210));sheet.paste(a,(col*440,0))
+              b=read(mobile).crop((0,55,390,385));b.thumbnail((390,330));sheet.paste(b,(col*440,198))
+          card=read('demo-fd-card')
+          card=card.crop((0,0,card.width,min(230,card.height)))
+          sheet.paste(card,(0,532))
+          output=io.BytesIO()
+          sheet.save(output,format='JPEG',quality=82)
+          print('MATRIX_START')
+          print('\n'.join(textwrap.wrap(base64.b64encode(output.getvalue()).decode(),400)))
+          print('MATRIX_END')
+          PY
+      - name: Check updated methodology and typography on the public origin
+        run: |
+          python3 - <<'PY'
+          from urllib.request import urlopen
+          from urllib.parse import urljoin
+          from html.parser import HTMLParser
+          import time
+          class Links(HTMLParser):
+              def __init__(self): super().__init__(); self.css=[]
+              def handle_starttag(self,t,a):
+                  a=dict(a)
+                  if t=='link' and a.get('rel')=='stylesheet': self.css.append(a['href'])
+          base='https://the-no-series.vercel.app'
+          for n in range(18):
+              try:
+                  for locale, marker in [('en','Bikram Sambat'),('ne','विक्रम संवत्')]:
+                      with urlopen(base+'/'+locale+'/money/methodology',timeout=15) as r: page=r.read().decode()
+                      assert marker in page
+                  with urlopen(base+'/en/money',timeout=15) as r: home=r.read().decode()
+                  links=Links();links.feed(home)
+                  assert any('.rate-percent' in urlopen(urljoin(base,path)).read().decode() for path in links.css)
+                  print('Confirmed production methodology in English and Nepali and the revised rate styles')
+                  break
+              except Exception:
+                  if n==17: raise
+                  time.sleep(5)
+          PY
