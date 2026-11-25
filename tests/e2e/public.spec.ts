@@ -95,13 +95,30 @@ test("production ignores the demo flag and stays private and unseeded", async ({
     .locator(".decoded-card-list")
     .getByText("Everest Bank", { exact: true })
     .click();
-  await expect(page.getByText("Reset your own PIN")).toBeVisible();
-  await expect(page.getByText("Reset your PIN at a branch")).toBeVisible();
+  await expect(
+    page.locator(".decoded-card-list").getByText("Reset your own PIN"),
+  ).toBeVisible();
+  await expect(
+    page.locator(".decoded-card-list").getByText("Reset your PIN at a branch"),
+  ).toBeVisible();
+  const pinFees = page.locator("details").filter({
+    has: page.getByText("Compare PIN reset fees", { exact: true }),
+  });
+  await expect(pinFees.getByText("Method unspecified")).toBeHidden();
+  await pinFees.locator("summary").focus();
+  await page.keyboard.press("Enter");
+  await expect(pinFees.getByText("Method unspecified")).toBeVisible();
+  await expect(pinFees.getByText("NPR 0.00", { exact: true })).toBeVisible();
+  await expect(pinFees.getByText("NPR 75.00", { exact: true })).toBeVisible();
   await page.setViewportSize({ width: 360, height: 780 });
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/ne/money/mobile-banking");
   await page.getByText("शुल्क तुलना गर्नुहोस्", { exact: true }).click();
   await expect(page.getByRole("columnheader", { name: "दर्ता" })).toBeVisible();
+  await page
+    .getByText("पिन रिसेट शुल्क तुलना गर्नुहोस्", { exact: true })
+    .click();
+  await expect(page.getByText("रिसेट गर्ने तरिका खुलाइएको छैन")).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(
     360,
   );

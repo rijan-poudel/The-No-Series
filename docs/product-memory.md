@@ -20,3 +20,7 @@ The mobile banking guide keeps the annual-fee comparison folded. Account-specifi
 The mobile banking comparison now puts sign-up and annual charges side by side inside one disclosure. The data tags the exact published fee event and billing basis. Missing charges remain unconfirmed, and a published zero is shown explicitly.
 
 Verification covered the production build and both Chromium suites, including keyboard opening, English fee states, and the Nepali table at 360 pixels with reduced motion.
+
+The mobile banking guide also offers a collapsed PIN reset comparison. It preserves separate self-service and branch charges where the tariff names them, distinguishes an unspecified method from an unconfirmed charge, and reuses the published bank breakdown.
+
+The PIN reset comparison passed the production checks and both Chromium suites, including keyboard operation and the Nepali reduced-motion layout at 360 pixels.

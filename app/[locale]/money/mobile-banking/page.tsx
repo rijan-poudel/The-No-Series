@@ -2,7 +2,13 @@ import { ChevronDown } from "lucide-react";
 import { notFound } from "next/navigation";
 import { banks } from "../../../../src/data/banks";
 import { decodedMobileTariffs } from "../../../../src/data/tariffs";
-import { amountText, isLocale, moneyPath, t } from "../../../../src/ui/copy";
+import {
+  amountText,
+  isLocale,
+  local,
+  moneyPath,
+  t,
+} from "../../../../src/ui/copy";
 import { Editorial } from "../../../../src/ui/editorial";
 import { TariffDetails } from "../../../../src/ui/tariff-reading";
 
@@ -63,6 +69,37 @@ export default async function MobileBanking({
             ))}
           </tbody>
         </table>
+      </details>
+      <details className="paper-disclosure">
+        <summary>
+          {t(locale, "comparePinReset")}
+          <ChevronDown size={16} aria-hidden />
+        </summary>
+        <dl className="line-list tariff-lines">
+          {decodedMobileTariffs.map(({ id, reading }) => {
+            const resets = reading.charges.filter(
+              (charge) => charge.pinResetChannel && charge.unit === "NPR",
+            );
+            return (
+              <div key={id}>
+                <dt>{banks.find((bank) => bank.id === id)?.name}</dt>
+                <dd>
+                  {resets.length === 0 && t(locale, "mobileFeeUnknown")}
+                  {resets.map((fee) => (
+                    <div key={fee.pinResetChannel}>
+                      <small>
+                        {fee.pinResetChannel === "unspecified"
+                          ? t(locale, "pinResetChannelUnknown")
+                          : local(locale, fee.event)}
+                      </small>
+                      <span>{amountText(locale, fee.value, "NPR")}</span>
+                    </div>
+                  ))}
+                </dd>
+              </div>
+            );
+          })}
+        </dl>
       </details>
       <div className="decoded-card-list">
         {decodedMobileTariffs.map(({ id, reading }) => (

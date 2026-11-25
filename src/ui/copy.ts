@@ -11,6 +11,14 @@ const words = {
   mobileAnnualFee: ["Annual", "वार्षिक"],
   mobileFeeBank: ["Bank", "बैंक"],
   feePerAccount: ["per account", "प्रति खाता"],
+  comparePinReset: [
+    "Compare PIN reset fees",
+    "पिन रिसेट शुल्क तुलना गर्नुहोस्",
+  ],
+  pinResetChannelUnknown: [
+    "Method unspecified",
+    "रिसेट गर्ने तरिका खुलाइएको छैन",
+  ],
   mobileFeeUnknown: ["Unconfirmed", "पुष्टि भएको छैन"],
   mobileBankingFees: ["Mobile banking fees", "मोबाइल बैंकिङ शुल्क"],
 

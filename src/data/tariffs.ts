@@ -4,6 +4,7 @@ type TariffCharge = {
   event: Copy;
   unit: "NPR" | "USD" | "percent";
   minimumUsd?: string;
+  pinResetChannel?: "self-service" | "branch" | "unspecified";
   registrationBasis?: "per-account" | "standard";
   annualBasis?: "per-account" | "standard";
   value: string;
@@ -233,6 +234,7 @@ export const tariffReadings: Partial<Record<string, TariffReading>> = {
       },
       {
         event: { en: "Reset your PIN", ne: "पिन रिसेट गर्दा" },
+        pinResetChannel: "unspecified",
         unit: "NPR",
         value: "50",
       },
@@ -324,6 +326,7 @@ const additionalReadings: Readonly<Record<string, readonly TariffReading[]>> = {
         },
         {
           event: { en: "Reset your own PIN", ne: "आफैँ पिन रिसेट गर्दा" },
+          pinResetChannel: "self-service",
           unit: "NPR",
           value: "0",
         },
@@ -332,6 +335,7 @@ const additionalReadings: Readonly<Record<string, readonly TariffReading[]>> = {
             en: "Reset your PIN at a branch",
             ne: "शाखाबाट पिन रिसेट गर्दा",
           },
+          pinResetChannel: "branch",
           unit: "NPR",
           value: "75",
         },
