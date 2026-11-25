@@ -453,6 +453,11 @@ const words = {
     "Compare up to three offers side by side.",
     "बढीमा तीन प्रस्ताव सँगसँगै तुलना गर्नुहोस्।",
   ],
+  demoShort: ["Fictional data", "काल्पनिक तथ्याङ्क"],
+  dateBasis: [
+    "Nepali result cards show verification dates in Bikram Sambat when available. Source records and freshness checks use Gregorian dates (AD).",
+    "नेपाली नतिजामा सम्भव भएसम्म पुष्टि मिति विक्रम संवत्‌मा देखाइन्छ। स्रोत अभिलेख र पुष्टि अवधि जाँच्न इस्वी संवत् प्रयोग गरिन्छ।",
+  ],
   demo: [
     "Fictional data · demonstration only",
     "काल्पनिक तथ्याङ्क · प्रदर्शनका लागि मात्र",

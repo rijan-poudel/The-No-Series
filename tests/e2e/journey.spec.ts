@@ -165,16 +165,32 @@ test("capture the homepage, fictional deposit result and Nepali mobile form", as
       };
     });
     expect(font).toEqual({
-      family: name.startsWith("mobile-ne")
-        ? "Tiro Devanagari Hindi"
-        : "Instrument Serif",
+      family:
+        (await page.locator("html").getAttribute("lang")) === "ne"
+          ? "Tiro Devanagari Hindi"
+          : "Instrument Serif",
       loaded: true,
     });
     await page.screenshot({ path: info.outputPath(name + ".png") });
   }
   await page.setViewportSize({ width: 1366, height: 900 });
   await page.goto("/en/money");
+  for (const width of [1024, 1366, 1920]) {
+    await page.setViewportSize({ width, height: 900 });
+    const bounds = await page
+      .locator(".masthead,.intent-home,.footer-row")
+      .evaluateAll((elements) =>
+        elements.map((el) => {
+          const { x, width } = el.getBoundingClientRect();
+          return [x, width];
+        }),
+      );
+    expect(bounds).toEqual(Array(3).fill([(width - 690) / 2, 690]));
+  }
+  await page.setViewportSize({ width: 1366, height: 900 });
   await capture("home");
+  await page.goto("/ne/money");
+  await capture("desktop-ne-home");
   await page.goto("/en/money/fixed-deposits?term=12&payout=maturity");
   await expect(page.getByText(/fictional data/i).first()).toBeVisible();
   await capture("demo-fd-results");
@@ -213,4 +229,14 @@ test("capture the homepage, fictional deposit result and Nepali mobile form", as
   await expect(submit).toBeFocused();
   await page.goto("/ne/money");
   await capture("mobile-ne-home");
+  await page.goto("/en/money");
+  await capture("mobile-en-home");
+  await page.goto("/ne/money/fixed-deposits?term=12&payout=maturity");
+  await expect(
+    page.locator(".paper-picks > article time").first(),
+  ).toHaveAttribute("datetime", "2026-11-23");
+  await expect(
+    page.locator(".paper-picks > article time").first(),
+  ).toContainText("२०८३");
+  await capture("mobile-ne-results");
 });

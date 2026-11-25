@@ -1,3 +1,4 @@
+import { verificationDate } from "./verification-date";
 import { noticeBanks } from "../editorial/live-notices";
 import { banks } from "../data/banks";
 import { cardFeeEvents, decodedCardTariffs } from "../data/tariffs";
@@ -18,7 +19,6 @@ import {
   local,
   moneyPath,
   numberText,
-  intlLocale,
   productPath,
   t,
   titleFor,
@@ -58,25 +58,28 @@ function PickNote({
   const deposit = offer.product === "fixed-deposits";
   return (
     <article className="pick-note">
-      {demo && <span className="sample-label">{t(locale, "demo")}</span>}
+      {demo && (
+        <span className="sample-label" title={t(locale, "demo")}>
+          {t(locale, "demoShort")}
+        </span>
+      )}
       <div className="pick-line">
         <h3>{local(locale, institution.name)}</h3>
         <strong>
-          {deposit
-            ? numberText(locale, value, value.split(".")[1]?.length ?? 0) + "%"
-            : amountText(locale, value)}
+          {deposit ? (
+            <>
+              {numberText(locale, value, value.split(".")[1]?.length ?? 0)}
+              <span className="rate-percent">%</span>
+            </>
+          ) : (
+            amountText(locale, value)
+          )}
         </strong>
         {verified && (
           <span className="pick-date">
             {t(locale, "verifiedOn")}{" "}
             <time dateTime={verified}>
-              {new Intl.DateTimeFormat(intlLocale(locale), {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-                timeZone: "UTC",
-                calendar: "gregory",
-              }).format(new Date(verified + "T00:00:00Z"))}
+              {verificationDate(locale, verified)}
             </time>
           </span>
         )}
@@ -356,7 +359,7 @@ export function CategoryGuide({
             {" · "}
             {t(locale, "individual")}
           </p>
-          {release.kind === "demo" && !first && (
+          {release.kind === "demo" && (
             <p className="demo-banner">{t(locale, "demo")}</p>
           )}
           {first ? (
