@@ -1,6 +1,16 @@
+import { pageMetadata } from "../../../../src/ui/page-metadata";
 import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  return pageMetadata(locale, "reviewTitle", "reviewDescription");
+}
 
 export default async function ReviewLabRoute(props: {
   params: Promise<{ locale: string }>;

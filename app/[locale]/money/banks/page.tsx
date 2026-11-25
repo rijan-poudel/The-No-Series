@@ -1,7 +1,17 @@
+import { pageMetadata } from "../../../../src/ui/page-metadata";
 import { notFound } from "next/navigation";
 import { findBanks } from "../../../../src/data/banks";
 import { BankSearch } from "../../../../src/ui/bank-search";
 import { isLocale, moneyPath, t } from "../../../../src/ui/copy";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  return pageMetadata(locale, "chooseBank", "searchHint");
+}
 
 export default async function BanksPage({
   params,

@@ -1,3 +1,4 @@
+import { pageMetadata } from "../../../../src/ui/page-metadata";
 import { notFound } from "next/navigation";
 import { liveNotices } from "../../../../src/data/live-notices";
 import { currentData } from "../../../../src/data/current";
@@ -7,6 +8,19 @@ import { CategoryGuide } from "../../../../src/ui/guide";
 import { isLocale } from "../../../../src/ui/copy";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; product: string }>;
+}) {
+  const { locale, product } = await params;
+  return pageMetadata(
+    locale,
+    product === "fixed-deposits" ? "fdTitle" : "cardFeeTitle",
+    product === "fixed-deposits" ? "fdDescription" : "methodEditorialCardText",
+  );
+}
 
 export default async function ProductPage({
   params,

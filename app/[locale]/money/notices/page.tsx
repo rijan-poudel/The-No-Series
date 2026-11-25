@@ -1,3 +1,4 @@
+import { pageMetadata } from "../../../../src/ui/page-metadata";
 import Link from "next/link";
 import { depositTerms } from "../../../../src/domain/picks";
 import { notFound } from "next/navigation";
@@ -7,6 +8,15 @@ import { isLocale, moneyPath, numberText, t } from "../../../../src/ui/copy";
 import { Editorial } from "../../../../src/ui/editorial";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  return pageMetadata(locale, "bankNotices", "noticeScope");
+}
 
 export default async function Notices({
   params,

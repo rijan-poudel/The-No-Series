@@ -1,3 +1,4 @@
+import { pageMetadata } from "../../../../src/ui/page-metadata";
 import { ChevronDown } from "lucide-react";
 import { notFound } from "next/navigation";
 import { banks } from "../../../../src/data/banks";
@@ -12,6 +13,15 @@ import {
 import { MobileBankLink } from "../../../../src/ui/mobile-bank-link";
 import { Editorial } from "../../../../src/ui/editorial";
 import { TariffDetails } from "../../../../src/ui/tariff-reading";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  return pageMetadata(locale, "mobileBankingFees", "methodMobileText");
+}
 
 export default async function MobileBanking({
   params,

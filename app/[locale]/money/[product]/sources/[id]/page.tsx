@@ -1,3 +1,5 @@
+import { cache } from "react";
+import { pageMetadata } from "../../../../../../src/ui/page-metadata";
 import { notFound } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
 import { currentData } from "../../../../../../src/data/current";
@@ -15,16 +17,11 @@ import { Editorial } from "../../../../../../src/ui/editorial";
 
 export const dynamic = "force-dynamic";
 
-export default async function SourcePage({
-  params,
-  searchParams,
-}: {
-  params: Promise<{ locale: string; product: string; id: string }>;
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-}) {
-  const { locale, product, id } = await params;
+type SourceParams = { locale: string; product: string; id: string };
+
+const reviewedSource = cache(async (product: string, id: string) => {
   const parsed = productSchema.safeParse(product);
-  if (!isLocale(locale) || !parsed.success) notFound();
+  if (!parsed.success) notFound();
   const { release, clock } = await currentData();
   const productOffers = release.offers.filter(
     (offer) => offer.product === parsed.data,
@@ -44,13 +41,48 @@ export default async function SourcePage({
     (release.kind === "public" && (source.kind === "fixture" || source.fixture))
   )
     notFound();
-  const priority = readPriority(parsed.data, await searchParams);
+  return { release, references, citation, source, product: parsed.data };
+});
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<SourceParams>;
+}) {
+  const { locale, product, id } = await params;
+  if (!isLocale(locale)) notFound();
+  const { citation } = await reviewedSource(product, id);
+  return pageMetadata(
+    locale,
+    "viewEvidence",
+    "sourceDescription",
+    local(locale, citation.title),
+  );
+}
+
+export default async function SourcePage({
+  params,
+  searchParams,
+}: {
+  params: Promise<SourceParams>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const { locale, product, id } = await params;
+  if (!isLocale(locale)) notFound();
+  const {
+    release,
+    references,
+    citation,
+    source,
+    product: category,
+  } = await reviewedSource(product, id);
+  const priority = readPriority(category, await searchParams);
   const query = priority ? priorityQuery(priority) + "#picks" : "";
   return (
     <Editorial
       locale={locale}
       title={local(locale, citation.title)}
-      back={productPath(locale, parsed.data) + query}
+      back={productPath(locale, category) + query}
     >
       {release.kind === "demo" && (
         <div className="demo-banner">{t(locale, "demo")}</div>

@@ -6,6 +6,7 @@ export function MoneyHome({ locale }: { locale: Locale }) {
   return (
     <section className="intent-home container">
       <h1>{t(locale, "decodeTariff")}</h1>
+      <p className="home-intro">{t(locale, "homeIntro")}</p>
       <BankSearch locale={locale} />
       <details className="feature-disclosure">
         <summary>

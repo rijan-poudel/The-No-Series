@@ -14,11 +14,8 @@ import type {
   Withdrawal,
 } from "./model.ts";
 
-export const methodology = {
-  version: "1.0",
-  rateMaxDays: 31,
-  tariffMaxDays: 90,
-} as const;
+import { methodology } from "./methodology.ts";
+export { methodology } from "./methodology.ts";
 const D = Decimal.clone({ precision: 48, rounding: Decimal.ROUND_HALF_UP });
 const dayMs = 86_400_000;
 const money = (value: Decimal) => value.toDecimalPlaces(2, D.ROUND_HALF_UP);

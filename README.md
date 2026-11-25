@@ -1,6 +1,6 @@
 # No. 01 — Money
 
-The No Series comparison app for Nepali fixed deposits and dollar cards. Readers choose a category, learn what to watch for and request a verified pick for a specific criterion. The public app contains zero approved financial offers. The separate local demonstration has fictional offers, visible sample labels and example evidence.
+The No Series is an independent guide to Nepali fixed deposits, dollar cards and mobile banking fees. Bank profiles collect available fee breakdowns. The mobile banking guide compares registration, annual service and PIN reset charges from identified bank schedules. Readers choose a category, learn what to watch for and request a verified pick for a specific criterion. The public app contains zero approved financial offers. The separate local demonstration has fictional offers, visible sample labels and example evidence.
 
 ## Run it
 

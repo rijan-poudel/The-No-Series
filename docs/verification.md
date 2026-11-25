@@ -39,3 +39,9 @@ The redesigned public journey passed 32 automated tests, 5 production checks, 4 
 ## Production operations checks
 
 The production build, 35 automated tests, five compiled production checks and the Chromium production journey passed. The new tests cover readiness as offers expire or a release is withdrawn, uncached HTTP 503 from an unseeded build and distinguishable notice fingerprints. Source monitoring used controlled responses. Live scheduling, database access and approved offers remain rollout dependencies.
+
+### Bilingual editorial review, 25 November 2026
+
+The review starts at the homepage and follows a 12-month deposit with interest at maturity. The production render checks cover localized metadata, the independence footer, noindex and fixture isolation. The demo browser suite now captures the English homepage, fictional FD results and a Nepali 390 × 844 form. It checks that both selected controls appear in the mobile viewport. CI retains the PNGs in the money-page-screenshots artifact.
+
+Local verification used Node 24.22.3 and the release checks. Both browser suites stopped before navigation when the workspace denied the local listening ports. Browser screenshots, keyboard focus, reduced motion and mobile placement for this revision still need a browser-enabled run.

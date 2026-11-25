@@ -38,6 +38,11 @@ jobs:
       - run: npm run test:production
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
+      - uses: actions/upload-artifact@v6
+        with:
+          name: money-page-screenshots
+          path: test-results/**/*.png
+          if-no-files-found: error
       - run: MONEY_E2E_PUBLIC=1 npm run test:e2e
       - run: psql -v ON_ERROR_STOP=1 -h 127.0.0.1 -U postgres -d money -f db/001_evidence.sql -f db/test_evidence.sql
         env:

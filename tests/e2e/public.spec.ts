@@ -15,7 +15,7 @@ test("production ignores the demo flag and stays private and unseeded", async ({
   expect(root.url()).toContain("/en/money");
   await page.goto("/en/money/fixed-deposits/compare");
   await expect(page).toHaveURL(/\/en\/money\/fixed-deposits$/);
-  await page.getByRole("button", { name: "See the options" }).click();
+  await page.getByRole("button", { name: "Compare deposit rates" }).click();
   await expect(
     page.getByRole("heading", { name: "Published annual rates" }),
   ).toBeVisible({ timeout: 10000 });

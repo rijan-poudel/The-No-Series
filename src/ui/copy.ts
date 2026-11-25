@@ -1,3 +1,4 @@
+import { methodology } from "../domain/methodology";
 import type { Copy, Product } from "../domain/model";
 
 export type Locale = "en" | "ne";
@@ -6,6 +7,38 @@ export const isLocale = (input: string): input is Locale =>
 export const intlLocale = (locale: Locale) =>
   locale === "ne" ? "ne-NP-u-nu-deva" : "en-IN";
 const words = {
+  bankFeesTitle: ["Bank fees", "बैंक शुल्क"],
+  homeTitle: ["Bank rates and fees in Nepal", "नेपालका बैंकको ब्याजदर र शुल्क"],
+  fdTitle: [
+    "Fixed deposit comparison in Nepal",
+    "नेपालका मुद्दती निक्षेपको तुलना",
+  ],
+  fdDescription: [
+    "Compare advertised annual rates by deposit term and interest payout schedule.",
+    "निक्षेप अवधि र ब्याज भुक्तानी तालिकाअनुसार प्रकाशित वार्षिक ब्याजदर तुलना गर्नुहोस्।",
+  ],
+  cardFeeTitle: [
+    "Dollar card fee comparison in Nepal",
+    "नेपालका डलर कार्डको शुल्क तुलना",
+  ],
+  coverageDescription: [
+    "See which products and sources are covered and the status of reviewed offers.",
+    "समेटिएका सेवा, स्रोत र समीक्षा भएका प्रस्तावको अवस्था हेर्नुहोस्।",
+  ],
+  methodDescription: [
+    "How we verify rates, compare fees and handle tied offers.",
+    "हामी ब्याजदर कसरी पुष्टि गर्छौँ र बराबरीका प्रस्ताव तथा शुल्कको तुलना कसरी गर्छौँ भन्ने जान्नुहोस्।",
+  ],
+  reviewTitle: ["Source review walkthrough", "स्रोत समीक्षा अभ्यास"],
+  reviewDescription: [
+    "Follow a fictional bank notice through review and publication.",
+    "एउटा काल्पनिक बैंक सूचनाको समीक्षा र प्रकाशन प्रक्रिया हेर्नुहोस्।",
+  ],
+  sourceDescription: [
+    "View the cited passage, publication details and verification date.",
+    "उद्धृत अंश, प्रकाशन विवरण र पुष्टि गरिएको मिति हेर्नुहोस्।",
+  ],
+
   compareMobileFees: ["Compare fees", "शुल्क तुलना गर्नुहोस्"],
   mobileSignupFee: ["Sign-up", "दर्ता"],
   mobileAnnualFee: ["Annual", "वार्षिक"],
@@ -54,8 +87,8 @@ const words = {
   dollarCardFees: ["Dollar card fees", "डलर कार्डको शुल्क"],
 
   decodeTariff: [
-    "Understand your bank’s fees.",
-    "आफ्नो बैंकको शुल्क बुझ्नुहोस्।",
+    "Compare bank rates and fees in Nepal.",
+    "नेपालका बैंकको ब्याजदर र शुल्क तुलना गर्नुहोस्।",
   ],
   tariffUnavailable: [
     "A plain-language tariff for this bank is still being prepared.",
@@ -67,7 +100,35 @@ const words = {
   intentExisting: ["Use my bank", "आफ्नो बैंक"],
   intentFeature: ["Find a feature", "सुविधा खोज्नुहोस्"],
   searchBanks: ["Bank name or acronym", "बैंकको नाम वा छोटकरी नाम"],
-  bankSearchAction: ["Find", "खोज्नुहोस्"],
+  bankSearchAction: ["Find bank", "बैंक खोज्नुहोस्"],
+  homeIntro: [
+    "The No Series is an independent guide to fixed deposits, dollar cards and mobile banking in Nepal.",
+    "द नो सिरिज नेपालका मुद्दती निक्षेप, डलर कार्ड र मोबाइल बैंकिङबारे स्वतन्त्र जानकारी दिने गाइड हो।",
+  ],
+  searchHint: [
+    "Choose a bank to see its available fee breakdowns.",
+    "उपलब्ध शुल्क विवरण हेर्न बैंक छान्नुहोस्।",
+  ],
+  searchExample: ["Try NMB or Nabil", "जस्तै एनएमबी वा नबिल"],
+  independence: [
+    "The No Series is independent of the banks it compares.",
+    "द नो सिरिजले स्वतन्त्र रूपमा बैंकहरूको तुलना गर्छ।",
+  ],
+  rankedRateAge: [
+    `Only rates verified within the past ${numberText("en", methodology.rateMaxDays)} days qualify for a ranked pick.`,
+    `पछिल्ला ${numberText("ne", methodology.rateMaxDays)} दिनभित्र पुष्टि भएका ब्याजदर मात्र वरीयतामा पर्छन्।`,
+  ],
+  methodMobile: ["Mobile banking fees", "मोबाइल बैंकिङ शुल्क"],
+  methodMobileText: [
+    "We show sign-up, annual and PIN reset charges separately. Each breakdown names the bank’s fee schedule. An unconfirmed fee stays marked as such, even when another bank lists the same service as free.",
+    "दर्ता, वार्षिक सेवा र पिन रिसेटको शुल्क छुट्टाछुट्टै देखाउँछौँ। प्रत्येक विवरणमा बैंकको शुल्क सूचीको स्रोत दिइएको छ। अर्को बैंकले त्यही सेवा निःशुल्क दिए पनि पुष्टि हुन बाँकी शुल्कलाई शून्य मान्दैनौँ।",
+  ],
+  verifySource: ["Check the source", "स्रोत जाँच्छौँ"],
+  matchChoice: ["Match your choices", "छनोटसँग मिलाउँछौँ"],
+  orderPicks: [
+    "Rank matching offers. Equal values share a place",
+    "मिल्ने प्रस्ताव क्रमबद्ध गर्छौँ। बराबर भए एउटै स्थान दिन्छौँ",
+  ],
   noBanksFound: [
     "No matching bank. Try its full name or acronym.",
     "बैंक भेटिएन। पूरा वा छोटकरी नाम खोज्नुहोस्।",
@@ -134,7 +195,11 @@ const words = {
   appFee: ["App reload fee", "एपबाट रकम थप्ने शुल्क"],
   branchFee: ["Branch reload fee", "शाखाबाट रकम थप्ने शुल्क"],
   cardFormat: ["Card type", "कार्डको प्रकार"],
-  seePicks: ["See the options", "विकल्प हेर्नुहोस्"],
+  compareDeposits: [
+    "Compare deposit rates",
+    "निक्षेपका ब्याजदर तुलना गर्नुहोस्",
+  ],
+  compareCardFees: ["Compare card fees", "कार्ड शुल्क तुलना गर्नुहोस्"],
   highestRate: ["Highest advertised rate", "सबैभन्दा उच्च प्रकाशित ब्याजदर"],
   lowestFee: ["Lowest verified fee", "सबैभन्दा कम पुष्टि भएको शुल्क"],
   noVerifiedPicks: [
@@ -445,8 +510,8 @@ const words = {
   ],
   methodFresh: ["Review and freshness", "समीक्षा र अद्यावधिक स्थिति"],
   methodFreshText: [
-    "Rate verification is valid for up to 31 days and tariff or term verification for up to 90 days. A change, dispute or earlier expiry can remove an offer sooner. Ties use stable institution and offer identifiers.",
-    "ब्याजदरको पुष्टि बढीमा ३१ दिन र शुल्क वा सर्तको पुष्टि बढीमा ९० दिन मान्य हुन्छ। परिवर्तन, विवाद वा पहिल्यै अवधि सकिए प्रस्ताव छिटै हट्न सक्छ। बराबरीमा संस्था र प्रस्तावको स्थिर पहिचान क्रम प्रयोग हुन्छ।",
+    `Rate verification is valid for up to ${numberText("en", methodology.rateMaxDays)} days and tariff or term verification for up to ${numberText("en", methodology.tariffMaxDays)} days. A change, dispute or earlier expiry can remove an offer sooner. Ties use stable institution and offer identifiers.`,
+    `ब्याजदरको पुष्टि बढीमा ${numberText("ne", methodology.rateMaxDays)} दिन र शुल्क वा सर्तको पुष्टि बढीमा ${numberText("ne", methodology.tariffMaxDays)} दिन मान्य हुन्छ। परिवर्तन, विवाद वा पहिल्यै अवधि सकिए प्रस्ताव छिटै हट्न सक्छ। बराबरीमा संस्था र प्रस्तावको स्थिर पहिचान क्रम प्रयोग हुन्छ।`,
   ],
   methodPrivacy: ["Privacy and independence", "गोपनीयता र स्वतन्त्रता"],
   methodPrivacyText: [

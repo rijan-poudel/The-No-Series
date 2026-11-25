@@ -31,7 +31,9 @@ test("discovery leads to the catch, a scoped deposit pick, then evidence", async
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/en/money");
   await expect(
-    page.getByRole("heading", { name: "Understand your bank’s fees." }),
+    page.getByRole("heading", {
+      name: "Compare bank rates and fees in Nepal.",
+    }),
   ).toBeVisible();
   await expect(page.locator("main").getByRole("link")).toHaveCount(0);
   await accessibility(page);
@@ -44,7 +46,7 @@ test("discovery leads to the catch, a scoped deposit pick, then evidence", async
   await expect(page.getByRole("heading", { name: /The catch/i })).toBeVisible();
   await expect(page.getByRole("article")).toHaveCount(0);
   await expect(page.getByRole("textbox")).toHaveCount(0);
-  await page.getByRole("button", { name: "See the options" }).click();
+  await page.getByRole("button", { name: "Compare deposit rates" }).click();
   await expect(
     page.getByRole("heading", { name: "Highest advertised rate" }),
   ).toBeVisible();
@@ -82,7 +84,9 @@ test("Nepali mobile retains the selected term and offers a clear empty state", a
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/ne/money/fixed-deposits");
   await page.getByText("३ महिना", { exact: true }).click();
-  await page.getByRole("button", { name: "विकल्प हेर्नुहोस्" }).click();
+  await page
+    .getByRole("button", { name: "निक्षेपका ब्याजदर तुलना गर्नुहोस्" })
+    .click();
   await expect(
     page.getByText("यो छनोटका लागि कुनै विकल्प अझै पुष्टि भएको छैन।"),
   ).toBeVisible();
@@ -115,7 +119,7 @@ test("dollar card picks distinguish app reload fees from branch reload fees", as
   ).toBeVisible();
   await page.getByText("Options", { exact: true }).click();
   await page.getByText("App reload fee", { exact: true }).click();
-  await page.getByRole("button", { name: "See the options" }).click();
+  await page.getByRole("button", { name: "Compare card fees" }).click();
   await expect(
     page.getByRole("heading", { name: "Lowest verified fee" }),
   ).toBeVisible();
@@ -123,7 +127,7 @@ test("dollar card picks distinguish app reload fees from branch reload fees", as
   const appPick = await leaders.first().textContent();
   await page.getByText("Change your choice").click();
   await page.getByText("Branch reload fee", { exact: true }).click();
-  await page.getByRole("button", { name: "See the options" }).click();
+  await page.getByRole("button", { name: "Compare card fees" }).click();
   await expect(leaders.first()).not.toHaveText(appPick!);
 });
 
@@ -141,4 +145,50 @@ test("local review walkthrough shows changed and disputed outcomes", async ({
   await expect(
     page.getByRole("heading", { name: /published/i }).first(),
   ).toBeVisible();
+});
+
+test("capture the homepage, fictional deposit result and Nepali mobile form", async ({
+  page,
+}, info) => {
+  async function capture(name: string) {
+    await page.evaluate(() => document.fonts.ready);
+    await page.screenshot({ path: info.outputPath(name + ".png") });
+  }
+  await page.setViewportSize({ width: 1366, height: 900 });
+  await page.goto("/en/money");
+  await capture("home");
+  await page.goto("/en/money/fixed-deposits?term=12&payout=maturity");
+  await expect(page.getByText(/fictional data/i)).toBeVisible();
+  await capture("demo-fd-results");
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/ne/money/fixed-deposits");
+  await expect(
+    page.locator('input[name="term"]:checked + span'),
+  ).toBeInViewport();
+  await expect(
+    page.locator('input[name="payout"]:checked + span'),
+  ).toBeInViewport();
+  const term = page.locator('input[name="term"][value="12"]');
+  const payout = page.locator('input[name="payout"][value="maturity"]');
+  const submit = page.locator('.guide-form button[type="submit"]');
+  await expect(term).toBeChecked();
+  await expect(payout).toBeChecked();
+  await expect(submit).toBeInViewport({ ratio: 1 });
+  await capture("mobile-ne");
+  await page.locator(".utility-menu summary").focus();
+  await page.keyboard.press("Tab");
+  await expect(term).toBeFocused();
+  await expect(term.locator("+ span")).toHaveCSS("outline-style", "solid");
+  await page.keyboard.press("ArrowRight");
+  await expect(page.locator('input[value="24"]')).toBeChecked();
+  await page.keyboard.press("Tab");
+  await expect(payout).toBeFocused();
+  await expect(payout.locator("+ span")).toHaveCSS("outline-style", "solid");
+  await page.keyboard.press("ArrowRight");
+  await expect(page.locator('input[value="quarterly"]')).toBeChecked();
+  await page.keyboard.press("Tab");
+  await expect(submit).toBeFocused();
+  await page.goto("/ne/money");
+  await capture("mobile-ne-home");
 });

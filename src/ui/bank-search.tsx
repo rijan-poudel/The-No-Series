@@ -34,8 +34,8 @@ export function BankSearch({
         }
       }}
     >
-      <label className="visually-hidden" htmlFor={inputId}>
-        {t(locale, "searchBanks")}
+      <label className="search-prompt" htmlFor={inputId}>
+        {t(locale, "searchHint")}
       </label>
       <input
         id={inputId}
@@ -44,7 +44,7 @@ export function BankSearch({
         name="q"
         maxLength={100}
         required
-        placeholder={t(locale, "searchBanks")}
+        placeholder={t(locale, "searchExample")}
         value={value}
         onChange={(event) => {
           setValue(event.target.value);
