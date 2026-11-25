@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Ellipsis } from "lucide-react";
 import { moneyPath, t, type Locale } from "./copy";
 
 function LanguageLink({ target, other }: { target: string; other: Locale }) {
@@ -44,20 +43,15 @@ export function SiteShell({
               No
             </span>
           </Link>
-          <details className="utility-menu" key={current}>
-            <summary aria-label={t(locale, "menu")}>
-              <Ellipsis size={24} aria-hidden />
-            </summary>
-            <div>
-              <Suspense>
-                <LanguageLink target={target} other={other} />
-              </Suspense>
-              <Link href={home + "/coverage"}>{t(locale, "coverage")}</Link>
-              <Link href={home + "/methodology"}>
-                {t(locale, "methodology")}
-              </Link>
-            </div>
-          </details>
+          <Suspense
+            fallback={
+              <a href={target} lang={other}>
+                {other === "ne" ? "नेपाली" : "English"}
+              </a>
+            }
+          >
+            <LanguageLink target={target} other={other} />
+          </Suspense>
         </div>
       </header>
       <main id="content">{children}</main>
@@ -66,6 +60,7 @@ export function SiteShell({
           <p>{t(locale, "independence")}</p>
           <div className="footer-links">
             <Link href={home + "/coverage"}>{t(locale, "coverage")}</Link>
+            <Link href={home + "/methodology"}>{t(locale, "methodology")}</Link>
           </div>
         </div>
       </footer>

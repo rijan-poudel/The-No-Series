@@ -18,6 +18,7 @@ import {
   local,
   moneyPath,
   numberText,
+  intlLocale,
   productPath,
   t,
   titleFor,
@@ -31,13 +32,15 @@ function PickNote({
   locale,
   path,
   query,
+  demo,
 }: {
   row: Pick;
   locale: Locale;
   path: string;
   query: string;
+  demo: boolean;
 }) {
-  const { offer, institution, evidence, value } = row;
+  const { offer, institution, evidence, value, verified } = row;
   const keyIds = new Set(row.keyCitations);
   const keySources = evidence.filter((source) => keyIds.has(source.id));
   const otherSources = evidence.filter((source) => !keyIds.has(source.id));
@@ -55,6 +58,7 @@ function PickNote({
   const deposit = offer.product === "fixed-deposits";
   return (
     <article className="pick-note">
+      {demo && <span className="sample-label">{t(locale, "demo")}</span>}
       <div className="pick-line">
         <h3>{local(locale, institution.name)}</h3>
         <strong>
@@ -62,6 +66,20 @@ function PickNote({
             ? numberText(locale, value, value.split(".")[1]?.length ?? 0) + "%"
             : amountText(locale, value)}
         </strong>
+        {verified && (
+          <span className="pick-date">
+            {t(locale, "verifiedOn")}{" "}
+            <time dateTime={verified}>
+              {new Intl.DateTimeFormat(intlLocale(locale), {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+                timeZone: "UTC",
+                calendar: "gregory",
+              }).format(new Date(verified + "T00:00:00Z"))}
+            </time>
+          </span>
+        )}
       </div>
       {deposit ? (
         <p className="pick-condition">
@@ -212,6 +230,17 @@ export function CategoryGuide({
   const rows = results ? results.rows : [];
   const first = rows[0];
   const tied = results ? results.leaders : [];
+  const alternatives = rows.slice(tied.length);
+  const renderPick = (row: Pick) => (
+    <PickNote
+      key={row.offer.id}
+      row={row}
+      locale={locale}
+      path={path}
+      query={query}
+      demo={release.kind === "demo"}
+    />
+  );
   const form = (
     <form action={path + "#picks"} className="priority-form guide-form">
       {deposit ? (
@@ -327,36 +356,26 @@ export function CategoryGuide({
             {" · "}
             {t(locale, "individual")}
           </p>
-          {release.kind === "demo" && (
+          {release.kind === "demo" && !first && (
             <p className="demo-banner">{t(locale, "demo")}</p>
           )}
           {first ? (
             <>
-              {tied.map((row) => (
-                <PickNote
-                  key={row.offer.id}
-                  row={row}
-                  locale={locale}
-                  path={path}
-                  query={query}
-                />
-              ))}
-              {rows.length > tied.length && (
-                <details className="paper-disclosure">
-                  <summary>
-                    {t(locale, "otherOptions")}{" "}
-                    <ChevronDown size={16} aria-hidden />
-                  </summary>
-                  {rows.slice(tied.length).map((row) => (
-                    <PickNote
-                      key={row.offer.id}
-                      row={row}
-                      locale={locale}
-                      path={path}
-                      query={query}
-                    />
-                  ))}
-                </details>
+              {tied.map(renderPick)}
+              {alternatives.length > 0 && (
+                <section className="runners">
+                  <h3>{t(locale, "otherOptions")}</h3>
+                  {alternatives.slice(0, 2).map(renderPick)}
+                  {alternatives.length > 2 && (
+                    <details className="paper-disclosure">
+                      <summary>
+                        {t(locale, "moreOptions")}{" "}
+                        <ChevronDown size={16} aria-hidden />
+                      </summary>
+                      {alternatives.slice(2).map(renderPick)}
+                    </details>
+                  )}
+                </section>
               )}
             </>
           ) : notices ? (

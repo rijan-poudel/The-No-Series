@@ -465,6 +465,8 @@ const words = {
   publisher: ["Publisher", "प्रकाशक"],
   locator: ["Evidence location", "प्रमाणको स्थान"],
   effective: ["Effective date (AD)", "लागू मिति (ईस्वी)"],
+  verifiedOn: ["Verified", "पुष्टि मिति"],
+  moreOptions: ["More verified options", "थप पुष्टि भएका विकल्प"],
   verified: ["Last verified (AD)", "पछिल्लो पुष्टि (ईस्वी)"],
   banks: [
     "Nepal Rastra Bank institution register",
