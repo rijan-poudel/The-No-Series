@@ -61,6 +61,14 @@ export function SiteShell({
         </div>
       </header>
       <main id="content">{children}</main>
+      <footer className="site-footer">
+        <div className="container footer-row">
+          <p>{t(locale, "independence")}</p>
+          <div className="footer-links">
+            <Link href={home + "/coverage"}>{t(locale, "coverage")}</Link>
+          </div>
+        </div>
+      </footer>
     </>
   );
 }

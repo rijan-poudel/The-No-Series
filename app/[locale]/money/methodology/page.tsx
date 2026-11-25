@@ -1,7 +1,17 @@
+import { pageMetadata } from "../../../../src/ui/page-metadata";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, moneyPath, t } from "../../../../src/ui/copy";
 import { Editorial } from "../../../../src/ui/editorial";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  return pageMetadata(locale, "methodTitle", "methodDescription");
+}
 
 export default async function Methodology({
   params,
@@ -12,10 +22,18 @@ export default async function Methodology({
   if (!isLocale(locale)) notFound();
   return (
     <Editorial locale={locale} title={t(locale, "methodTitle")}>
+      <ol className="method-steps">
+        {(["verifySource", "matchChoice", "orderPicks"] as const).map(
+          (step) => (
+            <li key={step}>{t(locale, step)}</li>
+          ),
+        )}
+      </ol>
       {(
         [
           "methodEditorialDeposit",
           "methodEditorialCard",
+          "methodMobile",
           "methodFresh",
           "methodPrivacy",
         ] as const

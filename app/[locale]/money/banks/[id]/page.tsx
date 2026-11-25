@@ -1,9 +1,21 @@
+import { pageMetadata } from "../../../../../src/ui/page-metadata";
 import { notFound } from "next/navigation";
 import { banks } from "../../../../../src/data/banks";
 import { readingsForBank } from "../../../../../src/data/tariffs";
 import { isLocale, moneyPath, t } from "../../../../../src/ui/copy";
 import { TariffDetails } from "../../../../../src/ui/tariff-reading";
 import { Editorial } from "../../../../../src/ui/editorial";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; id: string }>;
+}) {
+  const { locale, id } = await params;
+  const bank = banks.find((entry) => entry.id === id);
+  if (!bank) notFound();
+  return pageMetadata(locale, "bankFeesTitle", "searchHint", bank.name);
+}
 
 export default async function BankPage({
   params,

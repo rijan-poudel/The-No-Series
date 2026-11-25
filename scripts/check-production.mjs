@@ -143,10 +143,10 @@ test("built bilingual pages render through Next's server without a listening por
   const ne = await render("/ne/money");
   assert.equal(en.status, 200);
   assert.match(en.html, /<html lang="en"/);
-  assert.match(en.html, /Understand your bank/);
+  assert.match(en.html, /Compare bank rates and fees in Nepal/);
   assert.equal(ne.status, 200);
   assert.match(ne.html, /<html lang="ne"/);
-  assert.match(ne.html, /आफ्नो बैंकको शुल्क बुझ्नुहोस्/);
+  assert.match(ne.html, /नेपालका बैंकको ब्याजदर र शुल्क तुलना गर्नुहोस्/);
   const comparison = await render(
     "/ne/money/fixed-deposits?term=12&payout=maturity",
   );
@@ -155,6 +155,19 @@ test("built bilingual pages render through Next's server without a listening por
   assert.doesNotMatch(
     comparison.html,
     /Fictional data|काल्पनिक तथ्याङ्क|Alder Example/,
+  );
+  assert.match(
+    en.html,
+    /<title>Bank rates and fees in Nepal \| The No Series<\/title>/,
+  );
+  assert.match(
+    comparison.html,
+    /<title>नेपालका मुद्दती निक्षेपको तुलना \| The No Series<\/title>/,
+  );
+  assert.match(comparison.html, /name="robots" content="noindex, follow"/);
+  assert.match(
+    en.html,
+    /<footer[\s\S]*?independent of the banks it compares[\s\S]*?<\/footer>/,
   );
   const fixtureEvidence = await render(
     "/en/money/fixed-deposits/sources/alder-rate",

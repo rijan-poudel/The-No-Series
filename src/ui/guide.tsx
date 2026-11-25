@@ -263,7 +263,12 @@ export function CategoryGuide({
           />
         </>
       )}
-      <button type="submit">{t(locale, "seePicks")}</button>
+      {deposit && (
+        <p className="rate-review-note">{t(locale, "rankedRateAge")}</p>
+      )}
+      <button type="submit">
+        {t(locale, deposit ? "compareDeposits" : "compareCardFees")}
+      </button>
     </form>
   );
   return (

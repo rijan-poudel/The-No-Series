@@ -1412,6 +1412,7 @@ html[lang="ne"]
   text-wrap: balance;
 }
 html[lang="ne"] .intent-home h1 {
+  line-height: 1.45;
   font-family: var(--devanagari);
 }
 .intent-switch {
@@ -1720,4 +1721,43 @@ html[lang="ne"] .bank-directory h1 {
 }
 .mobile-fee-target {
   scroll-margin-top: 24px;
+}
+
+.home-intro {
+  max-width: 54ch;
+  margin-block: 14px 28px;
+  color: var(--muted);
+}
+.search-prompt {
+  flex-basis: 100%;
+  font-size: 0.92rem;
+}
+.rate-review-note {
+  color: var(--muted);
+  font-size: 0.86rem;
+  margin: 0;
+}
+.method-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6em 2.3em;
+  padding: 1em 2em;
+  border-block: 1px solid var(--rule);
+}
+.method-steps li::marker {
+  color: var(--accent);
+}
+@media (max-width: 480px) {
+  .paper-guide h1 {
+    margin-bottom: 14px;
+  }
+  .catch-paper {
+    padding: 16px;
+  }
+  .priority-sheet {
+    margin-top: 18px;
+  }
+  .guide-form {
+    gap: 12px;
+  }
 }
