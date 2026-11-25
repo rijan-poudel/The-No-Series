@@ -1692,3 +1692,24 @@ html[lang="ne"] .bank-directory h1 {
   display: block;
   color: var(--muted);
 }
+
+.mobile-fee-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: clamp(0.78rem, 2.7vw, 0.94rem);
+}
+.mobile-fee-table th,
+.mobile-fee-table td {
+  padding: 9px 4px;
+  border-bottom: 1px solid var(--rule);
+  text-align: start;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+.mobile-fee-table thead,
+.mobile-fee-table small {
+  color: var(--muted);
+}
+.mobile-fee-table small {
+  display: block;
+}

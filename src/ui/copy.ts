@@ -6,12 +6,12 @@ export const isLocale = (input: string): input is Locale =>
 export const intlLocale = (locale: Locale) =>
   locale === "ne" ? "ne-NP-u-nu-deva" : "en-IN";
 const words = {
-  annualMobileFees: ["Compare annual fees", "वार्षिक शुल्क तुलना गर्नुहोस्"],
+  compareMobileFees: ["Compare fees", "शुल्क तुलना गर्नुहोस्"],
+  mobileSignupFee: ["Sign-up", "दर्ता"],
+  mobileAnnualFee: ["Annual", "वार्षिक"],
+  mobileFeeBank: ["Bank", "बैंक"],
   feePerAccount: ["per account", "प्रति खाता"],
-  annualFeeUnknown: [
-    "Annual amount unconfirmed",
-    "वार्षिक रकम पुष्टि भएको छैन",
-  ],
+  mobileFeeUnknown: ["Unconfirmed", "पुष्टि भएको छैन"],
   mobileBankingFees: ["Mobile banking fees", "मोबाइल बैंकिङ शुल्क"],
 
   decodedCardFees: ["Dollar card fees by bank", "बैंकअनुसार डलर कार्ड शुल्क"],

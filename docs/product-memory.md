@@ -16,3 +16,7 @@ Expand decoded coverage from the official archive. The mobile-banking feature no
 Compare archive runs to prioritize changes in amounts or conditions. A failed fetch or parser mismatch should trigger review without altering the public fee.
 
 The mobile banking guide keeps the annual-fee comparison folded. Account-specific billing and unconfirmed annual amounts stay visible when the comparison opens. The weekly GitHub tariff scan saves a review report, with the checked-in index as its baseline.
+
+The mobile banking comparison now puts sign-up and annual charges side by side inside one disclosure. The data tags the exact published fee event and billing basis. Missing charges remain unconfirmed, and a published zero is shown explicitly.
+
+Verification covered the production build and both Chromium suites, including keyboard opening, English fee states, and the Nepali table at 360 pixels with reduced motion.

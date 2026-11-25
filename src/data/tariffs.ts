@@ -4,6 +4,7 @@ type TariffCharge = {
   event: Copy;
   unit: "NPR" | "USD" | "percent";
   minimumUsd?: string;
+  registrationBasis?: "per-account" | "standard";
   annualBasis?: "per-account" | "standard";
   value: string;
 };
@@ -217,6 +218,7 @@ export const tariffReadings: Partial<Record<string, TariffReading>> = {
     charges: [
       {
         event: { en: "Register one account", ne: "एउटा खाता दर्ता गर्दा" },
+        registrationBasis: "per-account",
         unit: "NPR",
         value: "300",
       },
@@ -253,6 +255,7 @@ export const tariffReadings: Partial<Record<string, TariffReading>> = {
     charges: [
       {
         event: { en: "Mobile banking registration", ne: "मोबाइल बैंकिङ दर्ता" },
+        registrationBasis: "standard",
         unit: "NPR",
         value: "0",
       },

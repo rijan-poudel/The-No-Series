@@ -64,11 +64,22 @@ test("production ignores the demo flag and stays private and unseeded", async ({
     page.getByRole("link", { name: /September 2026 tariff/ }),
   ).toBeVisible();
   await page.goto("/en/money/mobile-banking");
-  await expect(page.getByText("Annual amount unconfirmed")).toBeHidden();
-  await page.getByText("Compare annual fees", { exact: true }).click();
-  await expect(page.getByText("Annual amount unconfirmed")).toBeVisible();
-  await expect(page.getByText("per account", { exact: true })).toBeVisible();
-  await page.getByText("Compare annual fees", { exact: true }).click();
+  const fees = page.getByRole("table", { name: "Mobile banking fees" });
+  await expect(fees).toBeHidden();
+  await page.getByText("Compare fees", { exact: true }).focus();
+  await page.keyboard.press("Enter");
+  await expect(fees).toBeVisible();
+  await expect(
+    fees.getByRole("row", { name: /Nepal Bank/ }).getByText("per account"),
+  ).toHaveCount(2);
+  await expect(
+    fees
+      .getByRole("row", { name: /Nepal SBI/ })
+      .getByText("NPR 0.00", { exact: true }),
+  ).toBeVisible();
+  await expect(
+    fees.getByRole("row", { name: /Everest/ }).getByText("Unconfirmed"),
+  ).toHaveCount(2);
   await page
     .locator(".decoded-card-list")
     .getByText("Nepal Bank", { exact: true })
@@ -86,6 +97,14 @@ test("production ignores the demo flag and stays private and unseeded", async ({
     .click();
   await expect(page.getByText("Reset your own PIN")).toBeVisible();
   await expect(page.getByText("Reset your PIN at a branch")).toBeVisible();
+  await page.setViewportSize({ width: 360, height: 780 });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/ne/money/mobile-banking");
+  await page.getByText("शुल्क तुलना गर्नुहोस्", { exact: true }).click();
+  await expect(page.getByRole("columnheader", { name: "दर्ता" })).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(
+    360,
+  );
   const sample = await request.get(
     "/en/money/fixed-deposits/sources/alder-rate",
   );
