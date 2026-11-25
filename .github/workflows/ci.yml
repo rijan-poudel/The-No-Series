@@ -1,49 +1,18 @@
-name: Money checks
-on:
-  push:
-  pull_request:
-permissions:
-  contents: read
+name: Collect editorial webfonts
+on: [push]
+permissions: {}
 jobs:
-  checks:
+  assets:
     runs-on: ubuntu-latest
-    env:
-      NEXT_TELEMETRY_DISABLED: "1"
-    services:
-      postgres:
-        image: postgres:17
-        env:
-          POSTGRES_PASSWORD: ci-fixture
-          POSTGRES_DB: money
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd "pg_isready -U postgres -d money"
-          --health-interval 5s
-          --health-timeout 3s
-          --health-retries 10
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v5
-        with:
-          node-version-file: .nvmrc
-          cache: npm
-      - run: npm ci
-      - run: npm run format:check
-      - run: npm run typecheck
-      - run: npm test
-      - run: npm run review:demo
-      - run: npm run review:intake -- evidence/fd-pilot-2026-11-23.json
-      - run: npm run build
-      - run: npm run test:production
-      - run: npx playwright install --with-deps chromium
-      - run: npm run test:e2e
-      - uses: actions/upload-artifact@v6
-        with:
-          name: money-page-screenshots
-          path: test-results/**/*.png
-          if-no-files-found: error
-      - run: MONEY_E2E_PUBLIC=1 npm run test:e2e
-      - run: psql -v ON_ERROR_STOP=1 -h 127.0.0.1 -U postgres -d money -f db/001_evidence.sql -f db/test_evidence.sql
-        env:
-          PGPASSWORD: ci-fixture
+      - run: |
+          for pair in 'instrument-serif:latin' 'tiro-devanagari-hindi:devanagari'; do
+            family=${pair%:*}
+            subset=${pair#*:}
+            pkg=$(npm pack "@fontsource/$family@5.3.0" --silent)
+            tar -xOf "$pkg" "package/files/$family-$subset-400-normal.woff2" | base64 -w0 > "$family.b64"
+            echo "$family begin"
+            fold -w 512 "$family.b64" 
+            echo
+            echo "$family end"
+          done
