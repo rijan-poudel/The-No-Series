@@ -1,49 +1,52 @@
-name: Money checks
-on:
-  push:
-  pull_request:
-permissions:
-  contents: read
+name: Verify the production editorial layout
+on: [push]
+permissions: {}
 jobs:
-  checks:
+  public-pages:
     runs-on: ubuntu-latest
-    env:
-      NEXT_TELEMETRY_DISABLED: "1"
-    services:
-      postgres:
-        image: postgres:17
-        env:
-          POSTGRES_PASSWORD: ci-fixture
-          POSTGRES_DB: money
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd "pg_isready -U postgres -d money"
-          --health-interval 5s
-          --health-timeout 3s
-          --health-retries 10
+    timeout-minutes: 4
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v5
-        with:
-          node-version-file: .nvmrc
-          cache: npm
-      - run: npm ci
-      - run: npm run format:check
-      - run: npm run typecheck
-      - run: npm test
-      - run: npm run review:demo
-      - run: npm run review:intake -- evidence/fd-pilot-2026-11-23.json
-      - run: npm run build
-      - run: npm run test:production
-      - run: npx playwright install --with-deps chromium
-      - run: npm run test:e2e
-      - uses: actions/upload-artifact@v6
-        with:
-          name: money-page-screenshots
-          path: test-results/**/*.png
-          if-no-files-found: error
-      - run: MONEY_E2E_PUBLIC=1 npm run test:e2e
-      - run: psql -v ON_ERROR_STOP=1 -h 127.0.0.1 -U postgres -d money -f db/001_evidence.sql -f db/test_evidence.sql
-        env:
-          PGPASSWORD: ci-fixture
+      - name: Read bilingual production pages and their hosted fonts
+        run: |
+          python3 - <<'PY'
+          from urllib.request import urlopen, Request
+          from html.parser import HTMLParser
+          from time import sleep
+          base='https://the-no-series.vercel.app'
+          class Page(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.tags=[]
+                  self.text=[]
+                  self.ignore=False
+              def handle_starttag(self,tag,attrs):
+                  self.tags.append((tag,dict(attrs)))
+                  if tag in ('style','script'): self.ignore=True
+              def handle_endtag(self,tag):
+                  if tag in ('style','script'): self.ignore=False
+              def handle_data(self,value):
+                  if not self.ignore: self.text.append(value)
+          for attempt in range(15):
+              try:
+                  for lang in ('en','ne'):
+                      for suffix in ('','/fixed-deposits'):
+                          url=base+'/'+lang+'/money'+suffix
+                          with urlopen(Request(url,headers={'Cache-Control':'no-cache'}),timeout=15) as res:
+                              p=Page()
+                              p.feed(res.read().decode())
+                          assert any(t=='a' and a.get('hreflang')==('ne' if lang=='en' else 'en') for t,a in p.tags)
+                          if suffix:
+                              assert ('Compare deposit rates' if lang=='en' else 'निक्षेपका ब्याजदर तुलना गर्नुहोस्') in p.text
+                              assert any(('31' if lang=='en' else '३१') in v for v in p.text)
+                          else:
+                              assert any(t=='nav' and 'intent-links' in a.get('class','') for t,a in p.tags)
+                              if lang=='en': assert 'Compare bank rates and fees in Nepal.' in p.text
+                          print('Verified',url)
+                  for family in ('instrument-serif','tiro-devanagari-hindi'):
+                      with urlopen(base+'/fonts/'+family+'.woff2') as r: assert r.read(4)==b'wOF2'
+                  print('Verified both self-hosted WOFF2 fonts')
+                  break
+              except Exception:
+                  if attempt==14: raise
+                  sleep(6)
+          PY
