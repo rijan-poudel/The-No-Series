@@ -13,8 +13,7 @@ export const tariffCatalog: Readonly<Partial<Record<string, string>>> = {
   "laxmi-sunrise":
     "https://www.laxmisunrise.com/rates/schedule-of-service-charges/",
   citizens: "https://www.ctznbank.com/interest-rate/fees-and-commission",
-  "green-development":
-    "https://www.glbank.com/data/tosend/resource/upload/GLDB-Fees-and-Charges.pdf",
+  "standard-chartered": "https://www.sc.com/np/help-centre/",
   prime:
     "https://primebank.com.np/pr1me4dm1n/uploads/stcproduct/AC_Operations_STANDARED_TARIFF_OF_CHARGES_18_09_2023.pdf",
   sanima:

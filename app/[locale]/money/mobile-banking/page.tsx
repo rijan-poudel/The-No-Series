@@ -41,6 +41,9 @@ export default async function MobileBanking({
       title={t(locale, "mobileBankingFees")}
       back={moneyPath(locale)}
     >
+      <a className="trust-link" href={moneyPath(locale) + "/usage-cost"}>
+        {t(locale, "usageCost")} →
+      </a>
       <details className="paper-disclosure">
         <summary>
           {t(locale, "compareMobileFees")}

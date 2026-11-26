@@ -58,3 +58,9 @@ The Coverage page links to a bilingual Published bank notices view. It checks tw
 The first request fills the notice cache. Subsequent visits revalidate after an hour. A daily Vercel schedule warms the same cache through the bearer-authenticated refresh endpoint. Configure Vercel's server-side `CRON_SECRET` once when connecting the deployment. Without that setting, visits still refresh the cache automatically. Cache snapshots more than two hours old are suppressed. Known HTML contract changes can require maintenance of the adapter.
 
 If a fixed-deposit choice has no reviewed pick, its guide links to the advertised notices for that term. Each adapter maps its bank’s own band boundaries before showing a rate.
+
+The 25 November deposit intake stages thirteen 12-month individual NPR observations across eleven banks for review. Run `npm run review:intake -- evidence/fd-intake-2026-11-25.json`. Boundaries in that file describe whole-month choices. A published band ending below two years has a maximum of 23 whole months. Confirm edition, eligibility, amount band, payout and early-withdrawal terms and obtain independent approval before publishing any of these figures.
+
+Kumari and Mahalaxmi have distinct in-person and mobile-app rows. The intake compares each channel with its own previous observation, and records the payout schedule where published.
+
+The intake CLI also reports the full roster, banks with captured rates and the official source for each unresolved bank. A bank absent from a snapshot is marked not-captured. A checked source with an unavailable row retains its recorded status.

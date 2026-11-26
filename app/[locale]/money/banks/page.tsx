@@ -1,8 +1,8 @@
 import { pageMetadata } from "../../../../src/ui/page-metadata";
 import { notFound } from "next/navigation";
-import { findBanks } from "../../../../src/data/banks";
+import { banks, registrySource, findBanks } from "../../../../src/data/banks";
 import { BankSearch } from "../../../../src/ui/bank-search";
-import { isLocale, moneyPath, t } from "../../../../src/ui/copy";
+import { isLocale, moneyPath, numberText, t } from "../../../../src/ui/copy";
 
 export async function generateMetadata({
   params,
@@ -24,11 +24,15 @@ export default async function BanksPage({
   if (!isLocale(locale)) notFound();
   const { q } = await searchParams;
   const query = typeof q === "string" ? q.trim().slice(0, 100) : "";
-  const matches = findBanks(query).slice(0, 6);
+  const matches = findBanks(query);
   const path = moneyPath(locale) + "/banks";
   return (
     <section className="bank-directory container">
       <h1>{t(locale, "chooseBank")}</h1>
+      <p>{t(locale, "directoryIntro")}</p>
+      <a className="trust-link" href={moneyPath(locale) + "/branches"}>
+        {t(locale, "branchFinder")} →
+      </a>
       <BankSearch locale={locale} query={query} />
       {matches.length ? (
         <ul className="bank-list">
@@ -40,7 +44,36 @@ export default async function BanksPage({
         </ul>
       ) : query ? (
         <p>{t(locale, "noBanksFound")}</p>
-      ) : null}
+      ) : (
+        (["commercial", "development"] as const).map((kind) => {
+          const group = banks.filter((bank) => bank.kind === kind);
+          return (
+            <details className="directory-group" key={kind}>
+              <summary>
+                {t(
+                  locale,
+                  kind === "commercial" ? "commercialBank" : "developmentBank",
+                )}{" "}
+                <span>{numberText(locale, group.length)}</span>
+              </summary>
+              <ul className="bank-list">
+                {group.map((bank) => (
+                  <li key={bank.id}>
+                    <a href={path + "/" + bank.id}>
+                      {bank.name}
+                      <small>{bank.office[locale]}</small>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </details>
+          );
+        })
+      )}
+      <p className="registry-credit">
+        <a href={registrySource}>{t(locale, "registry")}</a> ·{" "}
+        {t(locale, "registryEdition")}
+      </p>
     </section>
   );
 }

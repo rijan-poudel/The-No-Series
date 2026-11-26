@@ -13,7 +13,7 @@ export function BankSearch({
 }) {
   const inputId = useId();
   const input = useRef<HTMLInputElement>(null);
-  const first = useRef<HTMLAnchorElement>(null);
+  const suggestions = useRef<HTMLUListElement>(null);
   const [value, setValue] = useState(query);
   const [open, setOpen] = useState(false);
   const path = moneyPath(locale) + "/banks";
@@ -27,7 +27,7 @@ export function BankSearch({
         if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false);
       }}
       onKeyDown={(event) => {
-        if (event.key === "Escape" && matches.length) {
+        if (event.key === "Escape" && open && value.trim()) {
           event.preventDefault();
           input.current?.focus();
           setOpen(false);
@@ -52,20 +52,42 @@ export function BankSearch({
         }}
         onFocus={() => setOpen(true)}
         onKeyDown={(event) => {
-          if (event.key === "ArrowDown" && first.current) {
+          const first = suggestions.current?.querySelector("a");
+          if (event.key === "ArrowDown" && first) {
             event.preventDefault();
-            first.current.focus();
+            first.focus();
           }
         }}
       />
       <button type="submit">{t(locale, "bankSearchAction")}</button>
+      <div role="status" className="bank-search-status">
+        {open && value.trim() && !matches.length
+          ? t(locale, "noBanksFound")
+          : ""}
+      </div>
       {matches.length > 0 && (
-        <ul className="bank-suggestions">
-          {matches.map(({ id, name }, index) => (
+        <ul
+          className="bank-suggestions"
+          ref={suggestions}
+          onKeyDown={(event) => {
+            if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
+            const links = Array.from(event.currentTarget.querySelectorAll("a"));
+            const index = links.findIndex((link) => link === event.target);
+            if (index < 0) return;
+            event.preventDefault();
+            if (event.key === "ArrowUp" && index === 0) input.current?.focus();
+            else
+              links[
+                Math.min(
+                  links.length - 1,
+                  index + (event.key === "ArrowUp" ? -1 : 1),
+                )
+              ]?.focus();
+          }}
+        >
+          {matches.map(({ id, name }) => (
             <li key={id}>
-              <a ref={index === 0 ? first : undefined} href={path + "/" + id}>
-                {name}
-              </a>
+              <a href={path + "/" + id}>{name}</a>
             </li>
           ))}
         </ul>

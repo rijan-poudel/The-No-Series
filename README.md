@@ -2,6 +2,10 @@
 
 The No Series is an independent guide to Nepali fixed deposits, dollar cards and mobile banking fees. Bank profiles collect available fee breakdowns. The mobile banking guide compares registration, annual service and PIN reset charges from identified bank schedules. Readers choose a category, learn what to watch for and request a verified pick for a specific criterion. The public app contains zero approved financial offers. The separate local demonstration has fictional offers, visible sample labels and example evidence.
 
+The bank directory covers all 37 Class A and B institutions in the mid-October 2026 NRB register. Open a profile for its head office, licensed area, official publisher and available fee readings. Compare banks opens a two-bank worksheet. Best by use groups reviewed offers by deposit payout and card fee event. Both journeys are available in English and Nepali.
+
+Read the [next-version coverage plan](docs/next-version.md) for implemented features, source coverage and outstanding review work.
+
 ## Run it
 
 Use Node 24 and npm with the checked-in lockfile.

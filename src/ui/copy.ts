@@ -7,6 +7,245 @@ export const isLocale = (input: string): input is Locale =>
 export const intlLocale = (locale: Locale) =>
   locale === "ne" ? "ne-NP-u-nu-deva" : "en-IN";
 const words = {
+  compareSavings: [
+    "Compare two savings accounts",
+    "दुई बचत खाताको तुलना गर्नुहोस्",
+  ],
+  fdMarket: ["One-year deposit coverage", "एक वर्षको मुद्दती निक्षेपको विवरण"],
+  termUnconfirmed: [
+    "One-year terms unconfirmed",
+    "एक वर्षको सर्त पुष्टि हुन बाँकी",
+  ],
+  noticeUnavailable: [
+    "Dated notice unavailable",
+    "मिति खुलेको सूचना उपलब्ध भएन",
+  ],
+  rbbBoundary: [
+    "The published bands overlap at exactly one year and quote different rates. This comparison awaits clarification.",
+    "प्रकाशित दुई अवधि ठीक एक वर्षमा जुध्छन् र ब्याजदर फरक छन्। बैंकको स्पष्टीकरण आउन बाँकी छ।",
+  ],
+  fdMarketIntro: [
+    "Select a group to see the latest check for each bank. Each check covers an ordinary individual NPR deposit for exactly 12 months.",
+    "प्रत्येक बैंकको पछिल्लो जाँच हेर्न समूह छान्नुहोस्। जाँचले ठीक १२ महिनाको व्यक्तिगत साधारण रुपैयाँ मुद्दती निक्षेप समेट्छ।",
+  ],
+  otherBankTerms: ["Other published terms", "अन्य प्रकाशित सर्तहरू"],
+  balanceGoal: [
+    "Find accounts for my balance",
+    "मेरो मौज्दातअनुसार खाता खोज्नुहोस्",
+  ],
+  myBalance: [
+    "Planned balance in NPR (optional)",
+    "राख्ने मौज्दात, रुपैयाँमा (ऐच्छिक)",
+  ],
+  balanceFits: ["Meets the listed minimum", "न्यूनतम मौज्दात पुग्छ"],
+  balanceShort: ["Below the listed minimum", "न्यूनतम मौज्दात पुग्दैन"],
+  balanceUnknown: ["Minimum unconfirmed", "न्यूनतम मौज्दात पुष्टि हुन बाँकी"],
+  balanceStatus: ["Your balance", "तपाईंको मौज्दात"],
+  balanceInvalid: [
+    "Enter zero or a positive NPR amount with up to two decimal places.",
+    "शून्य वा धनात्मक रकम लेख्नुहोस्। दशमलवपछि दुई अङ्कसम्म राख्न सकिन्छ।",
+  ],
+  bankProductCoverage: ["Product coverage", "सेवाको विवरण उपलब्धता"],
+  oneYearDeposit: [
+    "Individual 12-month fixed deposit",
+    "व्यक्तिगत १२ महिने मुद्दती निक्षेप",
+  ],
+  termsPending: [
+    "Details pending · check bank",
+    "विवरण पुष्टि हुन बाँकी · बैंकमा हेर्नुहोस्",
+  ],
+  pendingReview: [
+    "Notice captured · awaiting review",
+    "सूचना संकलित · समीक्षा बाँकी",
+  ],
+  usageCost: ["Estimate everyday fees", "दैनिक बैंकिङ शुल्कको अनुमान"],
+  usageScope: [
+    "Estimate a year of cash withdrawals at other banks’ ATMs in Nepal, with optional mobile banking renewal for one existing account. The subtotal covers only these selected charges.",
+    "नेपालमा अन्य बैंकका एटीएमबाट वर्षभरि नगद झिक्दाको शुल्क हेर्नुहोस्। चाहनुहुन्छ भने एउटा चालु खाताको मोबाइल बैंकिङ नवीकरण पनि जोड्नुहोस्। जम्मामा छानिएका शुल्क मात्र समावेश हुन्छन्।",
+  ],
+  domesticWithdrawals: [
+    "Withdrawals in one year (0–365)",
+    "एक वर्षमा नगद झिक्ने पटक (०–३६५)",
+  ],
+  includeRenewal: [
+    "Include annual mobile banking renewal",
+    "मोबाइल बैंकिङको वार्षिक नवीकरण जोड्नुहोस्",
+  ],
+  calculateCost: ["Calculate fees", "शुल्क गणना गर्नुहोस्"],
+  costBanks: [
+    "Banks with relevant fee details",
+    "सम्बन्धित शुल्क विवरण भएका बैंक",
+  ],
+  selectedCosts: [
+    "Annual fees for your selections",
+    "तपाईंले छानेका सेवाको वार्षिक शुल्क",
+  ],
+  costTotal: ["Subtotal", "जम्मा"],
+  costIncomplete: ["Incomplete", "अपूरो"],
+  withdrawalError: [
+    "Enter a whole number from 0 to 365.",
+    "० देखि ३६५ सम्मको पूर्ण सङ्ख्या लेख्नुहोस्।",
+  ],
+  savingsAccounts: ["Savings accounts", "बचत खाता"],
+  savingsGoal: [
+    "Compare published annual rates and minimum balances for named NPR accounts.",
+    "रुपैयाँका बचत खाताको प्रकाशित वार्षिक ब्याजदर र न्यूनतम मौज्दात तुलना गर्नुहोस्।",
+  ],
+  savingsCoverage: [
+    "Banks with a captured notice in this edition",
+    "यस संस्करणमा सूचना संकलन भएका बैंक",
+  ],
+  availableAccounts: [
+    "All accounts with a captured notice",
+    "सूचना संकलन भएका सबै खाता",
+  ],
+  showAccounts: ["Show accounts", "खाता देखाउनुहोस्"],
+  savingsChecked: ["Sources checked", "स्रोत जाँचिएको मिति"],
+  accountTerms: ["Published savings terms", "प्रकाशित बचत सर्तहरू"],
+  yearlyRate: ["Annual interest", "वार्षिक ब्याजदर"],
+  savingsMinimum: ["Minimum balance", "न्यूनतम मौज्दात"],
+  rateNotice: ["Bank notice", "बैंकको सूचना"],
+  noSavingsReading: [
+    "Savings terms await verification.",
+    "बचत खाताका सर्तको पुष्टि बाँकी छ।",
+  ],
+  openingDocs: ["Opening this account", "यो खाता खोल्न"],
+  nepalOpening: [
+    "Bring your National ID, another accepted ID and recent passport-size photos. The bank also lists additional KYC evidence and a nominee declaration with the nominee’s ID and photo.",
+    "राष्ट्रिय परिचयपत्र, अर्को मान्य परिचयपत्र र हालसालैका पासपोर्ट साइजका फोटो चाहिन्छ। बैंकले थप ग्राहक पहिचान प्रमाण र इच्छाइएको व्यक्तिको परिचयपत्र तथा फोटोसहितको घोषणा पनि मागेको छ।",
+  ],
+  accountRequirements: [
+    "Bank’s account-opening checklist",
+    "बैंकको खाता खोल्ने कागजात सूची",
+  ],
+  availableBreakdowns: [
+    "Which banks have fee details?",
+    "कुन बैंकका शुल्क विवरण उपलब्ध छन्?",
+  ],
+  coverageBreakdownIntro: [
+    "Choose a bank below to start a comparison. Each product lists the edition used for its fee details.",
+    "तुलना सुरु गर्न तल बैंक छान्नुहोस्। प्रत्येक सेवाको शुल्क कुन सूचीबाट लिइएको हो भन्ने पनि देखाइएको छ।",
+  ],
+  copyComparison: ["Copy comparison link", "तुलनाको लिङ्क कपी गर्नुहोस्"],
+  linkCopied: ["Link copied", "लिङ्क कपी भयो"],
+  copyManually: ["Select and copy this link", "यो लिङ्क छानेर कपी गर्नुहोस्"],
+  filterFeeRows: ["Filter fee categories", "शुल्कका प्रकार छान्नुहोस्"],
+  allFeeRows: ["All fees", "सबै शुल्क"],
+  bothFeeRows: ["Listed by both banks", "दुवै बैंकको विवरण छ"],
+  gapFeeRows: ["Missing details", "विवरण अपूरो छ"],
+  noSharedFeeRows: [
+    "No fee category here has published figures for both banks.",
+    "यी शुल्कमध्ये कुनैमा पनि दुवै बैंकका प्रकाशित रकम उपलब्ध छैनन्।",
+  ],
+  noGapFeeRows: [
+    "Both banks have published figures in every fee category shown.",
+    "यहाँका सबै शुल्कका प्रकारमा दुवै बैंकका प्रकाशित रकम उपलब्ध छन्।",
+  ],
+  focusProduct: ["What do you want to compare?", "के तुलना गर्न चाहनुहुन्छ?"],
+  withCoverage: ["Banks with comparison data", "तुलना विवरण भएका बैंक"],
+  trackedNotices: [
+    "Banks with tracked rate notices",
+    "ब्याजदर सूचना अनुगमन गरिएका बैंक",
+  ],
+  otherBanks: ["Other listed banks", "सूचीका अन्य बैंक"],
+  allProducts: ["All covered products", "समेटिएका सबै सेवा"],
+  officialSources: ["Official bank sources", "बैंकका आधिकारिक स्रोत"],
+  branchFinder: ["Find a bank branch", "बैंकको शाखा खोज्नुहोस्"],
+  branchScope: [
+    "Search branch names and codes listed for NCHL-IPS payments. Check opening hours and available services with the bank.",
+    "NCHL-IPS भुक्तानी सूचीमा भएका शाखाको नाम र कोड खोज्नुहोस्। खुल्ने समय र उपलब्ध सेवा बैंकसँग पुष्टि गर्नुहोस्।",
+  ],
+  branchEdition: ["NCHL list · 12 January 2026", "NCHL सूची · १२ जनवरी २०२६"],
+  anyBank: ["All banks", "सबै बैंक"],
+  branchSearch: [
+    "Branch name (English) or code",
+    "शाखाको नाम (अङ्ग्रेजीमा) वा कोड",
+  ],
+  findBranches: ["Search branches", "शाखा खोज्नुहोस्"],
+  branchResults: ["Matching branches", "खोजसँग मिल्ने शाखा"],
+  bankBranches: ["Bank’s branch directory", "बैंकको शाखा सूची"],
+  nrbBranches: ["NRB branch directory", "राष्ट्र बैंकको शाखा सूची"],
+  ipsBranches: ["NCHL-IPS branch records", "NCHL-IPS शाखा विवरण"],
+  branchName: ["Branch", "शाखा"],
+  branchCode: ["Branch code", "शाखा कोड"],
+  ipsBankCode: ["Bank code", "बैंक कोड"],
+  noBranchRows: [
+    "No matching entry in this edition. Try another search or check the official directory.",
+    "यस संस्करणमा मिल्ने विवरण भेटिएन। अर्को नामले खोज्नुहोस् वा आधिकारिक सूची हेर्नुहोस्।",
+  ],
+  resultPages: ["Results pages", "नतिजाका पृष्ठ"],
+  previousPage: ["Previous", "अघिल्लो"],
+  nextPage: ["Next", "अर्को"],
+  operationDate: ["Operation date", "सञ्चालन मिति"],
+  jointOperationDate: [
+    "Joint operation after merger or acquisition",
+    "गाभिएपछि वा प्राप्तिपछि संयुक्त सञ्चालन",
+  ],
+  paidUp: ["Paid-up capital (NPR crore)", "चुक्ता पुँजी (रु करोड)"],
+  allBanks: ["Bank directory", "बैंक सूची"],
+  headOffice: ["Head office", "प्रधान कार्यालय"],
+  workingArea: ["Licensed service area", "इजाजतप्राप्त कार्यक्षेत्र"],
+  registryEdition: ["As of mid-October 2026", "२०८३ असोज मसान्तसम्म"],
+  officialSchedule: [
+    "Bank’s published fee schedule",
+    "बैंकले प्रकाशित गरेको शुल्क सूची",
+  ],
+  directoryIntro: [
+    "Browse Nepal’s commercial and development banks by licence class.",
+    "इजाजतको वर्गअनुसार नेपालका वाणिज्य र विकास बैंकहरू हेर्नुहोस्।",
+  ],
+  pairIntro: [
+    "Choose two banks to compare their service areas and published product charges.",
+    "कार्यक्षेत्र र प्रकाशित सेवा शुल्क तुलना गर्न दुई बैंक छान्नुहोस्।",
+  ],
+  firstBank: ["First bank", "पहिलो बैंक"],
+  secondBank: ["Second bank", "दोस्रो बैंक"],
+  differentBanks: ["Choose two different banks.", "दुई फरक बैंक छान्नुहोस्।"],
+  depositGoal: [
+    "Find a rate for your deposit term",
+    "आफ्नो अवधिअनुसार ब्याजदर खोज्नुहोस्",
+  ],
+  cardGoal: [
+    "Compare the cost to issue or reload a card",
+    "कार्ड जारी गर्दा वा रकम थप्दा लाग्ने शुल्क हेर्नुहोस्",
+  ],
+  mobileGoal: [
+    "Check registration, renewal and PIN reset fees",
+    "दर्ता, नवीकरण र पिन रिसेट शुल्क हेर्नुहोस्",
+  ],
+  feeContext: [
+    "Amounts come from the linked editions. Check the applicable product and billing period.",
+    "रकम सम्बन्धित शुल्क सूचीको संस्करणबाट लिइएको हो। लागू हुने सेवा र शुल्क अवधि हेर्नुहोस्।",
+  ],
+  publisherRates: ["Bank’s interest notices", "बैंकका ब्याजदर सूचना"],
+  publisherDeposits: ["Bank’s deposit products", "बैंकका निक्षेप योजना"],
+  publisherSite: ["Visit the bank website", "बैंकको वेबसाइट हेर्नुहोस्"],
+  bestFor: ["Best by use", "प्रयोजनअनुसार छनोट"],
+  bestForIntro: [
+    "Find the highest reviewed deposit rate or the lowest reviewed card fee for a specific use. Banks with equal figures share first place.",
+    "आफ्नो प्रयोजनअनुसार समीक्षा भएको उच्चतम निक्षेप ब्याजदर वा न्यूनतम कार्ड शुल्क हेर्नुहोस्। समान दर वा शुल्क भएका बैंकले संयुक्त पहिलो स्थान पाउँछन्।",
+  ],
+  noRankedGoals: [
+    "Rankings are awaiting approved offers. You can still compare published notices and fee schedules below.",
+    "वरीयताका लागि प्रस्ताव स्वीकृत हुन बाँकी छ। तल प्रकाशित ब्याजदर र शुल्क सूची तुलना गर्न सक्नुहुन्छ।",
+  ],
+  oneYearMaturity: [
+    "Save for a year and collect interest at maturity",
+    "एक वर्ष बचत गरेर अन्त्यमा ब्याज लिने",
+  ],
+  oneYearQuarterly: [
+    "Save for a year and receive interest quarterly",
+    "एक वर्ष बचत गरेर हरेक तीन महिनामा ब्याज लिने",
+  ],
+  openVirtual: ["Get a virtual dollar card", "भर्चुअल डलर कार्ड लिने"],
+  reloadVirtualApp: [
+    "Reload a virtual card through the app",
+    "एपबाट भर्चुअल कार्डमा रकम थप्ने",
+  ],
+  reloadVirtualBranch: [
+    "Reload a virtual card at a branch",
+    "शाखाबाट भर्चुअल कार्डमा रकम थप्ने",
+  ],
   bankFeesTitle: ["Bank fees", "बैंक शुल्क"],
   homeTitle: ["Bank rates and fees in Nepal", "नेपालका बैंकको ब्याजदर र शुल्क"],
   fdTitle: [

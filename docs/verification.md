@@ -49,3 +49,17 @@ Local verification used Node 24.22.3 and the release checks. Both browser suites
 The visual-review browser suite now also checks that the selected editorial webfont loads in each language. The demo artifacts include a standalone lead-card image. The 390 × 844 default controls, fully visible submit action and keyboard focus checks continue to cover the Nepali form.
 
 The screenshot suite captures the English and Nepali homepage at 1366 × 900 and 390 × 844, verifies the 690 px shared column at 1024, 1366 and 1920 px, and checks the Nepali result against its ISO verification date. Date regression tests cover the published Mangsir boundary and the Gregorian fallback past the converter’s range.
+
+## 25 November 2026 · Directory and bank comparison
+
+Node 24.22.3 passed the release workflow, including 53 unit tests and five compiled production checks. In-process rendering checked the Nepali Green Development Bank profile and publisher correction, class directory, unseeded goal rankings and Everest versus Nepal SBI comparison. The separate November 25 intake validated six observations and one channel-dependent case with zero publications. Both Playwright configurations were attempted and stopped before navigation because binding 127.0.0.1 on ports 3210 and 3211 returned EPERM. Keyboard, visual, narrow-width and reduced-motion verification for these changes remains pending. Deployment and independent approval of product offers remain open.
+
+## 25 November 2026 · Product filters and channel-specific intake
+
+On Node 24.22.3 the release workflow passed 54 unit tests and five compiled production checks. The server render check exercises each of the 37 profiles in both languages, the product-specific two-bank table and links from Coverage. The current intake contains 13 observations for 11 banks. The other 26 registry entries remain in the editorial follow-up list. Both browser suites again stopped at local server startup with EPERM. A separate headless Chromium launch also exited before loading a page. Visual and keyboard checks remain open alongside independent offer review and deployment.
+
+## 26 November 2026 · Choosing comparable banks
+
+The product selector groups banks by the available fee readings or tracked deposit notices and keeps the full directory selectable. A fee-only comparison hides the term field. Search suggestions support Up, Down and Escape, and an empty search displays localized feedback. The compiled render check covers the notice group. The public browser suite includes narrow-screen selection and keyboard lookup cases. Local Chromium exited during launch before browser assertions ran.
+
+The two-bank results now filter fee categories by whether each bank has a published figure. Conditions, currency, billing basis and the source edition stay with each amount. Compiled page checks exercise both fee filters and a Nepali pair without shared fee data.

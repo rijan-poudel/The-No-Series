@@ -1873,3 +1873,342 @@ html[lang="ne"] .pick-line > strong {
   font-size: 0.78em;
   vertical-align: baseline;
 }
+
+:root {
+  --canvas: #f7f7f2;
+  --ink: #141c27;
+  --muted: #49535e;
+  --rule: #c9cfd0;
+}
+.mast-links,
+.profile-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  flex-wrap: wrap;
+}
+.mast-links a,
+.profile-actions a,
+.lookup-panel > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 650;
+  text-underline-offset: 0.25em;
+}
+.mast-links a:first-child {
+  color: var(--accent);
+}
+.quiet-header {
+  border-bottom: 1px solid var(--rule);
+}
+.intent-home h1 {
+  max-width: 15ch;
+  line-height: 1.02;
+}
+.lookup-panel {
+  background: #e6e9ff;
+  border: 1px solid #c6c8ee;
+  padding: clamp(16px, 4vw, 28px);
+  border-radius: 16px;
+  margin: 28px 0 20px;
+}
+.lookup-panel .bank-search {
+  margin: 0;
+}
+.lookup-panel .bank-search input,
+.bank-search input {
+  background: white;
+}
+.lookup-panel > a {
+  margin-top: 4px;
+  font-size: 0.9rem;
+}
+.intent-links.feature-disclosure {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+.intent-links.feature-disclosure > a {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 16px 20px;
+}
+.intent-links.feature-disclosure > a:hover {
+  background: #f0f1ff;
+}
+.intent-links.feature-disclosure > a > svg:first-child {
+  color: var(--accent);
+}
+.intent-links.feature-disclosure small,
+.bank-list small,
+.fee-cell span,
+.fee-cell small {
+  display: block;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+.intent-links.feature-disclosure strong {
+  font-size: 1.08rem;
+}
+.directory-group {
+  border-bottom: 1px solid var(--rule);
+}
+.directory-group summary {
+  cursor: pointer;
+  padding: 16px 0;
+  font-weight: 700;
+}
+.directory-group summary span {
+  color: var(--muted);
+  margin-inline-start: 0.5rem;
+  font-weight: 500;
+}
+.directory-group .bank-list {
+  margin-top: 0;
+}
+.bank-class {
+  color: var(--accent);
+  font-weight: 650;
+}
+.profile-facts,
+.pair-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  border: 1px solid var(--rule);
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+}
+.profile-facts dt {
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+.profile-facts dd {
+  margin: 4px 0;
+  font-weight: 650;
+}
+.registry-credit {
+  font-size: 0.86rem;
+  color: var(--muted);
+}
+.profile-actions {
+  margin-block: 12px 24px;
+  font-size: 0.93rem;
+}
+.pair-form label {
+  display: grid;
+  gap: 6px;
+  font-weight: 650;
+}
+.pair-form select {
+  width: 100%;
+  min-height: 46px;
+  padding: 7px;
+  border: 1px solid var(--outline);
+  background: white;
+  color: var(--ink);
+  font: inherit;
+  border-radius: 6px;
+}
+.pair-form button {
+  grid-column: 1/-1;
+  background: var(--accent);
+  color: white;
+  font: inherit;
+  font-weight: 700;
+  border: 0;
+  min-height: 46px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.pair-table {
+  table-layout: fixed;
+}
+.pair-table caption {
+  text-align: start;
+  margin: 20px 0 8px;
+  font-weight: 700;
+}
+.pair-table th,
+.pair-table td {
+  padding: 13px 7px;
+}
+.pair-table thead {
+  background: #e6e9ff;
+}
+.fee-cell + .fee-cell {
+  margin-top: 12px;
+}
+.fee-cell small {
+  font-size: 0.78rem;
+}
+.paper-guide .catch-paper {
+  border-inline-start: 4px solid #9c7522;
+  background: #faf0cf;
+  box-shadow: none;
+}
+@media (max-width: 520px) {
+  .pair-form,
+  .profile-facts {
+    grid-template-columns: 1fr;
+  }
+  .mast-links {
+    gap: 0.65rem;
+  }
+  .intent-links.feature-disclosure > a {
+    padding: 14px;
+  }
+  .pair-table th,
+  .pair-table td {
+    padding: 8px 3px;
+  }
+}
+.goal-section {
+  padding-block: 20px;
+  border-bottom: 1px solid var(--rule);
+}
+.goal-section > h2 {
+  font: 400 clamp(1.6rem, 4vw, 2.12rem) / 1.25 var(--serif);
+  margin: 0 0 10px;
+}
+.goal-section > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--accent);
+}
+.coverage-note {
+  padding: 16px;
+  border-inline-start: 3px solid var(--accent);
+  background: #e6e9ff;
+}
+@media (max-width: 480px) {
+  .mast-links {
+    justify-content: flex-end;
+    gap: 0 0.7rem;
+  }
+  .mast-links a {
+    font-size: 0.86rem;
+  }
+}
+.directory-group .bank-list a {
+  display: grid;
+  gap: 2px;
+  align-content: center;
+  padding: 9px 0;
+}
+
+.pair-form:has(
+    select[name="product"]
+      :is(
+        option[value="dollarCardFees"],
+        option[value="mobileBankingFees"]
+      ):checked
+  )
+  :is(.pair-term, .pair-balance) {
+  display: none;
+}
+.pair-form:has(
+    select[name="product"]
+      :is(
+        option[value="dollarCardFees"],
+        option[value="mobileBankingFees"]
+      ):checked
+  )
+  > label:first-child {
+  grid-column: 1/-1;
+}
+.pair-form:has(option[value="savingsAccounts"]:checked) .pair-term,
+.pair-form:has(option[value="fixed"]:checked) .pair-balance {
+  display: none;
+}
+.pair-table {
+  scroll-margin-block-start: 1.25rem;
+}
+.pair-table thead a {
+  text-underline-offset: 0.2em;
+}
+
+.bank-search-status:empty {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.bank-search-status:not(:empty) {
+  flex-basis: 100%;
+  font-size: 0.93rem;
+  color: var(--muted);
+}
+
+.fee-view {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-block: 1rem;
+}
+.fee-view a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.7rem;
+  min-height: 44px;
+  border: 1px solid var(--rule);
+  border-radius: 0.6rem;
+  text-decoration: none;
+}
+.fee-view a[aria-current="page"] {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+.fee-view span {
+  font-variant-numeric: tabular-nums;
+}
+.copy-comparison {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-block: 1rem;
+}
+.copy-comparison button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.5rem 0.8rem;
+  font: inherit;
+  color: var(--accent);
+  background: white;
+  border: 1px solid var(--rule);
+  border-radius: 0.6rem;
+  cursor: pointer;
+}
+.copy-comparison label {
+  display: grid;
+  gap: 0.35rem;
+  width: 100%;
+}
+.copy-comparison input {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  font: inherit;
+}
+.branch-form input {
+  width: 100%;
+  min-width: 0;
+  min-height: 46px;
+  padding: 7px;
+  border: 1px solid var(--outline);
+  border-radius: 6px;
+  font: inherit;
+}

@@ -27,7 +27,7 @@ import {
 
 type Pick = ReturnType<typeof editorialPicks>["rows"][number];
 
-function PickNote({
+export function PickNote({
   row,
   locale,
   path,

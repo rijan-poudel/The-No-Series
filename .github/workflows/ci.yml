@@ -34,6 +34,8 @@ jobs:
       - run: npm test
       - run: npm run review:demo
       - run: npm run review:intake -- evidence/fd-pilot-2026-11-23.json
+      - run: npm run review:intake -- evidence/fd-intake-2026-11-25.json
+      - run: npm run review:intake -- evidence/fd-intake-2026-11-26.json evidence/fd-intake-2026-11-25.json
       - run: npm run build
       - run: npm run test:production
       - run: npx playwright install --with-deps chromium

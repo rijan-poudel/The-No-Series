@@ -34,3 +34,7 @@ English headings use self-hosted Instrument Serif and Nepali headings use self-h
 Result cards use lining figures and a smaller percent sign on the same baseline. Each demo card carries a short label with the full explanation in its title. The results section gives that explanation once in plain text. Homepage top padding responds to both viewport width and height.
 
 Verification dates on Nepali cards use Bikram Sambat. The machine-readable date, evidence and freshness calculations retain the original Gregorian day. The pinned calendar converter accepts an ISO civil date, has no runtime dependencies and reports unsupported dates explicitly. Those dates display with a Gregorian label. The tests cross-check the start of Mangsir 2083 and the demo verification day against the [published calendar](https://nepcalendar.com/2083/mangsir/).
+
+The home now pairs bank lookup with a browsable directory and three task cards. Compare banks in the masthead opens a two-bank worksheet in either language. Bank profiles preselect the first institution. Geographic coverage and published price observations are presented independently of reviewed product picks.
+
+Best by use groups the leading reviewed offers for two deposit payout choices and three virtual-card fee events. Each goal links to its full comparison and evidence. The production empty state links to the relevant published notices and tariff breakdowns.

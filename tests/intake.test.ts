@@ -96,3 +96,51 @@ test("intake rejects invalid rates, term scope, duplicate sources and publicatio
     /baseline/,
   );
 });
+
+test("opening channels retain separate histories and cannot overlap an unscoped rate", () => {
+  const rows = parseIntake(
+    readFileSync(
+      new URL("../evidence/fd-intake-2026-11-25.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  const baseline = inspectIntake(rows);
+  const bank = baseline.captures.filter((row) => row.source === "kumari");
+  assert.deepEqual(
+    bank.map(
+      (row) => row.status === "observed" && [row.channel, row.annualRate],
+    ),
+    [
+      ["in-person", "2.75"],
+      ["mobile-app", "2.80"],
+    ],
+  );
+  const updated = {
+    ...rows,
+    captures: rows.captures
+      .map((row) =>
+        row.source === "kumari" &&
+        row.channel === "mobile-app" &&
+        row.status === "observed"
+          ? { ...row, annualRate: "2.85" }
+          : row,
+      )
+      .reverse(),
+  };
+  assert.deepEqual(
+    inspectIntake(updated, rows)
+      .captures.filter((row) => row.source === "kumari")
+      .map((row) => row.change),
+    ["changed", "unchanged"],
+  );
+  const first = rows.captures.find((row) => row.channel);
+  assert(first);
+  assert.throws(() =>
+    parseIntake(
+      JSON.stringify({
+        ...rows,
+        captures: [first, { ...first, channel: undefined }],
+      }),
+    ),
+  );
+});

@@ -1,0 +1,227 @@
+{
+  "observedOn": "2026-11-26",
+  "scope": "individual-normal-npr-12-months",
+  "captures": [
+    {
+      "source": "nmb",
+      "status": "observed",
+      "effectiveLabel": "1 Mangsir 2083",
+      "effectiveOn": "2026-11-17",
+      "minimumNpr": null,
+      "minimumMonths": 12,
+      "maximumMonths": 35,
+      "annualRate": "2.75",
+      "locator": "Individual NPR fixed deposit table",
+      "excerpt": "1 Year to Below 3 Years | Individual | 2.75%"
+    },
+    {
+      "source": "sangrila",
+      "status": "observed",
+      "effectiveLabel": "1 Mangsir 2083",
+      "effectiveOn": "2026-11-17",
+      "minimumNpr": null,
+      "minimumMonths": 3,
+      "maximumMonths": 12,
+      "annualRate": "2.75",
+      "locator": "Individual NPR fixed deposit table",
+      "excerpt": "3 months to 1 Year | 2.75%"
+    },
+    {
+      "source": "excel",
+      "status": "observed",
+      "effectiveOn": "2026-11-17",
+      "effectiveLabel": "1 Mangsir 2083",
+      "minimumNpr": null,
+      "minimumMonths": 12,
+      "maximumMonths": 23,
+      "annualRate": "2.80",
+      "locator": "Individual fixed deposits / 12-month scenario",
+      "excerpt": "1 Year to below 2 Years | 2.80"
+    },
+    {
+      "source": "sindhu",
+      "status": "observed",
+      "effectiveOn": "2026-11-17",
+      "effectiveLabel": "1 Mangsir 2083",
+      "minimumNpr": null,
+      "minimumMonths": 12,
+      "maximumMonths": 23,
+      "annualRate": "2.93",
+      "locator": "Individual fixed deposits / 12-month scenario",
+      "excerpt": "1 year to below 2 years | Individual | 2.93%"
+    },
+    {
+      "source": "lumbini",
+      "status": "observed",
+      "effectiveOn": "2026-11-17",
+      "effectiveLabel": "1 Mangsir 2083",
+      "minimumNpr": null,
+      "minimumMonths": null,
+      "maximumMonths": 12,
+      "annualRate": "2.80",
+      "locator": "Individual fixed deposits / 12-month scenario only; lower term limit unconfirmed",
+      "excerpt": "Upto 1 year | Individual | 2.80%"
+    },
+    {
+      "source": "corporate-development",
+      "status": "observed",
+      "effectiveLabel": "1 Mangsir 2083",
+      "effectiveOn": "2026-11-17",
+      "minimumNpr": null,
+      "minimumMonths": 12,
+      "maximumMonths": 12,
+      "annualRate": "4.25",
+      "locator": "Local-currency individual fixed deposits, 12-month row",
+      "excerpt": "1 Year | Individual: 4.25%"
+    },
+    {
+      "source": "miteri",
+      "status": "observed",
+      "effectiveLabel": "1 Mangsir 2083",
+      "effectiveOn": "2026-11-17",
+      "minimumNpr": null,
+      "minimumMonths": 6,
+      "maximumMonths": 12,
+      "annualRate": "3.25",
+      "locator": "Local-currency individual fixed deposits, 12-month row",
+      "excerpt": "6 months to 1 Years | 3.25%"
+    },
+    {
+      "source": "muktinath",
+      "status": "observed",
+      "effectiveLabel": "1 Mangsir 2083",
+      "effectiveOn": "2026-11-17",
+      "minimumNpr": null,
+      "minimumMonths": 12,
+      "maximumMonths": 12,
+      "annualRate": "2.75",
+      "locator": "Local-currency individual fixed deposits, 12-month row",
+      "excerpt": "1 Year | 2.75% | Quarterly Basis*",
+      "payout": "quarterly"
+    },
+    {
+      "source": "shine-resunga",
+      "status": "observed",
+      "effectiveLabel": "1 Mangsir 2083",
+      "effectiveOn": "2026-11-17",
+      "minimumNpr": null,
+      "minimumMonths": 12,
+      "maximumMonths": 23,
+      "annualRate": "3.25",
+      "locator": "Local-currency individual fixed deposits, 12-month row",
+      "excerpt": "1 Year to below 2 Years | Institutional: 2.75% | Individual: 3.25%"
+    },
+    {
+      "source": "nic-asia",
+      "status": "observed",
+      "effectiveLabel": "1 Mangsir 2083",
+      "effectiveOn": "2026-11-17",
+      "minimumNpr": null,
+      "minimumMonths": 3,
+      "maximumMonths": 24,
+      "annualRate": "2.75",
+      "locator": "Local-currency individual fixed deposits, 12-month row",
+      "excerpt": "Individual - General | 3 Months to 2 Years | 2.75%"
+    },
+    {
+      "source": "standard-chartered",
+      "status": "observed",
+      "effectiveLabel": "1 Mangsir 2083",
+      "effectiveOn": "2026-11-17",
+      "minimumNpr": null,
+      "minimumMonths": 3,
+      "maximumMonths": 12,
+      "annualRate": "2.75",
+      "locator": "Local-currency individual fixed deposits, 12-month row",
+      "excerpt": "3 to 6 Months: 2.75 | Up to 1 Year: 2.75 | 1 to 5 Years: 2.75"
+    },
+    {
+      "source": "machhapuchchhre",
+      "status": "observed",
+      "effectiveLabel": "1 Mangsir 2083",
+      "effectiveOn": "2026-11-17",
+      "minimumNpr": null,
+      "minimumMonths": 6,
+      "maximumMonths": 35,
+      "annualRate": "2.80",
+      "locator": "Local-currency individual fixed deposits, 12-month row",
+      "excerpt": "6 months to below 3 years | Individual/NRN: 2.80%",
+      "payout": "quarterly"
+    },
+    {
+      "source": "rastriya-banijya",
+      "status": "missing",
+      "reason": "Ordinary domestic fixed deposits: the 6-month-to-1-year and 1-to-2-year rows both include the 1-year boundary in the published wording. They have different rates. Confirm the exact anniversary with the bank.",
+      "locator": "Mangsir edition / ordinary individual 12-month NPR fixed deposit"
+    },
+    {
+      "source": "citizens",
+      "status": "missing",
+      "reason": "The Mangsir 2083 index lists the edition. The linked individual NPR 12-month figure was not available in the extracted notice.",
+      "locator": "Mangsir edition / ordinary individual 12-month NPR fixed deposit"
+    },
+    {
+      "source": "global-ime",
+      "status": "unavailable",
+      "reason": "The date-specific deposit table did not provide the individual NPR row in the accessible publisher response."
+    },
+    {
+      "source": "nimb",
+      "status": "unavailable",
+      "reason": "The publisher returned a client-rendered interest-rate shell without the dated NPR term table."
+    },
+    {
+      "source": "himalayan",
+      "status": "unavailable",
+      "reason": "The rate-page address was unavailable on recheck. Searchable copies retrieved had earlier editions."
+    },
+    {
+      "source": "prime",
+      "status": "missing",
+      "reason": "The individual fixed-deposit product page does not establish the applicable Mangsir one-year rate.",
+      "locator": "Mangsir edition / ordinary individual 12-month NPR fixed deposit"
+    },
+    {
+      "source": "sanima",
+      "status": "unavailable",
+      "reason": "The rate page returned no readable dated table for ordinary individual NPR deposits."
+    },
+    {
+      "source": "narayani",
+      "status": "unavailable",
+      "reason": "The catalogued savings page could not be retrieved. A separate dated ordinary fixed-deposit notice is needed."
+    },
+    {
+      "source": "karnali",
+      "status": "unavailable",
+      "reason": "The report index did not return a current readable rate table. Confirm operating and product availability with the bank and NRB."
+    },
+    {
+      "source": "salapa",
+      "status": "missing",
+      "reason": "The interest-rate page and the homepage notice checked did not provide the dated one-year individual deposit row.",
+      "locator": "Mangsir edition / ordinary individual 12-month NPR fixed deposit"
+    },
+    {
+      "source": "green-development",
+      "status": "unavailable",
+      "reason": "The bank homepage could not be retrieved on recheck. Locate an accessible Mangsir notice."
+    },
+    {
+      "source": "jyoti",
+      "status": "missing",
+      "reason": "The homepage gives a dated term band, but its displayed heading does not identify individual versus institutional rates.",
+      "locator": "Mangsir edition / ordinary individual 12-month NPR fixed deposit"
+    },
+    {
+      "source": "kamana-sewa",
+      "status": "unavailable",
+      "reason": "The bank homepage response did not expose a dated individual fixed-deposit table."
+    },
+    {
+      "source": "saptakoshi",
+      "status": "unavailable",
+      "reason": "The returned bank homepage contained no readable product rows. Locate its current rate notice."
+    }
+  ]
+}

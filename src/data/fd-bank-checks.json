@@ -1,0 +1,187 @@
+{
+  "adbl": {
+    "date": "2026-11-25",
+    "status": "observed",
+    "url": "https://adbl.gov.np/en/interest-rate/interest-rates-effective-from-mangsir-01-2083-17-november-2026"
+  },
+  "citizens": {
+    "date": "2026-11-26",
+    "status": "missing",
+    "url": "https://www.ctznbank.com/interest-rate/published-interest-rates"
+  },
+  "corporate-development": {
+    "date": "2026-11-26",
+    "status": "observed",
+    "url": "https://www.corporatebank.com.np/fixed"
+  },
+  "everest": {
+    "date": "2026-11-25",
+    "status": "observed",
+    "url": "https://everestbankltd.com/supports/interest-and-rates/interest-rates-deposit/"
+  },
+  "excel": {
+    "date": "2026-11-26",
+    "status": "observed",
+    "url": "https://edb.com.np/wp-content/uploads/2026/11/Int.-Rate-Sheet-for-Mangsir2083-scaled.jpeg"
+  },
+  "garima": {
+    "date": "2026-11-25",
+    "status": "observed",
+    "url": "https://garimabank.com.np/interest-rates"
+  },
+  "global-ime": {
+    "date": "2026-11-26",
+    "status": "unavailable",
+    "url": "https://www.globalimebank.com/interest-rates/"
+  },
+  "green-development": {
+    "date": "2026-11-26",
+    "status": "unavailable",
+    "url": "https://www.greenbank.com.np/"
+  },
+  "himalayan": {
+    "date": "2026-11-26",
+    "status": "unavailable",
+    "url": "https://himalayanbank.com/en/rates/deposit-products-rate.html"
+  },
+  "jyoti": {
+    "date": "2026-11-26",
+    "status": "missing",
+    "url": "https://jbbl.com.np/"
+  },
+  "kamana-sewa": {
+    "date": "2026-11-26",
+    "status": "unavailable",
+    "url": "https://kamanasewabank.com/"
+  },
+  "karnali": {
+    "date": "2026-11-26",
+    "status": "unavailable",
+    "url": "https://kdblnepal.com/reports/interest_rate"
+  },
+  "kumari": {
+    "date": "2026-11-25",
+    "status": "observed",
+    "url": "https://www.kumaribank.com/en/interest-rate-deposits"
+  },
+  "laxmi-sunrise": {
+    "date": "2026-11-25",
+    "status": "observed",
+    "url": "https://www.laxmisunrise.com/rates/interest-rates/"
+  },
+  "lumbini": {
+    "date": "2026-11-26",
+    "status": "observed",
+    "url": "https://www.lumbinibikasbank.com/interest-rates"
+  },
+  "machhapuchchhre": {
+    "date": "2026-11-26",
+    "status": "observed",
+    "url": "https://assets.machbank.com/uploads/Notices/Interest%20Rate%20Mangsir%202083.jpeg"
+  },
+  "mahalaxmi": {
+    "date": "2026-11-25",
+    "status": "observed",
+    "url": "https://www.mahalaxmibank.com/assets/backend/uploads/Popup/Interest%20Rate%20for%20the%20month%20of%20Mangsir%202083.pdf"
+  },
+  "miteri": {
+    "date": "2026-11-26",
+    "status": "observed",
+    "url": "https://miteribank.com.np/control/Interestrate/94/"
+  },
+  "muktinath": {
+    "date": "2026-11-26",
+    "status": "observed",
+    "url": "https://www.muktinathbank.com.np/interest-rates"
+  },
+  "nabil": {
+    "date": "2026-11-25",
+    "status": "observed",
+    "url": "https://www.nabilbank.com/interest-rate"
+  },
+  "narayani": {
+    "date": "2026-11-26",
+    "status": "unavailable",
+    "url": "https://ndbl.com.np/product_category/savings/"
+  },
+  "nepal": {
+    "date": "2026-11-25",
+    "status": "observed",
+    "url": "https://www.nepalbank.com.np/index.php/digital/interest-rate"
+  },
+  "nimb": {
+    "date": "2026-11-26",
+    "status": "unavailable",
+    "url": "https://www.nimb.com.np/personal-banking/interest-rate"
+  },
+  "nepal-sbi": {
+    "date": "2026-11-25",
+    "status": "observed",
+    "url": "https://nsbl.statebank/interest-rates-deposits"
+  },
+  "nic-asia": {
+    "date": "2026-11-26",
+    "status": "observed",
+    "url": "https://www.nicasiabank.com/interest-rates/"
+  },
+  "nmb": {
+    "date": "2026-11-26",
+    "status": "observed",
+    "url": "https://nmb.com.np/en/interest-rate"
+  },
+  "prabhu": {
+    "date": "2026-11-25",
+    "status": "observed",
+    "url": "https://www.prabhubank.com/interest-rates"
+  },
+  "prime": {
+    "date": "2026-11-26",
+    "status": "missing",
+    "url": "https://www.primebank.com.np/service-details/prime-individual-fixed-deposit"
+  },
+  "rastriya-banijya": {
+    "date": "2026-11-26",
+    "status": "missing",
+    "url": "https://www.rbb.com.np/storage/photos/14/interestRate/IR_20830801.jpg"
+  },
+  "salapa": {
+    "date": "2026-11-26",
+    "status": "missing",
+    "url": "https://salapabikasbank.com.np/"
+  },
+  "sangrila": {
+    "date": "2026-11-26",
+    "status": "observed",
+    "url": "https://www.shangrilabank.com/interest-rate"
+  },
+  "sanima": {
+    "date": "2026-11-26",
+    "status": "unavailable",
+    "url": "https://www.sanimabank.com/np/know-us/interest-rate"
+  },
+  "saptakoshi": {
+    "date": "2026-11-26",
+    "status": "unavailable",
+    "url": "https://skdbl.com.np/"
+  },
+  "shine-resunga": {
+    "date": "2026-11-26",
+    "status": "observed",
+    "url": "https://srdb.com.np/Interest-Rate"
+  },
+  "siddhartha": {
+    "date": "2026-11-25",
+    "status": "observed",
+    "url": "https://www.siddharthabank.com/interest-rates"
+  },
+  "sindhu": {
+    "date": "2026-11-26",
+    "status": "observed",
+    "url": "https://www.sindhubank.com.np/wp-content/uploads/2026/07/interest-rate_sindhu_3x16-Mangsir-2083-Website_page-0001.jpg"
+  },
+  "standard-chartered": {
+    "date": "2026-11-26",
+    "status": "observed",
+    "url": "https://av.sc.com/np/content/docs/np-interest-rate.pdf"
+  }
+}

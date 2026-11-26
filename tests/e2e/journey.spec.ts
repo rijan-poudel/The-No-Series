@@ -35,7 +35,7 @@ test("discovery leads to the catch, a scoped deposit pick, then evidence", async
       name: "Compare bank rates and fees in Nepal.",
     }),
   ).toBeVisible();
-  await expect(page.locator("main").getByRole("link")).toHaveCount(3);
+  await expect(page.locator("main nav").getByRole("link")).toHaveCount(4);
   await accessibility(page);
   await expect(page.locator(".quiet-brand")).toHaveText("No");
   await expect(

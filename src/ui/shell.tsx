@@ -43,15 +43,21 @@ export function SiteShell({
               No
             </span>
           </Link>
-          <Suspense
-            fallback={
-              <a href={target} lang={other}>
-                {other === "ne" ? "नेपाली" : "English"}
-              </a>
-            }
-          >
-            <LanguageLink target={target} other={other} />
-          </Suspense>
+          <nav className="mast-links">
+            <Link href={home + "/best-for"}>{t(locale, "bestFor")}</Link>
+            <Link href={home + "/banks/compare"}>
+              {t(locale, "intentCompare")}
+            </Link>
+            <Suspense
+              fallback={
+                <a href={target} lang={other}>
+                  {other === "ne" ? "नेपाली" : "English"}
+                </a>
+              }
+            >
+              <LanguageLink target={target} other={other} />
+            </Suspense>
+          </nav>
         </div>
       </header>
       <main id="content">{children}</main>

@@ -56,7 +56,10 @@ test("production ignores the demo flag and stays private and unseeded", async ({
     page.getByText("Virtual · renewal or replacement", { exact: true }).first(),
   ).toBeVisible();
   await page.goto("/en/money/banks");
-  await expect(page.locator(".bank-list")).toHaveCount(0);
+  const commercial = page.locator(".directory-group").first();
+  await commercial.locator("summary").focus();
+  await page.keyboard.press("Enter");
+  await expect(commercial.getByRole("link")).toHaveCount(20);
   await page.getByRole("searchbox").fill("NMB");
   const suggestion = page
     .locator(".bank-suggestions")
@@ -157,4 +160,106 @@ test("production ignores the demo flag and stays private and unseeded", async ({
     data: { amount: "1".repeat(2200) },
   });
   expect(large.status()).toBe(413);
+});
+
+test("bank comparison preserves source scope, missing fees and the chosen banks", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 360, height: 780 });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/en/money/banks/everest");
+  await page
+    .locator("main")
+    .getByRole("link", { name: "Compare banks" })
+    .click();
+  await expect(page.getByLabel("First bank")).toHaveValue("everest");
+  await page
+    .getByLabel("What do you want to compare?")
+    .selectOption("mobileBankingFees");
+  await expect(page.locator(".pair-term")).toBeHidden();
+  const second = page.getByLabel("Second bank");
+  await expect(
+    second.locator('optgroup[label="Banks with comparison data"] option'),
+  ).toHaveCount(3);
+  await expect(second.locator('option[value="everest"]')).toBeDisabled();
+  await second.selectOption("nepal-sbi");
+  await page.getByRole("button", { name: "Compare banks" }).press("Enter");
+  const row = page.getByRole("row", {
+    name: /Mobile banking fees · Compare PIN reset fees/,
+  });
+  await expect(row.getByText("Reset your PIN at a branch")).toBeVisible();
+  await expect(row.getByText("NPR 75.00")).toBeVisible();
+  await expect(
+    page.getByRole("table").getByText("Unconfirmed").first(),
+  ).toBeVisible();
+  await page.getByRole("link", { name: "नेपाली" }).click();
+  await expect(page.getByRole("table")).toContainText(
+    "शाखाबाट पिन रिसेट गर्दा",
+  );
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(
+    360,
+  );
+});
+
+test("bank lookup supports arrow navigation and explains an empty search", async ({
+  page,
+}) => {
+  await page.goto("/en/money");
+  const search = page.getByRole("searchbox");
+  await search.fill("Nepal");
+  const matches = page.locator(".bank-suggestions a");
+  await search.press("ArrowDown");
+  await expect(matches.first()).toBeFocused();
+  await page.keyboard.press("ArrowDown");
+  await expect(matches.nth(1)).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(search).toBeFocused();
+  await expect(matches).toHaveCount(0);
+  await search.fill("unknown-bank");
+  await expect(
+    page.getByRole("status").filter({ hasText: "No matching bank" }),
+  ).toBeVisible();
+});
+
+test("reader can reopen the same filtered comparison from its copied link", async ({
+  page,
+}) => {
+  await page.addInitScript(() =>
+    Object.defineProperty(navigator, "clipboard", {
+      configurable: true,
+      value: {
+        writeText: async () => {
+          throw new Error("Clipboard unavailable");
+        },
+      },
+    }),
+  );
+  await page.goto(
+    "/en/money/banks/compare?a=nmb&b=nic-asia&product=dollarCardFees",
+  );
+  await page.getByRole("link", { name: /Missing details/ }).click();
+  await expect(page.getByRole("table")).toContainText("Renewal");
+  await expect(page.getByRole("table")).not.toContainText("Issuance");
+  await page.getByRole("button", { name: "Copy comparison link" }).click();
+  const field = page.getByLabel("Select and copy this link");
+  await expect(field).toBeFocused();
+  await page.goto(await field.inputValue());
+  await expect(
+    page.getByRole("link", { name: /Missing details/ }),
+  ).toHaveAttribute("aria-current", "page");
+});
+
+test("reader checks a savings minimum and estimates a year of fees", async ({
+  page,
+}) => {
+  await page.goto("/en/money/savings?bank=nepal");
+  await page.getByLabel("Planned balance in NPR (optional)").fill("४९९");
+  await page.getByRole("button", { name: "Show accounts" }).click();
+  await expect(
+    page.getByRole("cell", { name: "Below the listed minimum" }),
+  ).toBeVisible();
+  await page.goto("/en/money/usage-cost?bank=nepal-sbi");
+  await page.getByLabel("Include annual mobile banking renewal").check();
+  await page.getByRole("button", { name: "Calculate fees" }).click();
+  await expect(page.getByRole("cell", { name: "NPR 380.00" })).toBeVisible();
 });
