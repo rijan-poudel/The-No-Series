@@ -38,3 +38,5 @@ Verification dates on Nepali cards use Bikram Sambat. The machine-readable date,
 The home now pairs bank lookup with a browsable directory and three task cards. Compare banks in the masthead opens a two-bank worksheet in either language. Bank profiles preselect the first institution. Geographic coverage and published price observations are presented independently of reviewed product picks.
 
 Best by use groups the leading reviewed offers for two deposit payout choices and three virtual-card fee events. Each goal links to its full comparison and evidence. The production empty state links to the relevant published notices and tariff breakdowns.
+
+The homepage uses four filled marks based on a passbook, deposit certificate, payment card and mobile receipt. Product links form a single index below bank search. Each has a serif title and a smaller description in the body face. The masthead and footer use plain navigation links. Inline sources keep their link treatment, and keyboard focus has its own visible ring. See the [homepage audit](verification.md#homepage-visual-audit--28-november-2026).

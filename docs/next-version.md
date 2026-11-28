@@ -24,3 +24,7 @@ Reproduce the January branch edition by converting the official NCHL PDF with pd
 1. Make the savings shortlist usable on phones. Readers can now filter accounts by whether a known minimum fits their balance, inspect unknown minimums separately, and carry a selected bank and balance into comparison.
 2. Complete the missing savings minimums from account-specific terms. Keep the verification date of new account evidence separate from the date of the rate notice. NMB Go-Green was checked on 28 November.
 3. Resolve the remaining one-year deposit gaps and obtain independent review before publishing rankings. Prioritize conflicting term boundaries and notices that have been replaced.
+
+## Everyday banking navigation
+
+The homepage now links directly to branch search and the everyday fee estimate in both languages. Branch queries can combine a bank name or alias with a branch name or exact code. The bank selector still limits the result set. Shared comparison forms use an open layout and keep the checkbox beside its label.

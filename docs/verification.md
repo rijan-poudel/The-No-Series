@@ -63,3 +63,47 @@ On Node 24.22.3 the release workflow passed 54 unit tests and five compiled prod
 The product selector groups banks by the available fee readings or tracked deposit notices and keeps the full directory selectable. A fee-only comparison hides the term field. Search suggestions support Up, Down and Escape, and an empty search displays localized feedback. The compiled render check covers the notice group. The public browser suite includes narrow-screen selection and keyboard lookup cases. Local Chromium exited during launch before browser assertions ran.
 
 The two-bank results now filter fee categories by whether each bank has a published figure. Conditions, currency, billing basis and the source edition stay with each amount. Compiled page checks exercise both fee filters and a Nepali pair without shared fee data.
+
+## Homepage visual audit — 28 November 2026
+
+Scope covers the English and Nepali Money homepages and their shared navigation. Local verification used Node 24.22.3. The release command passed formatting, type checking, 57 tests, the editorial walkthrough, the production build and five production checks. Production HTML was exercised for both languages through Next's in-process request handler. The design scanner reported zero findings on home.tsx, product-mark.tsx, shell.tsx and bank-search.tsx. That scanner does not render pages.
+
+OVERRIDE: #0F766E → #3F31D9 [brand: docs/product-memory.md and app/styles.css]
+
+NO-PROOF: user supplied none
+
+| Pre-delivery item | Result | Evidence |
+| --- | --- | --- |
+| Brand colour | PASS | The wordmark, primary button and keyboard ring use the established brand token documented above. |
+| Gradient budget | PASS | The masthead, page, search controls, marks and product list use solid fills in app/styles.css. |
+| Display face, weights and scale | PASS | Instrument Serif and Tiro Devanagari Hindi supply the headline and 25 px index titles. Text and controls use regular, medium and bold weights. |
+| Text and control contrast | PASS | Calculated light-palette WCAG ratios are 15.95 for headline on canvas, 6.46 for muted copy on the hovered row, 7.24 for placeholder text on white and 7.92 for button text on brand blue. |
+| Measures, section spacing and full-bleed break | PASS | The white masthead spans the viewport. The shared 690 px grid contains a 15ch headline, 54ch introduction, search form and compact index. |
+| Repeated grid and hierarchy | PASS | home.tsx renders one search action and a vertical product index. Each row leads with the product title. |
+| Radius scale | PASS | The product row hover uses 4 px corners and search controls use 6 px. The wordmark has its existing stamp shape. |
+| Scaling, glass and emoji | PASS | ProductMark uses four filled SVG paths. Home row hover changes only background colour. |
+| Copy and action labels | PASS | Localized copy names the country, products, search action and directory. The search field supplies a real example bank name. |
+| Metrics and social proof | PASS | The homepage displays no metrics or testimonials. NO-PROOF: user supplied none |
+| Sample labelling | N-A | The homepage presents navigation and bank lookup. Sample offers belong to the demo results route. |
+| Semantic landmarks and language (P0) | PASS | shell.tsx contains header, main, navigation and footer. The locale layout sets html lang. The production bilingual render check passed. |
+| Real controls (P0) | PASS | Bank search uses a native form, input and submit button. Directory, suggestions and product destinations are anchors. |
+| Modal focus and Escape (P0) | N-A | Search suggestions appear in document flow. There is no modal or overlay. |
+| Custom select or combobox (P0) | N-A | The native search field filters separate destination links. Activating one opens a profile. There is no option-selection widget. |
+| Icon-only control names (P0) | PASS | The home wordmark link carries its localized accessible name in shell.tsx. The four decorative marks are hidden from the accessibility tree. |
+| Client secrets and HTML injection (P0) | PASS | Homepage client components render localized strings, URL parameters and public bank-directory entries through React. They contain no credential or raw HTML sinks. |
+| Data fetching (P0) | PASS | The homepage renders on the server. Bank suggestions filter bundled public directory data locally with findBanks. |
+| Image alternatives | N-A | There are no content images. Every decorative mark sits alongside its text label. |
+| Visible keyboard focus | UNVERIFIED | CSS specifies a 3 px ring with 4 px offset. Browser execution was blocked before a visual focus check. |
+| Form labels | PASS | bank-search.tsx associates a localized visible label with the input through useId and htmlFor. |
+| Validation states | PASS | The search input uses native required validation. A localized role=status message reports a query with zero matches. |
+| Non-colour state cues | PASS | Search feedback is text. Suggestions are named links. Keyboard focus uses a ring with an offset. |
+| Motion and reduced motion | PASS | The index has a 120 ms background transition. The reduced-motion media rule disables transitions. This check inspected CSS. |
+| Cross-cutting contrast | PASS | The input edge has 3.74:1 contrast against the canvas. The brand-colour directory link has 6.78:1 on hover. See measured text pairs above. |
+| Catalogue tell count | UNVERIFIED | Source scan found zero violations across the four homepage components. A rendered per-element count still requires a browser. |
+| Logo-swap judgement | UNVERIFIED | The passbook, certificate, card and receipt marks were drawn for this page. A visual judgement requires the rendered composition. |
+
+Both Playwright suites attempted startup. The sandbox denied binding 127.0.0.1 on ports 3210 and 3211. A standalone Chromium launch also failed at macOS Mach-port registration. Keyboard traversal, the responsive sweep at 375, 768, 1024 and 1440 px, reduced-motion rendering and screenshot review remain release dependencies.
+
+### Everyday banking follow-up
+
+The bilingual homepage now links directly to branches and usage cost. The branch regression checks both NMB and एनएमबी combined with Pokhara, and an explicitly conflicting bank selection. Exact code and pagination cases passed. The release check passed 57 tests and five production checks. The homepage remains at 122.0 KiB gzip against the 180 KiB limit. The four-component source audit reported zero findings. The preceding audit applies to the homepage, with the additional everyday tools landmark using a localized accessible name, ordinary anchors, a solid background and 44 px targets. Shared fee filters now add a shape to the current state. The public browser suite includes the new Nepali keyboard journey at 375 px under reduced motion. Local browser execution still requires a host that permits loopback listening.

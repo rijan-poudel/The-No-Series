@@ -68,6 +68,7 @@ const words = {
     "Notice captured · awaiting review",
     "सूचना संकलित · समीक्षा बाँकी",
   ],
+  everydayTools: ["Everyday banking", "दैनिक बैंकिङ"],
   usageCost: ["Estimate everyday fees", "दैनिक बैंकिङ शुल्कको अनुमान"],
   usageScope: [
     "Estimate a year of cash withdrawals at other banks’ ATMs in Nepal, with optional mobile banking renewal for one existing account. The subtotal covers only these selected charges.",
@@ -168,8 +169,8 @@ const words = {
   branchEdition: ["NCHL list · 12 January 2026", "NCHL सूची · १२ जनवरी २०२६"],
   anyBank: ["All banks", "सबै बैंक"],
   branchSearch: [
-    "Branch name (English) or code",
-    "शाखाको नाम (अङ्ग्रेजीमा) वा कोड",
+    "Bank, branch name (English) or code",
+    "बैंक, शाखाको नाम (अङ्ग्रेजीमा) वा कोड",
   ],
   findBranches: ["Search branches", "शाखा खोज्नुहोस्"],
   branchResults: ["Matching branches", "खोजसँग मिल्ने शाखा"],

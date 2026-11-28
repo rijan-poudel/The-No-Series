@@ -297,3 +297,22 @@ test("savings shortlist keeps the bank and balance on a narrow screen", async ({
     page.getByLabel("Planned balance in NPR (optional)"),
   ).toHaveValue("1000");
 });
+
+test("bank and place can be searched together from the homepage", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/ne/money");
+  const tools = page.getByRole("navigation", { name: "दैनिक बैंकिङ" });
+  await tools.getByRole("link", { name: "बैंकको शाखा खोज्नुहोस्" }).focus();
+  await page.keyboard.press("Enter");
+  await page.getByRole("searchbox").fill("एनएमबी pokhara");
+  await page.getByRole("searchbox").press("Enter");
+  const rows = page.locator("#branch-results tbody tr");
+  await expect(rows.first()).toContainText("NMB Bank");
+  await expect(rows.first()).toContainText(/pokhara/i);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(
+    375,
+  );
+});
