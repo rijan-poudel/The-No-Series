@@ -275,6 +275,12 @@ test("savings shortlist keeps the bank and balance on a narrow screen", async ({
 }) => {
   await page.setViewportSize({ width: 360, height: 780 });
   await page.goto("/en/money/savings?balance=1000");
+  await expect(page.getByRole("table")).toHaveCount(0);
+  await expect(
+    page.getByText(
+      "Choose what you want to check. No does not rank accounts for you.",
+    ),
+  ).toBeVisible();
   await page
     .getByRole("navigation", { name: "Filter by minimum balance" })
     .getByRole("link", { name: /Meets the listed minimum/ })

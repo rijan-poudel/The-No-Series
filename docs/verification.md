@@ -63,3 +63,11 @@ On Node 24.22.3 the release workflow passed 54 unit tests and five compiled prod
 The product selector groups banks by the available fee readings or tracked deposit notices and keeps the full directory selectable. A fee-only comparison hides the term field. Search suggestions support Up, Down and Escape, and an empty search displays localized feedback. The compiled render check covers the notice group. The public browser suite includes narrow-screen selection and keyboard lookup cases. Local Chromium exited during launch before browser assertions ran.
 
 The two-bank results now filter fee categories by whether each bank has a published figure. Conditions, currency, billing basis and the source edition stay with each amount. Compiled page checks exercise both fee filters and a Nepali pair without shared fee data.
+
+### Savings monitoring and disclosure, 28 November 2026
+
+`monitor:savings` fingerprints only allowlisted rate-notice and account-term URLs. It uses bounded reads, rejects redirects, keeps a stable source ID and cannot change a public reading, freshness label or release. Its first live run produced 22 baseline fingerprints and four unavailable sources (Shine Resunga, Standard Chartered, Nepal Bank and Garima); those are review cues, not evidence that a term is current or stale. The Monday/Thursday GitHub workflow retains the report and a separate strict candidate report.
+
+The candidate reader exercised the Everest General Savings, NMB Go-Green and Laxmi Sunrise Savings adapters against their official pages. It returned NPR 500, NPR 1,000 and NPR 0 respectively, each marked `reviewRequired` and not promoted into a public release.
+
+The savings page now holds account rows until the reader identifies a bank or chooses a balance group. At 360 px, the public browser suite verifies the initial no-table state, explicit no-ranking message, keyboard navigation into the chosen group, preserved balance and selected-bank comparison link. Node 24.22.3 passed the release checks, 60 unit tests, five compiled-production checks, six demo browser journeys and seven public browser journeys.

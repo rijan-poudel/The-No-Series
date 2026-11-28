@@ -23,6 +23,8 @@
     "verify:agent": "npm run format:check && npm run typecheck && npm test && npm run review:demo",
     "verify:release": "npm run verify:agent && npm run build && npm run test:production",
     "monitor:sources": "node scripts/monitor-sources.ts",
+    "monitor:savings": "node scripts/monitor-savings.ts",
+    "inspect:savings": "node scripts/inspect-savings.ts",
     "discover:sources": "node scripts/discover-sources.ts",
     "archive:tariffs": "node scripts/archive-tariffs.ts",
     "review:tariffs": "node scripts/review-tariffs.ts"

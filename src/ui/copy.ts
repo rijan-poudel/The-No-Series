@@ -101,6 +101,18 @@ const words = {
     "Compare published annual rates and minimum balances for named NPR accounts.",
     "रुपैयाँका बचत खाताको प्रकाशित वार्षिक ब्याजदर र न्यूनतम मौज्दात तुलना गर्नुहोस्।",
   ],
+  savingsStart: [
+    "Choose a bank if you already have one in mind, or enter a planned balance to narrow the accounts before seeing bank names.",
+    "पहिले नै कुनै बैंक सोच्नुभएको छ भने छान्नुहोस्, वा बैंकका नाम हेर्नुअघि खाता साँघुरो बनाउन योजना गरेको मौज्दात लेख्नुहोस्।",
+  ],
+  balanceFilterIntro: [
+    "Choose what you want to check. No does not rank accounts for you.",
+    "तपाईंले जाँच्न चाहेको कुरा छान्नुहोस्। No ले तपाईंका लागि खाताको श्रेणीकरण गर्दैन।",
+  ],
+  balanceFilterPrompt: [
+    "Choose one group above to see only those accounts.",
+    "ती खातामात्र हेर्न माथिको एउटा समूह छान्नुहोस्।",
+  ],
   savingsCoverage: [
     "Banks with a captured notice in this edition",
     "यस संस्करणमा सूचना संकलन भएका बैंक",

@@ -1,0 +1,48 @@
+name: Savings source monitor
+on:
+  schedule:
+    - cron: "41 2 * * 1,4"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: savings-source-monitor
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Fingerprint published sources
+        run: |
+          mkdir -p savings-monitor
+          npm run --silent monitor:savings -- evidence/savings-source-baseline-2026-11-28.json > savings-monitor/current.json
+      - name: Extract strict minimum-balance candidates
+        if: always()
+        run: npm run --silent inspect:savings > savings-monitor/candidates.json
+      - name: Summarize changes for review
+        if: always()
+        run: |
+          if [ -f savings-monitor/current.json ]; then
+            node -e 'const fs=require("fs"); const report=JSON.parse(fs.readFileSync("savings-monitor/current.json","utf8")); const groups=Object.groupBy(report.sources, row => row.status); console.log("## Savings source monitor"); console.log(`Checked: ${report.checkedAt}`); for (const status of ["changed","unavailable","new","unchanged"]) { const rows=groups[status] ?? []; console.log(`- ${status}: ${rows.length}${rows.length ? ` — ${rows.map(row => "`" + row.id + "`").join(", ")}` : ""}`); } console.log("\nA change is a review cue only; it does not update public terms.");' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "## Savings source monitor" >> "$GITHUB_STEP_SUMMARY"
+            echo "The monitor did not produce a report." >> "$GITHUB_STEP_SUMMARY"
+          fi
+          if [ -f savings-monitor/candidates.json ]; then
+            node -e 'const fs=require("fs"); const report=JSON.parse(fs.readFileSync("savings-monitor/candidates.json","utf8")); console.log("\n## Strict extraction candidates"); for (const row of report.results) console.log(`- ${row.status}: \`${row.bank}\` · ${row.candidate ? `NPR ${row.candidate.minimumNpr}` : "no candidate"}`); console.log("\nCandidates require human confirmation and are never published by this workflow.");' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - uses: actions/upload-artifact@v6
+        if: always()
+        with:
+          name: savings-source-monitor
+          path: |
+            savings-monitor/current.json
+            savings-monitor/candidates.json
+          if-no-files-found: warn
+          retention-days: 30

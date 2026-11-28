@@ -36,3 +36,9 @@ Research priorities came from reports of branch-only loading, contradictory rene
 The November 25 directory exposes all 20 commercial and 17 development banks by class. Profiles and the two-bank comparison use head offices and licensed working areas from the mid-October 2026 NRB register. A licensed area describes geographic scope. It does not establish branch availability. The comparison preserves fee events, editions and source links, alongside available 3-, 6-, 12- and 24-month published notices. Ranked recommendations still require an approved release.
 
 Comparison links can preselect a bank and product. Coverage lists the dated breakdowns separately from official tariff entry points. The comparison worksheet offers the selected banks’ official sources even when a comparable amount is unavailable.
+
+Savings-account notices and account-term pages have their own bounded source monitor. It fingerprints the distinct rate and minimum-balance sources but cannot alter what the reader sees. A changed document is a manual evidence-review trigger; it is not proof that a listed rate, zero minimum or account condition remains current.
+
+The savings journey does not open with a table of institutions. A reader can name a bank they already use, or enter a planned balance and choose one explicit minimum-balance group. The page then reveals only that group; it does not turn a balance into a best-bank ranking.
+
+Savings extraction uses narrow, bank-specific adapters. Everest General Savings, NMB Go-Green and Laxmi Sunrise Savings have strict tested wording for a minimum balance. A parser mismatch produces an unconfirmed candidate, not a guessed value or a new public term.

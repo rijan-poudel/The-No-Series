@@ -72,9 +72,11 @@ export default async function Savings({
   const statusFor = (bank: (typeof rows)[number]) =>
     minimumStatus(normalized ?? "0", savingsReadings[bank.id]?.minimumNpr);
   const visible =
-    currentView === "allAccounts"
-      ? rows
-      : rows.filter((bank) => statusFor(bank) === currentView);
+    selected || currentView !== "allAccounts"
+      ? currentView === "allAccounts"
+        ? rows
+        : rows.filter((bank) => statusFor(bank) === currentView)
+      : [];
   return (
     <Editorial locale={locale} title={t(locale, "savingsAccounts")}>
       <p>
@@ -118,34 +120,41 @@ export default async function Savings({
         aria-label={t(locale, "savingsAccounts")}
       >
         {normalized && !selected && (
-          <nav className="fee-view" aria-label={t(locale, "balanceFilters")}>
-            {(
-              [
-                "allAccounts",
-                "balanceFits",
-                "balanceShort",
-                "balanceUnknown",
-              ] as const
-            ).map((key) => (
-              <a
-                key={key}
-                aria-current={key === currentView ? "page" : undefined}
-                href={filterLink(key)}
-              >
-                {t(locale, key)}{" "}
-                <span>
-                  {numberText(
-                    locale,
-                    key === "allAccounts"
-                      ? rows.length
-                      : rows.filter((bank) => statusFor(bank) === key).length,
-                  )}
-                </span>
-              </a>
-            ))}
-          </nav>
+          <>
+            <p>{t(locale, "balanceFilterIntro")}</p>
+            <nav className="fee-view" aria-label={t(locale, "balanceFilters")}>
+              {(
+                [
+                  "balanceFits",
+                  "balanceShort",
+                  "balanceUnknown",
+                  "allAccounts",
+                ] as const
+              ).map((key) => (
+                <a
+                  key={key}
+                  aria-current={key === currentView ? "page" : undefined}
+                  href={filterLink(key)}
+                >
+                  {t(locale, key)}{" "}
+                  <span>
+                    {numberText(
+                      locale,
+                      key === "allAccounts"
+                        ? rows.length
+                        : rows.filter((bank) => statusFor(bank) === key).length,
+                    )}
+                  </span>
+                </a>
+              ))}
+            </nav>
+          </>
         )}
-        {visible.length === 0 ? (
+        {!selected && !normalized ? (
+          <p>{t(locale, "savingsStart")}</p>
+        ) : visible.length === 0 && currentView === "allAccounts" ? (
+          <p>{t(locale, "balanceFilterPrompt")}</p>
+        ) : visible.length === 0 ? (
           <p>
             {t(locale, "emptyBalanceGroup")}{" "}
             <a href={filterLink("allAccounts")}>{t(locale, "allAccounts")}</a>
