@@ -233,6 +233,23 @@ export default async function Savings({
                                 </a>
                               </small>
                             )}
+                            {reading.belowMinimumFeeNpr !== undefined && (
+                              <small>
+                                <a href={reading.belowMinimumFeeSource}>
+                                  {t(locale, "belowMinimumFee")} ·{" "}
+                                  {amountText(
+                                    locale,
+                                    reading.belowMinimumFeeNpr,
+                                  )}
+                                  {reading.belowMinimumFeeChecked &&
+                                    " · " +
+                                      verificationDate(
+                                        locale,
+                                        reading.belowMinimumFeeChecked,
+                                      )}
+                                </a>
+                              </small>
+                            )}
                           </td>
                           {normalized && (
                             <td>

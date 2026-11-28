@@ -39,4 +39,5 @@ test("subtotal counts only requested events and propagates missing fees", () => 
   assert.throws(() => usageCost("nepal", 1.5, true));
   assert.equal(savingsReadings.sangrila?.minimumNpr, "0");
   assert.equal(savingsReadings.adbl?.minimumNpr, null);
+  assert.equal(savingsReadings.nepal?.belowMinimumFeeNpr, "0");
 });

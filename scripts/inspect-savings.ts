@@ -1,6 +1,7 @@
 import {
   extractEverestGeneralSavingsMinimum,
   extractLaxmiSunriseSavingsMinimum,
+  extractNepalBankBelowMinimumFee,
   extractNmbGoGreenMinimum,
 } from "../src/editorial/savings-extraction.ts";
 
@@ -23,6 +24,13 @@ const targets = [
     account: "Sunrise Savings",
     url: "https://www.laxmisunrise.com/deposit/sunrise-savings/",
     extract: extractLaxmiSunriseSavingsMinimum,
+  },
+  {
+    bank: "nepal",
+    account: "Normal Saving",
+    field: "belowMinimumFeeNpr",
+    url: "https://www.nepalbank.com.np/investor-relations/service-charge",
+    extract: extractNepalBankBelowMinimumFee,
   },
 ] as const;
 

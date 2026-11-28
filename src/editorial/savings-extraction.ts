@@ -2,6 +2,10 @@ export type SavingsMinimumCandidate = {
   minimumNpr: string;
 };
 
+export type SavingsBelowMinimumFeeCandidate = {
+  belowMinimumFeeNpr: string;
+};
+
 function text(html: string) {
   return html
     .replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, " ")
@@ -38,5 +42,14 @@ export function extractLaxmiSunriseSavingsMinimum(html: string) {
     text(html),
   )
     ? ({ minimumNpr: "0" } satisfies SavingsMinimumCandidate)
+    : null;
+}
+
+export function extractNepalBankBelowMinimumFee(html: string) {
+  const cleaned = text(html);
+  return /Insufficient Minimum Balance\s+Free/i.test(cleaned)
+    ? ({
+        belowMinimumFeeNpr: "0",
+      } satisfies SavingsBelowMinimumFeeCandidate)
     : null;
 }

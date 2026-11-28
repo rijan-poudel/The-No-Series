@@ -71,3 +71,7 @@ The two-bank results now filter fee categories by whether each bank has a publis
 The candidate reader exercised the Everest General Savings, NMB Go-Green and Laxmi Sunrise Savings adapters against their official pages. It returned NPR 500, NPR 1,000 and NPR 0 respectively, each marked `reviewRequired` and not promoted into a public release.
 
 The savings page now holds account rows until the reader identifies a bank or chooses a balance group. At 360 px, the public browser suite verifies the initial no-table state, explicit no-ranking message, keyboard navigation into the chosen group, preserved balance and selected-bank comparison link. Node 24.22.3 passed the release checks, 60 unit tests, five compiled-production checks, six demo browser journeys and seven public browser journeys.
+
+### Below-minimum-balance evidence, 28 November 2026
+
+The savings model now keeps the required balance and a fee for falling below it as different sourced facts. Nepal Bank Normal Saving shows the published NPR 500 requirement and a separately checked NPR 0 insufficient-minimum-balance fee. The strict extractor rejects incomplete wording. Savings source HTML is fingerprinted from normalized visible text so rotating page scripts do not create a false review event; PDFs and images retain raw-byte fingerprints. The normalized baseline was regenerated after this monitor-format migration. Node 24.22.3 passed the release workflow, 61 unit tests, five compiled-production checks and six public browser journeys.

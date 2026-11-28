@@ -6,6 +6,9 @@ export type SavingsReading = {
   minimumNpr: string | null;
   minimumSource?: string;
   minimumChecked?: string;
+  belowMinimumFeeNpr?: string;
+  belowMinimumFeeSource?: string;
+  belowMinimumFeeChecked?: string;
   source: string;
 };
 // One named NPR savings account per bank from its Mangsir 2083 notice.
@@ -123,6 +126,10 @@ export const savingsReadings: Partial<Record<BankEntry["id"], SavingsReading>> =
       annualPercent: "2.75",
       minimumNpr: "500",
       source: "https://www.nepalbank.com.np/index.php/digital/interest-rate",
+      belowMinimumFeeNpr: "0",
+      belowMinimumFeeChecked: "2026-11-28",
+      belowMinimumFeeSource:
+        "https://www.nepalbank.com.np/investor-relations/service-charge",
     },
     adbl: {
       account: "General Savings",

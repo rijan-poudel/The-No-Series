@@ -126,6 +126,7 @@ const words = {
   accountTerms: ["Published savings terms", "प्रकाशित बचत सर्तहरू"],
   yearlyRate: ["Annual interest", "वार्षिक ब्याजदर"],
   savingsMinimum: ["Minimum balance", "न्यूनतम मौज्दात"],
+  belowMinimumFee: ["Fee below minimum", "न्यूनतम मौज्दातभन्दा कम हुँदा शुल्क"],
   rateNotice: ["Bank notice", "बैंकको सूचना"],
   noSavingsReading: [
     "Savings terms await verification.",

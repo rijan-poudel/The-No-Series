@@ -3,10 +3,29 @@ import { savingsReadings } from "../data/savings.ts";
 
 const limit = 2 * 1024 * 1024;
 
+export function savingsFingerprint(content: Uint8Array, type: string) {
+  const digest = createHash("sha256");
+  if (type === "text/html") {
+    const visibleText = new TextDecoder()
+      .decode(content)
+      .replace(/<(script|style|noscript)\b[^>]*>[\s\S]*?<\/\1>/gi, " ")
+      .replace(/<!--[^]*?-->/g, " ")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/&nbsp;/gi, " ")
+      .replace(/&amp;/gi, "&")
+      .replace(/\s+/g, " ")
+      .trim();
+    digest.update(visibleText, "utf8");
+  } else {
+    digest.update(content);
+  }
+  return digest.digest("hex");
+}
+
 export type SavingsSource = {
   id: string;
   bank: string;
-  kind: "rate" | "account-terms";
+  kind: "rate" | "account-terms" | "tariff";
   url: string;
 };
 
@@ -25,6 +44,18 @@ export const savingsSources: readonly SavingsSource[] = Object.entries(
       bank,
       kind: "account-terms",
       url: reading.minimumSource,
+    });
+  }
+  if (
+    reading.belowMinimumFeeSource &&
+    reading.belowMinimumFeeSource !== reading.source &&
+    reading.belowMinimumFeeSource !== reading.minimumSource
+  ) {
+    sources.push({
+      id: `${bank}:below-minimum-fee`,
+      bank,
+      kind: "tariff",
+      url: reading.belowMinimumFeeSource,
     });
   }
   return sources;
@@ -58,8 +89,8 @@ async function observeSavingsSource(
       await response.body.cancel();
       throw new Error("Unsupported source format");
     }
-    const digest = createHash("sha256");
     let size = 0;
+    const chunks: Uint8Array[] = [];
     const reader = response.body.getReader();
     for (;;) {
       const chunk = await reader.read();
@@ -69,10 +100,16 @@ async function observeSavingsSource(
         await reader.cancel();
         throw new Error("Source size exceeded");
       }
-      digest.update(chunk.value);
+      chunks.push(chunk.value);
     }
     if (!size) throw new Error("Empty source");
-    return { ...source, hash: digest.digest("hex") };
+    const content = new Uint8Array(size);
+    let offset = 0;
+    for (const chunk of chunks) {
+      content.set(chunk, offset);
+      offset += chunk.byteLength;
+    }
+    return { ...source, hash: savingsFingerprint(content, type) };
   } catch {
     return { ...source, hash: null };
   }
