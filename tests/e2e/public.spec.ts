@@ -72,12 +72,15 @@ test("production ignores the demo flag and stays private and unseeded", async ({
   await expect(
     page.getByText("Cross-border transaction", { exact: true }),
   ).toBeVisible();
+  const evidence = page.locator("details").filter({
+    has: page.locator("summary").filter({ hasText: "See sources" }),
+  });
   await expect(
-    page.getByRole("link", { name: /September 2026 tariff/ }),
+    evidence.getByRole("link", { name: /September 2026 tariff/ }),
   ).toHaveCount(0);
   await page.getByText("See sources", { exact: true }).click();
   await expect(
-    page.getByRole("link", { name: /September 2026 tariff/ }),
+    evidence.getByRole("link", { name: /September 2026 tariff/ }),
   ).toBeVisible();
   await page.goto("/en/money/mobile-banking");
   const fees = page.getByRole("table", { name: "Mobile banking fees" });
@@ -181,7 +184,10 @@ test("bank comparison preserves source scope, missing fees and the chosen banks"
   await expect(
     second.locator('optgroup[label="Banks with comparison data"] option'),
   ).toHaveCount(3);
-  await expect(second.locator('option[value="everest"]')).toBeDisabled();
+  await expect(second.locator('option[value="everest"]')).toHaveJSProperty(
+    "disabled",
+    true,
+  );
   await second.selectOption("nepal-sbi");
   await page.getByRole("button", { name: "Compare banks" }).press("Enter");
   const row = page.getByRole("row", {
@@ -262,4 +268,32 @@ test("reader checks a savings minimum and estimates a year of fees", async ({
   await page.getByLabel("Include annual mobile banking renewal").check();
   await page.getByRole("button", { name: "Calculate fees" }).click();
   await expect(page.getByRole("cell", { name: "NPR 380.00" })).toBeVisible();
+});
+
+test("savings shortlist keeps the bank and balance on a narrow screen", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 360, height: 780 });
+  await page.goto("/en/money/savings?balance=1000");
+  await page
+    .getByRole("navigation", { name: "Filter by minimum balance" })
+    .getByRole("link", { name: /Meets the listed minimum/ })
+    .click();
+  const table = page.getByRole("table");
+  await expect(
+    table.getByRole("link", { name: "NMB Bank", exact: true }),
+  ).toBeVisible();
+  await expect(
+    table.getByRole("link", { name: "Nepal SBI Bank", exact: true }),
+  ).toHaveCount(0);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(
+    360,
+  );
+  await table
+    .getByRole("link", { name: "Compare with NMB Bank", exact: true })
+    .click();
+  await expect(page.getByLabel("First bank")).toHaveValue("nmb");
+  await expect(
+    page.getByLabel("Planned balance in NPR (optional)"),
+  ).toHaveValue("1000");
 });

@@ -317,6 +317,12 @@ export default async function CompareBanks({
                             <small>
                               <a href={reading.minimumSource}>
                                 {t(locale, "accountTerms")}
+                                {reading.minimumChecked &&
+                                  " · " +
+                                    verificationDate(
+                                      locale,
+                                      reading.minimumChecked,
+                                    )}
                               </a>
                             </small>
                           )}

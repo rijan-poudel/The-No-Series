@@ -18,3 +18,9 @@ Record each new observation against its bank, notice edition, exact account or t
 Run the intake review for each new file and run the full release checks. Retain superseded source editions for audit, suppress stale offers from rankings and keep partial fee totals visibly incomplete. Additional institution classes need a separately reconciled roster and comparable products before joining a retail comparison.
 
 Reproduce the January branch edition by converting the official NCHL PDF with pdftotext in layout mode and passing that text file to scripts/import-ips-branches.py. A new edition needs a bank-code reconciliation and refreshed edition labels.
+
+## Next release priorities
+
+1. Make the savings shortlist usable on phones. Readers can now filter accounts by whether a known minimum fits their balance, inspect unknown minimums separately, and carry a selected bank and balance into comparison.
+2. Complete the missing savings minimums from account-specific terms. Keep the verification date of new account evidence separate from the date of the rate notice. NMB Go-Green was checked on 28 November.
+3. Resolve the remaining one-year deposit gaps and obtain independent review before publishing rankings. Prioritize conflicting term boundaries and notices that have been replaced.

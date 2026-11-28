@@ -7,6 +7,16 @@ export const isLocale = (input: string): input is Locale =>
 export const intlLocale = (locale: Locale) =>
   locale === "ne" ? "ne-NP-u-nu-deva" : "en-IN";
 const words = {
+  allAccounts: ["All accounts", "सबै खाता"],
+  balanceFilters: [
+    "Filter by minimum balance",
+    "न्यूनतम मौज्दातअनुसार छान्नुहोस्",
+  ],
+  emptyBalanceGroup: [
+    "No account in this group for your balance.",
+    "तपाईंको मौज्दातका लागि यस समूहमा कुनै खाता छैन।",
+  ],
+  compareWithBank: ["Compare with", "यो बैंकसँग तुलना गर्नुहोस्"],
   compareSavings: [
     "Compare two savings accounts",
     "दुई बचत खाताको तुलना गर्नुहोस्",

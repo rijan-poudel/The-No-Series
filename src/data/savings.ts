@@ -5,6 +5,7 @@ export type SavingsReading = {
   annualPercent: string;
   minimumNpr: string | null;
   minimumSource?: string;
+  minimumChecked?: string;
   source: string;
 };
 // One named NPR savings account per bank from its Mangsir 2083 notice.
@@ -133,7 +134,10 @@ export const savingsReadings: Partial<Record<BankEntry["id"], SavingsReading>> =
     nmb: {
       account: "NMB Go-Green Savings Account",
       annualPercent: "2.75",
-      minimumNpr: null,
+      minimumNpr: "1000",
+      minimumChecked: "2026-11-28",
+      minimumSource:
+        "https://nmb.com.np/en/products/saving-accounts/individual/nmb-go-green-savings-account",
       source: "https://nmb.com.np/en/interest-rate",
     },
     nabil: {

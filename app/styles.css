@@ -2212,3 +2212,26 @@ html[lang="ne"] .pick-line > strong {
   border-radius: 6px;
   font: inherit;
 }
+
+.savings-scroll {
+  max-inline-size: 100%;
+  overflow-x: auto;
+}
+#accounts {
+  scroll-margin-block-start: 1rem;
+}
+#accounts .fee-view a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+@media (max-width: 480px) {
+  .savings-scroll th,
+  .savings-scroll td {
+    overflow-wrap: anywhere;
+  }
+  .savings-scroll .mobile-fee-table th:first-child {
+    width: 34%;
+  }
+}
