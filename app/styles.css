@@ -1362,7 +1362,7 @@ html[lang="ne"]
   border-radius: 0.4rem 0.4rem 0.13rem 0.4rem;
   background: var(--accent);
   color: white;
-  font: 800 1.64rem / 1 var(--sans);
+  font: 700 1.64rem / 1 var(--sans);
   letter-spacing: -0.095em;
 }
 @media (forced-colors: active) {
@@ -1896,53 +1896,74 @@ html[lang="ne"] .pick-line > strong {
   font-weight: 650;
   text-underline-offset: 0.25em;
 }
-.mast-links a:first-child {
+.mast-links a,
+.footer-links a,
+.lookup-panel > a {
+  text-decoration: none;
+  font-weight: 500;
+}
+.mast-links a:hover,
+.footer-links a:hover,
+.lookup-panel > a:hover {
   color: var(--accent);
+  background-color: #eeeee5;
 }
 .quiet-header {
-  border-bottom: 1px solid var(--rule);
+  background: var(--paper);
+  border: 0;
 }
 .intent-home h1 {
   max-width: 15ch;
   line-height: 1.02;
 }
 .lookup-panel {
-  background: #e6e9ff;
-  border: 1px solid #c6c8ee;
-  padding: clamp(16px, 4vw, 28px);
-  border-radius: 16px;
-  margin: 28px 0 20px;
+  padding-block: 0 16px;
+  margin: 28px 0 14px;
 }
 .lookup-panel .bank-search {
   margin: 0;
 }
-.lookup-panel .bank-search input,
 .bank-search input {
   background: white;
 }
+.lookup-panel .bank-search input {
+  border-color: #7b807e;
+  border-radius: 6px;
+}
+.lookup-panel .bank-search button {
+  border-radius: 6px;
+  font-weight: 700;
+}
 .lookup-panel > a {
-  margin-top: 4px;
-  font-size: 0.9rem;
+  gap: 8px;
+  color: var(--accent);
 }
 .intent-links.feature-disclosure {
-  display: grid;
-  gap: 8px;
-  margin-top: 12px;
+  gap: 2px;
+  margin-top: 0;
 }
 .intent-links.feature-disclosure > a {
   display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 16px;
-  background: #fff;
-  border: 1px solid var(--rule);
-  border-radius: 12px;
-  padding: 16px 20px;
+  grid-template-columns: 36px minmax(0, 1fr);
+  gap: 18px;
+  justify-content: start;
+  padding: 12px 10px;
+  border: 0;
+  border-radius: 4px;
+  transition: background-color 120ms ease;
 }
-.intent-links.feature-disclosure > a:hover {
-  background: #f0f1ff;
+.intent-links.feature-disclosure > a:hover,
+.intent-links.feature-disclosure > a:focus-visible {
+  background: #e9eae1;
+  text-decoration: none;
 }
-.intent-links.feature-disclosure > a > svg:first-child {
-  color: var(--accent);
+.intent-links.feature-disclosure > a > svg {
+  color: var(--ink);
+}
+@media (prefers-reduced-motion: reduce) {
+  .intent-links.feature-disclosure > a {
+    transition: none;
+  }
 }
 .intent-links.feature-disclosure small,
 .bank-list small,
@@ -1953,7 +1974,7 @@ html[lang="ne"] .pick-line > strong {
   font-size: 0.88rem;
 }
 .intent-links.feature-disclosure strong {
-  font-size: 1.08rem;
+  font: 400 1.5625rem / 1.25 var(--serif);
 }
 .directory-group {
   border-bottom: 1px solid var(--rule);
@@ -1984,6 +2005,54 @@ html[lang="ne"] .pick-line > strong {
   background: white;
   border-radius: 12px;
   padding: 20px;
+}
+.pair-form {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  margin-block: 24px 32px;
+}
+.pair-form label:has(input[type="checkbox"]) {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  grid-column: 1 / -1;
+  cursor: pointer;
+}
+.pair-form input[type="checkbox"] {
+  inline-size: 20px;
+  block-size: 20px;
+  accent-color: var(--accent);
+}
+.pair-form :is(select, input:not([type="checkbox"])) {
+  min-width: 0;
+  max-width: 100%;
+}
+.everyday-tools {
+  margin-top: 32px;
+  padding: 18px 22px;
+  background: #e9eae1;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 24px;
+}
+.everyday-tools h2 {
+  flex-basis: 100%;
+  font: 400 1.5625rem / 1.4 var(--serif);
+}
+.everyday-tools a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--accent);
+  font-weight: 500;
+  text-decoration: none;
+}
+.everyday-tools a:hover {
+  color: var(--ink);
 }
 .profile-facts dt {
   font-size: 0.88rem;
@@ -2168,6 +2237,13 @@ html[lang="ne"] .pick-line > strong {
   background: var(--accent);
   color: white;
   border-color: var(--accent);
+}
+.fee-view a[aria-current="page"]::before {
+  content: "";
+  width: 0.42em;
+  height: 0.42em;
+  background: currentColor;
+  border-radius: 50%;
 }
 .fee-view span {
   font-variant-numeric: tabular-nums;

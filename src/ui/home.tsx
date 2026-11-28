@@ -1,10 +1,4 @@
-import {
-  ArrowUpRight,
-  PiggyBank,
-  Landmark,
-  CreditCard,
-  Smartphone,
-} from "lucide-react";
+import { ProductMark } from "./product-mark";
 import { BankSearch } from "./bank-search";
 import { moneyPath, productPath, t, type Locale } from "./copy";
 
@@ -15,7 +9,9 @@ export function MoneyHome({ locale }: { locale: Locale }) {
       <p className="home-intro">{t(locale, "homeIntro")}</p>
       <div className="lookup-panel">
         <BankSearch locale={locale} />
-        <a href={moneyPath(locale) + "/banks"}>{t(locale, "allBanks")} ↗</a>
+        <a href={moneyPath(locale) + "/banks"}>
+          {t(locale, "allBanks")} <span aria-hidden="true">→</span>
+        </a>
       </div>
       <nav
         className="intent-links feature-disclosure"
@@ -27,37 +23,43 @@ export function MoneyHome({ locale }: { locale: Locale }) {
               "savingsAccounts",
               "savingsGoal",
               moneyPath(locale) + "/savings",
-              PiggyBank,
+              "passbook",
             ],
             [
               "fixed",
               "depositGoal",
               productPath(locale, "fixed-deposits"),
-              Landmark,
+              "certificate",
             ],
             [
               "dollarCardFees",
               "cardGoal",
               productPath(locale, "dollar-cards"),
-              CreditCard,
+              "card",
             ],
             [
               "mobileBankingFees",
               "mobileGoal",
               moneyPath(locale) + "/mobile-banking",
-              Smartphone,
+              "receipt",
             ],
           ] as const
-        ).map(([title, description, href, Icon]) => (
+        ).map(([title, description, href, kind]) => (
           <a key={title} aria-label={t(locale, title)} href={href}>
-            <Icon size={23} aria-hidden />
+            <ProductMark kind={kind} />
             <span>
               <strong>{t(locale, title)}</strong>
               <small>{t(locale, description)}</small>
             </span>
-            <ArrowUpRight size={17} aria-hidden />
           </a>
         ))}
+      </nav>
+      <nav className="everyday-tools" aria-label={t(locale, "everydayTools")}>
+        <h2>{t(locale, "everydayTools")}</h2>
+        <a href={moneyPath(locale) + "/branches"}>
+          {t(locale, "branchFinder")}
+        </a>
+        <a href={moneyPath(locale) + "/usage-cost"}>{t(locale, "usageCost")}</a>
       </nav>
     </section>
   );

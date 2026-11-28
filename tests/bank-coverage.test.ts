@@ -27,6 +27,17 @@ test("branch search preserves source codes, bounds pages and handles the missing
     ),
   );
   assert.equal(searchBranches("", "!!!", 1).total, 0);
+  for (const alias of ["NMB", "एनएमबी"]) {
+    const mixed = searchBranches("", alias + " pokhara", 1);
+    assert.ok(mixed.total > 0);
+    assert.ok(
+      mixed.rows.every(
+        (row) =>
+          row.bank.id === "nmb" && row.name.toLowerCase().includes("pokhara"),
+      ),
+    );
+    assert.equal(searchBranches("everest", alias + " pokhara", 1).total, 0);
+  }
   const end = searchBranches("", "", 1000);
   assert.equal(end.current, end.pages);
 });

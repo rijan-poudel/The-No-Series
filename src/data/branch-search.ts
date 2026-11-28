@@ -20,12 +20,14 @@ function normalize(input: string) {
 const rows = banks.flatMap((bank) => {
   const entry = index[bank.id];
   if (!entry) return [];
+  const bankWords = normalize(bank.name + " " + bank.aliases).split(" ");
   return Object.entries(entry.branches)
     .map(([code, name]) => ({
       bank,
       code,
       name,
       bankCode: entry.code,
+      bankWords,
       search: normalize(name),
     }))
     .sort(
@@ -48,7 +50,8 @@ export function searchBranches(id: string, query: string, page: number) {
                 ? row.code === word ||
                   row.bankCode === word ||
                   row.search.split(" ").includes(word)
-                : row.search.includes(word),
+                : row.search.includes(word) ||
+                  row.bankWords.some((part) => part.startsWith(word)),
             ),
         );
   const pages = Math.max(1, Math.ceil(filtered.length / 25));
