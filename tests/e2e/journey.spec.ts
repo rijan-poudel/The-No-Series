@@ -35,7 +35,16 @@ test("discovery leads to the catch, a scoped deposit pick, then evidence", async
       name: "Compare bank rates and fees in Nepal.",
     }),
   ).toBeVisible();
-  await expect(page.locator("main nav").getByRole("link")).toHaveCount(4);
+  await expect(
+    page
+      .getByRole("navigation", { name: "Explore by feature" })
+      .getByRole("link"),
+  ).toHaveCount(4);
+  await expect(
+    page
+      .getByRole("navigation", { name: "Everyday banking" })
+      .getByRole("link"),
+  ).toHaveCount(2);
   await accessibility(page);
   await expect(page.locator(".quiet-brand")).toHaveText("No");
   await expect(
@@ -239,4 +248,33 @@ test("capture the homepage, fictional deposit result and Nepali mobile form", as
     page.locator(".paper-picks > article time").first(),
   ).toContainText("२०८३");
   await capture("mobile-ne-results");
+});
+
+test("homepage navigation fits both scripts and exposes keyboard focus at each width", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  for (const locale of ["en", "ne"]) {
+    await page.goto("/" + locale + "/money");
+    await page.evaluate(() => document.fonts.ready);
+    for (const width of [375, 768, 1024, 1440]) {
+      await page.setViewportSize({ width, height: 900 });
+      const directory = page.locator(".lookup-panel > a");
+      await directory.focus();
+      await page.keyboard.press("Tab");
+      const product = page.locator(".intent-links a").first();
+      await expect(product).toBeFocused();
+      expect(
+        await product.evaluate((el) => {
+          const style = getComputedStyle(el);
+          return [
+            style.outlineStyle,
+            style.outlineWidth,
+            style.transitionDuration,
+            document.documentElement.scrollWidth,
+          ];
+        }),
+      ).toEqual(["solid", "3px", "0s", width]);
+    }
+  }
 });
